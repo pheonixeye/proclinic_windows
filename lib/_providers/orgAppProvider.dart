@@ -94,8 +94,8 @@ class OrgAppProvider extends ChangeNotifier {
   }
 
   void rVisitDate() {
-    DateTime _d = DateTime(_year!, _month!, _day!, _hour!, _minute!);
-    _visitDate = _d.toIso8601String();
+    DateTime d = DateTime(_year!, _month!, _day!, _hour!, _minute!);
+    _visitDate = d.toIso8601String();
     notifyListeners();
   }
 
@@ -103,15 +103,15 @@ class OrgAppProvider extends ChangeNotifier {
   List<OrgAppointement>? get appointements => _appList;
 
   Future fetchAppointements() async {
-    var _a = await MongoDB.appOrganizer.find().toList();
-    _a.sort((a, b) {
+    var a = await MongoDB.appOrganizer.find().toList();
+    a.sort((a, b) {
       var aDateString = a[SxOrgApp.DATETIME];
       var bDateString = b[SxOrgApp.DATETIME];
       DateTime adate = DateTime.parse(aDateString);
       DateTime bdate = DateTime.parse(bDateString);
       return adate.compareTo(bdate);
     });
-    _appList = OrgAppointement.makeList(_a);
+    _appList = OrgAppointement.makeList(a);
     notifyListeners();
   }
 

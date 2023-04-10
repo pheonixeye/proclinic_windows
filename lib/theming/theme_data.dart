@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'theme_config.dart';
 
 class ThemeChanger with ChangeNotifier {
@@ -26,17 +25,17 @@ class ThemeChanger with ChangeNotifier {
 
 ThemeData modedDarkTheme = ThemeData.light().copyWith(
     primaryColor: Colors.grey,
-    accentColor: Colors.red,
-    textTheme: TextTheme(
-      headline6: TextStyle(color: Colors.black87),
-      headline5: TextStyle(color: Colors.black87),
-      headline4: TextStyle(color: Colors.black87),
-      headline3: TextStyle(color: Colors.black87),
-      headline2: TextStyle(color: Colors.black87),
-      headline1: TextStyle(color: Colors.black87),
-      subtitle2: TextStyle(color: Colors.black87),
-      subtitle1: TextStyle(color: Colors.black87),
-      bodyText1: TextStyle(color: Colors.black87),
-      bodyText2: TextStyle(color: Colors.black87),
+    textTheme: const TextTheme(
+      titleLarge: TextStyle(color: Colors.black87),
+      headlineSmall: TextStyle(color: Colors.black87),
+      headlineMedium: TextStyle(color: Colors.black87),
+      displaySmall: TextStyle(color: Colors.black87),
+      displayMedium: TextStyle(color: Colors.black87),
+      displayLarge: TextStyle(color: Colors.black87),
+      titleSmall: TextStyle(color: Colors.black87),
+      titleMedium: TextStyle(color: Colors.black87),
+      bodyLarge: TextStyle(color: Colors.black87),
+      bodyMedium: TextStyle(color: Colors.black87),
     ),
-    appBarTheme: AppBarTheme(color: Colors.grey[700]));
+    appBarTheme: AppBarTheme(color: Colors.grey[700]),
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.red));

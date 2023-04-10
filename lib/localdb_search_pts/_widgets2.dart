@@ -9,7 +9,6 @@ import 'package:proclinic_windows/_providers/searchValueProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class SearchEndDrawer extends StatelessWidget {
   const SearchEndDrawer({

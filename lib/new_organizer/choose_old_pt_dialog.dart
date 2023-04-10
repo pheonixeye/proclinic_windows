@@ -25,7 +25,7 @@ pickoldptorg(
           child: CupertinoScrollbar(
             controller: _scrcont,
             thickness: 20,
-            isAlwaysShown: true,
+            thumbVisibility: true,
             thicknessWhileDragging: 20,
             child: SingleChildScrollView(
               controller: _scrcont,

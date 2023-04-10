@@ -83,7 +83,7 @@ class Visit {
   }
 
   static List<Visit> visitList(List<dynamic> json) {
-    List<Visit> _vl = json.map((json) {
+    List<Visit> vl = json.map((json) {
       return Visit(
         ptName: json[SxVisit.PTNAME],
         docNameEN: json[SxVisit.DOCNAME_E],
@@ -104,7 +104,7 @@ class Visit {
         docid: json[SxVisit.DOCID],
       );
     }).toList();
-    return _vl;
+    return vl;
   }
 
   @override

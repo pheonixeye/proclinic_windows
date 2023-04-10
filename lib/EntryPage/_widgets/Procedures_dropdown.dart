@@ -5,7 +5,6 @@ import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/procedureVisibilityProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class ProceduresDropDown extends StatefulWidget {
   const ProceduresDropDown({Key? key}) : super(key: key);

@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
-import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/doctorModel.dart';
 import 'package:proclinic_windows/_mongoRequests/_doc_req.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
@@ -197,7 +196,7 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors
+                  backgroundColor: Colors
                       .primaries[Random().nextInt(Colors.primaries.length)],
                   shape: cardbuttonstyle,
                 ),

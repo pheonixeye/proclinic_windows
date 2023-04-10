@@ -122,6 +122,5 @@ class _DayDurationDropDownState extends State<DayDurationDropDown>
         },
       ),
     );
-    ;
   }
 }

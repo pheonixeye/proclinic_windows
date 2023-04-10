@@ -137,7 +137,7 @@ class SclrpTile extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
-                  primary: Colors
+                  backgroundColor: Colors
                       .primaries[Random().nextInt(Colors.primaries.length)],
                 ),
                 onPressed: () async {
@@ -150,7 +150,7 @@ class SclrpTile extends StatelessWidget {
                 },
                 icon: const Icon(Icons.scanner),
                 label: Text(
-                  'Add'.tr() + ' ' + sclrp.tr().toUpperCase(),
+                  '${'Add'.tr()} ${sclrp.tr().toUpperCase()}',
                   style: const TextStyle(
                     color: Colors.black,
                   ),
@@ -163,7 +163,7 @@ class SclrpTile extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
-              primary:
+              backgroundColor:
                   Colors.primaries[Random().nextInt(Colors.primaries.length)],
             ),
             icon: const Icon(Icons.poll),

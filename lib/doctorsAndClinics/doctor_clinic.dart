@@ -6,9 +6,6 @@ import 'package:proclinic_windows/_providers/doctorListProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:proclinic_windows/clinic_options_widgets/clinic_options_page.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
-
-import '_widgets.dart';
 
 class ClinicList extends StatefulWidget {
   const ClinicList({Key? key}) : super(key: key);

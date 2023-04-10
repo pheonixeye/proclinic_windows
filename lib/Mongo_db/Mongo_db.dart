@@ -32,8 +32,8 @@ class MongoDB {
   static DbCollection reservedoffers = mongo.collection('reservedoffers');
   static Future openYaMongo() async {
     await mongo.open();
-    await mongo.isConnected;
-    await mongo.masterConnection.connected;
+    mongo.isConnected;
+    mongo.masterConnection.connected;
     if (!mongo.masterConnection.connected) {
       mongo.masterConnection.connect();
     }

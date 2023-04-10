@@ -102,7 +102,7 @@ class _CollectivePatientDataUIState extends State<CollectivePatientDataUI> {
                       return CupertinoScrollbar(
                         radius: const Radius.circular(5),
                         controller: _scrollController,
-                        isAlwaysShown: true,
+                        thumbVisibility: true,
                         thickness: 20,
                         child: ListView.separated(
                           controller: _scrollController,

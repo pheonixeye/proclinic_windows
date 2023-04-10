@@ -2,7 +2,6 @@
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/controlPanel/_model.dart';
 
 import '_widgets.dart';

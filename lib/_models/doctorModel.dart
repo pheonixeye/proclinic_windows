@@ -87,7 +87,7 @@ class Doctor {
   }
 
   static List<Doctor> doctorList(List<dynamic> dynlist) {
-    List<Doctor> _dl = dynlist.map((json) {
+    List<Doctor> dl = dynlist.map((json) {
       return Doctor(
         id: json[SxDoctor.ID],
         docnameEN: json[SxDoctor.DOCNAME_E],
@@ -109,7 +109,7 @@ class Doctor {
         published: json[SxDoctor.PUBLISHED],
       );
     }).toList();
-    return _dl;
+    return dl;
   }
 
   static List<String> _stringifyList(List<dynamic> ld) {

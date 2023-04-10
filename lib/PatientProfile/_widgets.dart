@@ -20,9 +20,11 @@ class ButtonType1 extends StatelessWidget {
       height: 250,
       child: TextButton.icon(
         style: TextButton.styleFrom(
-          primary: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-          onSurface:
+          foregroundColor:
               Colors.primaries[Random().nextInt(Colors.primaries.length)],
+          disabledForegroundColor: Colors
+              .primaries[Random().nextInt(Colors.primaries.length)]
+              .withOpacity(0.38),
           backgroundColor:
               Colors.primaries[Random().nextInt(Colors.primaries.length)],
           shadowColor:

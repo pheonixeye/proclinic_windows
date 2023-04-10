@@ -71,7 +71,7 @@ class _SettingsPageState extends State<SettingsPage> with AfterLayoutMixin {
                 child: CupertinoScrollbar(
                   controller: _controller,
                   thickness: 20,
-                  isAlwaysShown: true,
+                  thumbVisibility: true,
                   child: ListView(
                     controller: _controller,
                     padding: const EdgeInsets.all(8.0),

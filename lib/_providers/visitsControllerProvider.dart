@@ -80,7 +80,7 @@ class VisitsSearchController extends ChangeNotifier {
     required Doctor? doctor,
   }) async {
     List<Map<String, dynamic>>? _v;
-    List<Map<String, dynamic>>? _x;
+    // List<Map<String, dynamic>>? _x;
     List<Map<String, dynamic>> data = [];
     _v = await MongoDB.PATIENTS.find().toList();
     _v.sort((a, b) {

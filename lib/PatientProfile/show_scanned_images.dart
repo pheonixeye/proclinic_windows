@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:easy_localization/src/public_ext.dart';
@@ -9,7 +8,6 @@ import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/_models/visitModel.dart';
 import 'package:proclinic_windows/_providers/ptDocumentProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class ScannedImagesWidget extends StatefulWidget {
   final String sclrp;

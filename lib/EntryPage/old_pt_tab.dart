@@ -6,7 +6,6 @@ import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class OldPatientSelector extends StatefulWidget {
   final TextEditingController? dateController;
@@ -123,7 +122,7 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                         child: CupertinoScrollbar(
                           controller: _scrollController,
                           thickness: 10,
-                          isAlwaysShown: true,
+                          thumbVisibility: true,
                           child: ListView.builder(
                             controller: _scrollController,
                             itemCount: visits.visits!.length,

@@ -6,7 +6,6 @@ import 'package:after_layout/after_layout.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/affiliation_dropdown.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/fromOrganizer.dart';
 import 'package:proclinic_windows/EntryPage/new_pt_tab.dart';
@@ -22,7 +21,6 @@ import 'package:proclinic_windows/EntryPage/_widgets/consultation_followup_dropd
 import 'package:proclinic_windows/EntryPage/_widgets/doctors_dropdownmenubutton.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/Procedures_dropdown.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class HomePageWithTabView extends StatefulWidget {
   const HomePageWithTabView({Key? key}) : super(key: key);
@@ -389,7 +387,7 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
                               padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
+                                  backgroundColor: Colors.blue,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),

@@ -57,7 +57,7 @@ class _KeepingResultsContainerState extends State<KeepingResultsContainer> {
               ),
               child: CupertinoScrollbar(
                 controller: _scroll,
-                isAlwaysShown: true,
+                thumbVisibility: true,
                 thickness: 20,
                 radius: const Radius.circular(5),
                 child: ListView.separated(
@@ -130,7 +130,7 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.person),
                       ),
                     ),
-                    Text('Name'.tr() + ' : ${visit.ptName}'),
+                    Text('${'Name'.tr()} : ${visit.ptName}'),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -138,8 +138,8 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.local_hospital_sharp),
                       ),
                     ),
-                    Text('Doctor'.tr() +
-                        ' : ${english(context) ? visit.docNameEN : visit.docNameAR}'),
+                    Text(
+                        '${'Doctor'.tr()} : ${english(context) ? visit.docNameEN : visit.docNameAR}'),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -147,7 +147,7 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.phone),
                       ),
                     ),
-                    Text('Phone'.tr() + ' : ${visit.phone}'),
+                    Text('${'Phone'.tr()} : ${visit.phone}'),
                     const SizedBox(
                       width: 30,
                     ),
@@ -158,7 +158,7 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.tonality_sharp),
                       ),
                     ),
-                    Text('Visit Type'.tr() + ' : ${visit.visitType.tr()}'),
+                    Text('${'Visit Type'.tr()} : ${visit.visitType.tr()}'),
                     const SizedBox(
                       width: 30,
                     ),
@@ -178,7 +178,7 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.monetization_on),
                       ),
                     ),
-                    Text('Paid'.tr() + ': ${visit.amount} ' + 'L.E.'.tr()),
+                    Text('${'Paid'.tr()}: ${visit.amount} ${'L.E.'.tr()}'),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -186,9 +186,8 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.money_off),
                       ),
                     ),
-                    Text('Remaining'.tr() +
-                        ': ${visit.remaining} ' +
-                        'L.E.'.tr()),
+                    Text(
+                        '${'Remaining'.tr()}: ${visit.remaining} ${'L.E.'.tr()}'),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -196,8 +195,8 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.calendar_today),
                       ),
                     ),
-                    Text('Visit Date'.tr() +
-                        ': ${visDate.day}-${visDate.month}-${visDate.year}'),
+                    Text(
+                        '${'Visit Date'.tr()}: ${visDate.day}-${visDate.month}-${visDate.year}'),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -205,8 +204,8 @@ class InfoTile extends StatelessWidget {
                         child: Icon(Icons.local_florist),
                       ),
                     ),
-                    Text('Affiliation'.tr() +
-                        ' : ${english(context) ? visit.affiliationEN : visit.affiliationAR}'),
+                    Text(
+                        '${'Affiliation'.tr()} : ${english(context) ? visit.affiliationEN : visit.affiliationAR}'),
                     const SizedBox(
                       width: 30,
                     ),
@@ -703,7 +702,7 @@ class KeepingAnalysis extends StatelessWidget {
                             }).toList();
                             int total = incomne.fold<int>(0, (a, b) => a + b);
                             return Text(
-                              '$total ' + 'L.E.'.tr(),
+                              '$total ${'L.E.'.tr()}',
                               textAlign: TextAlign.center,
                             );
                           },
@@ -738,7 +737,7 @@ class KeepingAnalysis extends StatelessWidget {
                             }).toList();
                             int total = remain.fold<int>(0, (a, b) => a + b);
                             return Text(
-                              '$total ' + 'L.E.'.tr(),
+                              '$total ${'L.E.'.tr()}',
                               textAlign: TextAlign.center,
                             );
                           },

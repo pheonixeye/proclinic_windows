@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:easy_localization/src/public_ext.dart';
@@ -18,7 +17,7 @@ class PatientOrganizer extends StatefulWidget {
 }
 
 class _PatientOrganizerState extends State<PatientOrganizer> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -94,7 +93,7 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
                               }
                               return CupertinoScrollbar(
                                 controller: _scrollController,
-                                isAlwaysShown: true,
+                                thumbVisibility: true,
                                 thickness: 20,
                                 child: ListView.separated(
                                   controller: _scrollController,

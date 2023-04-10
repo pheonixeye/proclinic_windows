@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
 
 import 'dart:math';
 
@@ -67,8 +67,7 @@ class _LocalDBInfoCardState extends State<LocalDBInfoCard> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Date of Birth'.tr() +
-                        '  ${widget.visit.dob.substring(0, 10)}',
+                    '${'Date of Birth'.tr()}  ${widget.visit.dob.substring(0, 10)}',
                   ),
                 ),
                 margin: const EdgeInsets.all(10),
@@ -76,16 +75,16 @@ class _LocalDBInfoCardState extends State<LocalDBInfoCard> {
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text('Visit Date'.tr() +
-                      '  ${widget.visit.visitDate.substring(0, 10)}'),
+                  child: Text(
+                      '${'Visit Date'.tr()}  ${widget.visit.visitDate.substring(0, 10)}'),
                 ),
                 margin: const EdgeInsets.all(10),
               ),
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text('Affiliation'.tr() +
-                      '  ${english(context) ? widget.visit.affiliationEN.toUpperCase() : widget.visit.affiliationAR.toUpperCase()}'),
+                  child: Text(
+                      '${'Affiliation'.tr()}  ${english(context) ? widget.visit.affiliationEN.toUpperCase() : widget.visit.affiliationAR.toUpperCase()}'),
                 ),
                 margin: const EdgeInsets.all(10),
               ),
@@ -101,15 +100,15 @@ class _LocalDBInfoCardState extends State<LocalDBInfoCard> {
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text('Doc-ID'.tr() + '  ${widget.visit.docid}'),
+                  child: Text('${'Doc-ID'.tr()}  ${widget.visit.docid}'),
                 ),
                 margin: const EdgeInsets.all(10),
               ),
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text('Dr.'.tr() +
-                      '  ${english(context) ? widget.visit.docNameEN.toUpperCase() : widget.visit.docNameAR.toUpperCase()}'),
+                  child: Text(
+                      '${'Dr.'.tr()}  ${english(context) ? widget.visit.docNameEN.toUpperCase() : widget.visit.docNameAR.toUpperCase()}'),
                 ),
                 margin: const EdgeInsets.all(10),
               ),
@@ -163,7 +162,7 @@ class _LocalDBInfoCardState extends State<LocalDBInfoCard> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                      'Payment Type'.tr() + '  ${widget.visit.cashType.tr()}'),
+                      '${'Payment Type'.tr()}  ${widget.visit.cashType.tr()}'),
                 ),
                 margin: const EdgeInsets.all(10),
               ),

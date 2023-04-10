@@ -99,7 +99,7 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Name'.tr() + ' : '),
+                child: Text('${'Name'.tr()} : '),
               ),
               const SizedBox(
                 width: 10,
@@ -117,7 +117,7 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Phone Number'.tr() + ' : '),
+                child: Text('${'Phone Number'.tr()} : '),
               ),
               const SizedBox(
                 width: 10,
@@ -137,7 +137,7 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Appointment'.tr() + ' : '),
+                child: Text('${'Appointment'.tr()} : '),
               ),
               const SizedBox(
                 width: 10,
@@ -156,7 +156,7 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Doctor'.tr() + ' : '),
+                child: Text('${'Doctor'.tr()} : '),
               ),
               const SizedBox(
                 width: 10,
@@ -169,7 +169,7 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Clinic'.tr() + ' : '),
+                child: Text('${'Clinic'.tr()} : '),
               ),
               const SizedBox(
                 width: 10,

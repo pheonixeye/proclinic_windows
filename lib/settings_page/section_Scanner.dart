@@ -10,7 +10,6 @@ import 'package:localstorage/localstorage.dart';
 import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/_providers/settingsProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class ScannerScriptSection extends StatefulWidget {
   const ScannerScriptSection({Key? key}) : super(key: key);

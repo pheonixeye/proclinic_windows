@@ -36,7 +36,7 @@ class OrgAppointement {
   }
 
   static List<OrgAppointement> makeList(List<dynamic> list) {
-    List<OrgAppointement> _li = list.map((json) {
+    List<OrgAppointement> li = list.map((json) {
       return OrgAppointement(
         ptname: json[SxOrgApp.PTNAME],
         phone: json[SxOrgApp.PHONE],
@@ -46,7 +46,7 @@ class OrgAppointement {
         docid: json[SxOrgApp.DOCID],
       );
     }).toList();
-    return _li;
+    return li;
   }
 }
 

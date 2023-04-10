@@ -47,7 +47,7 @@ class Document {
   }
 
   static List<Document> docsList(List<dynamic> list) {
-    List<Document> _l = list.map((json) {
+    List<Document> l = list.map((json) {
       return Document(
         scanTime: json[SxDocument.SCANTIME],
         visitDate: json[SxDocument.VISITDATE],
@@ -59,7 +59,7 @@ class Document {
         comments: json[SxDocument.COMMENTS],
       );
     }).toList();
-    return _l;
+    return l;
   }
 }
 

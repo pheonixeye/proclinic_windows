@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:io';
 import 'dart:math';
 
 import 'package:easy_localization/src/public_ext.dart';

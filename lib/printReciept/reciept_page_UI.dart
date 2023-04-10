@@ -87,7 +87,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Date'.tr() + ' : '),
+                                Text('${'Date'.tr()} : '),
                                 const Spacer(),
                                 Text('${d.day}-${d.month}-${d.year}'),
                                 const Spacer(),
@@ -100,7 +100,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Time'.tr() + ' : '),
+                                Text('${'Time'.tr()} : '),
                                 const Spacer(),
                                 Text('${d.hour} : ${d.minute}'),
                                 const Spacer(),
@@ -113,7 +113,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Name'.tr() + ' : '),
+                                Text('${'Name'.tr()} : '),
                                 const Spacer(),
                                 Text(widget.visit!.ptName.toUpperCase()),
                                 const Spacer(),
@@ -126,7 +126,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Clinic'.tr() + ' : '),
+                                Text('${'Clinic'.tr()} : '),
                                 const Spacer(),
                                 Text(english(context)
                                     ? widget.visit!.clinicEN.toUpperCase()
@@ -141,7 +141,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Doctor'.tr() + ' : '),
+                                Text('${'Doctor'.tr()} : '),
                                 const Spacer(),
                                 Text(english(context)
                                     ? widget.visit!.docNameEN.toUpperCase()
@@ -156,7 +156,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Phone'.tr() + ' : '),
+                                Text('${'Phone'.tr()} : '),
                                 const Spacer(),
                                 Text(widget.visit!.phone),
                                 const Spacer(),
@@ -169,7 +169,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Date of Birth'.tr() + ' : '),
+                                Text('${'Date of Birth'.tr()} : '),
                                 const Spacer(),
                                 Text('${db.day}-${db.month}-${db.year}'),
                                 const Spacer(),
@@ -182,7 +182,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Visit Type'.tr() + ' : '),
+                                Text('${'Visit Type'.tr()} : '),
                                 const Spacer(),
                                 Text(widget.visit!.visitType.tr()),
                                 const Spacer(),
@@ -198,7 +198,7 @@ class _RecieptPageState extends State<RecieptPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       // const Spacer(),
-                                      Text('Procedure'.tr() + ' : '),
+                                      Text('${'Procedure'.tr()} : '),
                                       const Spacer(),
                                       Text(english(context)
                                           ? widget.visit!.procedureEN!
@@ -213,11 +213,9 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Amount'.tr() + ' : '),
+                                Text('${'Amount'.tr()} : '),
                                 const Spacer(),
-                                Text(widget.visit!.amount.toString() +
-                                    ' ' +
-                                    'L.E.'.tr()),
+                                Text('${widget.visit!.amount} ${'L.E.'.tr()}'),
                                 const Spacer(),
                               ],
                             ),
@@ -228,12 +226,10 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Remaining'.tr() + ' : '),
+                                Text('${'Remaining'.tr()} : '),
                                 const Spacer(),
                                 Text(
-                                  widget.visit!.remaining.toString() +
-                                      ' ' +
-                                      'L.E.'.tr(),
+                                  '${widget.visit!.remaining} ${'L.E.'.tr()}',
                                 ),
                                 const Spacer(),
                               ],
@@ -245,7 +241,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Affiliation'.tr() + ' : '),
+                                Text('${'Affiliation'.tr()} : '),
                                 const Spacer(),
                                 Text(english(context)
                                     ? widget.visit!.affiliationEN
@@ -260,7 +256,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // const Spacer(),
-                                Text('Payment Type'.tr() + ' : '),
+                                Text('${'Payment Type'.tr()} : '),
                                 const Spacer(),
                                 Text(widget.visit!.cashType),
                                 const Spacer(),
@@ -273,15 +269,7 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Thank You for Your Visit'.tr() +
-                                      '\n' +
-                                      'Phone'.tr() +
-                                      ' : 010091966224' +
-                                      '\n' +
-                                      'Landline'.tr() +
-                                      ' : 0225165064' +
-                                      '\nwww.CosmoSurgeCairo.com' +
-                                      '\nCosmosurgeCairo@gmail.com',
+                                  '${'Thank You for Your Visit'.tr()}\n${'Phone'.tr()} : 010091966224\n${'Landline'.tr()} : 0225165064\nwww.CosmoSurgeCairo.com\nCosmosurgeCairo@gmail.com',
                                   textAlign: TextAlign.start,
                                 ),
                               ],

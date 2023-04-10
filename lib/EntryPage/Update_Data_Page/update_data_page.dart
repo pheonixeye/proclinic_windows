@@ -16,7 +16,6 @@ import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/procedureVisibilityProvider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 class UpdateVisitInfoPage extends StatefulWidget {
   const UpdateVisitInfoPage({
@@ -453,7 +452,7 @@ class _UpdateVisitInfoPageState extends State<UpdateVisitInfoPage>
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         shape: cardbuttonstyle,
-                        primary: Colors.blue,
+                        backgroundColor: Colors.blue,
                       ),
                       icon: const Icon(Icons.update),
                       label: Text('Update'.tr()),

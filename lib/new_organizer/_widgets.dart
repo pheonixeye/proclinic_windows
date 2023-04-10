@@ -148,7 +148,7 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        primary: Colors.orangeAccent,
+                        backgroundColor: Colors.orangeAccent,
                       ),
                       onPressed: () {
                         showCalenderDate(context);
@@ -208,7 +208,7 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        primary: Colors.purpleAccent,
+                        backgroundColor: Colors.purpleAccent,
                       ),
                       onPressed: () {
                         showCalenderTime(context);
