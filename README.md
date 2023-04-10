@@ -4,4 +4,4 @@ Proclinic reception software for clinic management - reception port
 
 ## Getting Started
 
-https://proclinicwindows.com
+https://proclinicsystems.com
