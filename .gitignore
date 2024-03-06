@@ -45,3 +45,6 @@ app.*.map.json
 
 # sms_api
 /lib/send_msg_to_pt/*
+
+# mongo_db
+/lib/mongo_db/*

@@ -42,12 +42,10 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
         widget.dateController.text =
             '${_date.day}-${_date.month}-${_date.year}';
         context.read<NewVisitProvider>().setVisitDate(DateTime(
-                picked.year,
-                picked.month,
-                picked.day,
-                DateTime.now().hour,
-                DateTime.now().minute)
-            .toIso8601String());
+              picked.year,
+              picked.month,
+              picked.day,
+            ).toIso8601String());
       });
     }
   }
@@ -65,7 +63,11 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
       setState(() {
         _date = picked;
         widget.dobController.text = '${_date.day}-${_date.month}-${_date.year}';
-        context.read<NewVisitProvider>().setDob(_date.toIso8601String());
+        context.read<NewVisitProvider>().setDob(DateTime(
+              picked.year,
+              picked.month,
+              picked.day,
+            ).toIso8601String());
       });
     }
   }

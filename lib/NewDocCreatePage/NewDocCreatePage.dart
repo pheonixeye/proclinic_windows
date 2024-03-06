@@ -138,6 +138,10 @@ class _NewDoctorCreationPageState extends State<NewDoctorCreationPage> {
       affiliatesEN: [],
       fields: [],
       published: true,
+      drugs: [],
+      clinicDetails: [],
+      labs: [],
+      rads: [],
     );
     await DoctorRequests.newAddDoctorToMongoDB(
       doctor: doctor,

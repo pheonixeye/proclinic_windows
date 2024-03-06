@@ -82,20 +82,20 @@ class ItemWidgetDoctorCreationPage extends StatelessWidget {
   }
 }
 
-final SnackBar adding = SnackBar(
-  duration: const Duration(milliseconds: 50),
+const SnackBar adding = SnackBar(
+  duration: Duration(milliseconds: 50),
   content: Row(
-    children: const [
+    children: [
       Text('Adding Clinic . . . . '),
       CircularProgressIndicator(),
     ],
   ),
 );
 
-final SnackBar added = SnackBar(
-  duration: const Duration(seconds: 2),
+const SnackBar added = SnackBar(
+  duration: Duration(seconds: 2),
   content: Row(
-    children: const [
+    children: [
       Text('Clinic Added Successfully. '),
       Icon(
         Icons.thumb_up,
