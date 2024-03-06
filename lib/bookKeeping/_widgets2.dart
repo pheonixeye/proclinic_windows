@@ -247,8 +247,8 @@ class BookKeepingDetailsDialog extends StatelessWidget {
                 ),
               ],
             ),
-            child: Column(
-              children: const [
+            child: const Column(
+              children: [
                 DetailsTitle(),
                 SearchParams(),
                 Expanded(child: KeepingAnalysis()),

@@ -317,8 +317,8 @@ class _SearchFilterOptionsState extends State<SearchFilterOptions> {
               ),
             );
           case 3:
-            return Row(
-              children: const [
+            return const Row(
+              children: [
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
