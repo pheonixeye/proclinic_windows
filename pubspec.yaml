@@ -45,6 +45,7 @@ dependencies:
   after_layout:
   screenshot:
   file_picker:
+  uuid:
 
 dev_dependencies:
   flutter_test:

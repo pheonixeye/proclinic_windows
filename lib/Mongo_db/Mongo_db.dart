@@ -23,6 +23,7 @@ class MongoDB {
 
   static DbCollection allPatients = mongo.collection('allpatients');
   static DbCollection PATIENTS = mongo.collection('patients');
+  static DbCollection visitData = mongo.collection('visitdata');
   static DbCollection allDoctors = mongo.collection('allDoctors');
   static DbCollection appOrganizer = mongo.collection('apporganizer');
   static DbCollection onlineusers = mongo.collection('onlineusers');
