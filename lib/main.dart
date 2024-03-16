@@ -75,7 +75,6 @@ class _ProClinicState extends State<ProClinic> {
       routes: {
         '/': (context) =>
             checkUUID() ? const LoadingScreen() : const WrongMacAddressPage(),
-        // const LoadingScreen(),
       },
       builder: EasyLoading.init(),
       localizationsDelegates: context.localizationDelegates,

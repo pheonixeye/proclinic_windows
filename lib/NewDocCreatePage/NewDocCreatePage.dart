@@ -44,7 +44,7 @@ class _NewDoctorCreationPageState extends State<NewDoctorCreationPage> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
-          textScaleFactor: 2,
+          textScaler: const TextScaler.linear(2.0),
         ),
         centerTitle: true,
       ),

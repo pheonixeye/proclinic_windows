@@ -149,7 +149,7 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     _buildText()[0],
-                    textScaleFactor: 1.5,
+                    textScaler: const TextScaler.linear(1.5),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

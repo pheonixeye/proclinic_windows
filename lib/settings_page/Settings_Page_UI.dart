@@ -39,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> with AfterLayoutMixin {
         centerTitle: true,
         title: const Text(
           'Settings',
-          textScaleFactor: 2.0,
+          textScaler: TextScaler.linear(2.0),
           style: TextStyle(fontWeight: FontWeight.bold),
         ).tr(),
       ),

@@ -134,7 +134,7 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                                   leading: CircleAvatar(
                                     child: Text(
                                       '${index + 1}',
-                                      textScaleFactor: 1,
+                                      textScaler: const TextScaler.linear(1.0),
                                     ),
                                   ),
                                   title: Text(visits.visits![index].ptName),

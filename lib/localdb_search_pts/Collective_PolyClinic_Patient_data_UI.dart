@@ -54,7 +54,7 @@ class _CollectivePatientDataUIState extends State<CollectivePatientDataUI> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Patient Database'.tr(),
-                textScaleFactor: 2.0,
+                textScaler: const TextScaler.linear(2.0),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

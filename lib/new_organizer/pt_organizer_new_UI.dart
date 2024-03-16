@@ -44,7 +44,7 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Appointment Organizer'.tr(),
-                textScaleFactor: 2.0,
+                textScaler: const TextScaler.linear(2.0),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

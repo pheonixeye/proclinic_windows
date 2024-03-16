@@ -32,7 +32,7 @@ class _ControlPanelState extends State<ControlPanel> {
           appBar: AppBar(
             title: Text(
               'ProClinic Control Panel'.tr(),
-              textScaleFactor: 2.0,
+              textScaler: const TextScaler.linear(2.0),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             centerTitle: true,

@@ -70,7 +70,7 @@ class _PhoneEditingSectionState extends State<PhoneEditingSection> {
                 child: Text(
                   'Phone Numbers'.tr(),
                   textAlign: TextAlign.center,
-                  textScaleFactor: 1.5,
+                  textScaler: const TextScaler.linear(1.5),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -160,7 +160,7 @@ class _ItemWidgetDoctorCreationPageModifiedPhoneState
                   widget.whichPhone == WhichPhone.ASSISTANT
                       ? 'Assistant Phone'.tr()
                       : 'Personal Phone'.tr(),
-                  textScaleFactor: 1.5,
+                  textScaler: const TextScaler.linear(1.5),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -170,7 +170,7 @@ class _ItemWidgetDoctorCreationPageModifiedPhoneState
                   widget.whichPhone == WhichPhone.ASSISTANT
                       ? doctor.phoneASS
                       : doctor.phonePER,
-                  textScaleFactor: 1.1,
+                  textScaler: const TextScaler.linear(1.1),
                 ),
               ),
             ],

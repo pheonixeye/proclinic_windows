@@ -27,7 +27,6 @@ class FromOrganizer extends StatefulWidget {
 class _FromOrganizerState extends State<FromOrganizer> {
   @override
   void initState() {
-    // TODO: implement initState
     _initApps();
     super.initState();
   }

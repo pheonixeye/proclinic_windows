@@ -41,7 +41,7 @@ class _ClinicListState extends State<ClinicList> {
       appBar: AppBar(
         title: Text(
           'Doctors & Clinics'.tr(),
-          textScaleFactor: 2.0,
+          textScaler: const TextScaler.linear(2.0),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,

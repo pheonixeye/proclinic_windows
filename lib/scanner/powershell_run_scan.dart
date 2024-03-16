@@ -37,6 +37,7 @@ class PowerShellScanRunner {
 
     //N.B. scriptPath = target.exe
     //TODO: check scan script algorhithm...
+    //TODO: no need ??
 
     final scan = await Process.run('$scriptpath', ["${dir.path}\\${filename}"]);
     print(scan.stdout);
