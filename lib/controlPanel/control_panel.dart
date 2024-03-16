@@ -61,15 +61,18 @@ class _ControlPanelState extends State<ControlPanel> {
                     padding: EdgeInsets.all(8.0),
                     child: SingleChildScrollView(
                       child: Wrap(
-                        children: SelectionButtonModel.modelList().map((e) {
-                          return SelectionButton(
-                            iconData: e.iconData,
-                            title: e.title,
-                            tooltip: e.tooltip,
-                            route: e.route,
-                            shadowColor: e.shadowColor,
-                          );
-                        }).toList(),
+                        children: [
+                          ...SelectionButtonModel.modelList().map((e) {
+                            return SelectionButton(
+                              iconData: e.iconData,
+                              title: e.title,
+                              tooltip: e.tooltip,
+                              route: e.route,
+                              shadowColor: e.shadowColor,
+                            );
+                          }).toList(),
+                          QRCodeSelectionButton(),
+                        ],
                       ),
                     ),
                   ),

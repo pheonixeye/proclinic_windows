@@ -145,12 +145,15 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                                         return DateTime.parse(dateString);
                                       }
 
+                                      final _now = DateTime.now();
+                                      final d = DateTime(
+                                          _now.year, _now.month, _now.day);
+
                                       widget.dateController!.text =
                                           '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}';
                                       context
                                           .read<NewVisitProvider>()
-                                          .setVisitDate(
-                                              DateTime.now().toIso8601String());
+                                          .setVisitDate(d.toIso8601String());
                                       widget.nameController.text =
                                           visits.visits![index].ptName;
                                       context

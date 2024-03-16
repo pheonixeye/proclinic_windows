@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:proclinic_windows/_const/_strings.dart';
 
 class SelectionButton extends StatefulWidget {
   final Color shadowColor;
@@ -51,10 +53,11 @@ class _SelectionButtonState extends State<SelectionButton> {
               color: pressed ? Colors.blue : Colors.white,
               boxShadow: [
                 BoxShadow(
-                    offset: pressed ? Offset(0, 0) : Offset(5, 5),
-                    blurRadius: pressed ? 0 : 5,
-                    spreadRadius: pressed ? 0 : 5,
-                    color: widget.shadowColor),
+                  offset: pressed ? Offset(0, 0) : Offset(5, 5),
+                  blurRadius: pressed ? 0 : 5,
+                  spreadRadius: pressed ? 0 : 5,
+                  color: widget.shadowColor,
+                ),
               ],
             ),
             child: Column(
@@ -73,6 +76,66 @@ class _SelectionButtonState extends State<SelectionButton> {
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QRCodeSelectionButton extends StatefulWidget {
+  const QRCodeSelectionButton({super.key});
+
+  @override
+  State<QRCodeSelectionButton> createState() => _QRCodeSelectionButtonState();
+}
+
+class _QRCodeSelectionButtonState extends State<QRCodeSelectionButton> {
+  bool pressed = false;
+  var duration = const Duration(milliseconds: 200);
+
+  final decoration = const PrettyQrDecoration(
+    shape: PrettyQrSmoothSymbol(),
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () async {
+          setState(() {
+            pressed = true;
+          });
+          await Future.delayed(duration);
+          setState(() {
+            pressed = false;
+          });
+        },
+        child: Tooltip(
+          message: 'Connection String',
+          child: AnimatedContainer(
+            duration: duration,
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: pressed ? Colors.blue : Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: pressed ? Offset(0, 0) : Offset(5, 5),
+                  blurRadius: pressed ? 0 : 5,
+                  spreadRadius: pressed ? 0 : 5,
+                ),
+              ],
+            ),
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PrettyQrView(
+                qrImage: QrImage(qrCode),
+                decoration: decoration,
+              ),
             ),
           ),
         ),

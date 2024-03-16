@@ -46,6 +46,7 @@ dependencies:
   screenshot:
   file_picker:
   uuid:
+  pretty_qr_code: ^3.3.0
 
 dev_dependencies:
   flutter_test:

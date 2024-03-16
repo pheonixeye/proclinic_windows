@@ -41,7 +41,7 @@ class Visit {
     required this.affiliationAR,
     required this.amount,
     required this.remaining,
-  }) : id = ObjectId();
+  }) : id = id ?? ObjectId();
 
   factory Visit.fromJson(dynamic json) {
     return Visit(
