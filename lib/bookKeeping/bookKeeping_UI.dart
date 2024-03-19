@@ -1,7 +1,5 @@
 // ignore_for_file: file_names
 
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -44,23 +42,12 @@ class _BookKeepingState extends State<BookKeeping> {
           decoration: BoxDecoration(
             color: Colors.white54.withOpacity(0.8),
             borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                offset: const Offset(5, 5),
-                blurRadius: 5,
-                spreadRadius: 5,
-              ),
-            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Card(
               elevation: 20,
               shape: cardbuttonstyle,
-              shadowColor:
-                  Colors.primaries[Random().nextInt(Colors.primaries.length)],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -72,15 +59,6 @@ class _BookKeepingState extends State<BookKeeping> {
                       decoration: BoxDecoration(
                         color: Colors.white54.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.primaries[
-                                Random().nextInt(Colors.primaries.length)],
-                            offset: const Offset(5, 5),
-                            blurRadius: 5,
-                            spreadRadius: 5,
-                          ),
-                        ],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -151,36 +129,24 @@ class _BookKeepingState extends State<BookKeeping> {
                           Expanded(
                             flex: 1,
                             child: ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                backgroundColor: Theme.of(context).primaryColor,
-                              ),
                               label: Text('Search'.tr()),
                               icon: const Icon(Icons.search),
                               onPressed: () async {
                                 final src = context.read<BookKeepingProvider>();
-                                if (src.allOrOne == null ||
-                                    src.dayDuration == null) {
-                                  await EasyLoading.showError(
-                                      'Invalid Search Parameters...'.tr());
-                                } else {
-                                  await EmbeddEasyLoading(
-                                    () async {
-                                      await context
-                                          .read<VisitsSearchController>()
-                                          .parametrizedRequest(
-                                              allOrOne: src.allOrOne!,
-                                              dayDuration: src.dayDuration!,
-                                              day: src.day,
-                                              month: src.month,
-                                              year: src.year,
-                                              doctor: context
-                                                  .read<SelectedDoctor>()
-                                                  .doctor);
-                                    },
-                                  );
-                                }
+                                await EasyLoading.show(
+                                    status: "Loading...".tr());
+                                await context
+                                    .read<VisitsSearchController>()
+                                    .parametrizedRequest(
+                                      allOrOne: src.allOrOne,
+                                      dayDuration: src.dayDuration,
+                                      day: src.day,
+                                      month: src.month,
+                                      year: src.year,
+                                      doctor:
+                                          context.read<SelectedDoctor>().doctor,
+                                    );
+                                await EasyLoading.dismiss();
                               },
                             ),
                           ),

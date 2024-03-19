@@ -40,7 +40,7 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
       appBar: AppBar(
         title: Text(
           english(context) ? doctor.docnameEN : doctor.docnameAR,
-          textScaler: const TextScaler.linear(2.0),
+          textScaler: const TextScaler.linear(1.4),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,

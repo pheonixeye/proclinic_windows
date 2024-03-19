@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +19,8 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
 
   @override
   void initState() {
-    _initApps();
     super.initState();
+    _initApps();
   }
 
   @override
@@ -44,7 +42,7 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Appointment Organizer'.tr(),
-                textScaler: const TextScaler.linear(2.0),
+                textScaler: const TextScaler.linear(1.4),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -59,12 +57,6 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
                   decoration: BoxDecoration(
                     color: Colors.grey[400],
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(3, 3),
-                          blurRadius: 3.0,
-                          spreadRadius: 3.0),
-                    ],
                   ),
                   child: Column(
                     children: <Widget>[
@@ -77,13 +69,12 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
                             decoration: BoxDecoration(
                               color: Colors.grey[100],
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
-                                    color: Colors.primaries[Random()
-                                        .nextInt(Colors.primaries.length)],
-                                    offset: const Offset(3, 3),
-                                    blurRadius: 3.0,
-                                    spreadRadius: 3.0),
+                                  offset: Offset(3, 3),
+                                  blurRadius: 3.0,
+                                  spreadRadius: 3.0,
+                                ),
                               ],
                             ),
                             child: Consumer<OrgAppProvider>(

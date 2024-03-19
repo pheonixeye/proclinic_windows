@@ -1,46 +1,45 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/cupertino.dart';
-import 'package:proclinic_windows/_const/_strings.dart';
 
 class BookKeepingProvider extends ChangeNotifier {
-  int? _allOrOne;
-  int? get allOrOne => _allOrOne;
+  int _allOrOne = 0;
+  int get allOrOne => _allOrOne;
 
-  void setAllOrOne(int? val) {
+  void setAllOrOne(int val) {
     _allOrOne = val;
     notifyListeners();
   }
 
-  int? _dayDuration;
-  int? get dayDuration => _dayDuration;
+  int _dayDuration = 0;
+  int get dayDuration => _dayDuration;
 
-  void setDayDuration(int? val) {
+  void setDayDuration(int val) {
     _dayDuration = val;
     notifyListeners();
   }
 
-  int _day = DAYS[0];
+  int _day = DateTime.now().day;
   int get day => _day;
 
   void adjustDay(int val) {
-    _day = DAYS[val];
+    _day = val;
     notifyListeners();
   }
 
-  int _month = MONTHS[0];
+  int _month = DateTime.now().month;
   int get month => _month;
 
   void adjustMonth(int val) {
-    _month = MONTHS[val];
+    _month = val;
     notifyListeners();
   }
 
-  int _year = YEARS[0];
+  int _year = DateTime.now().year;
   int get year => _year;
 
   void adjustYear(int val) {
-    _year = YEARS[val];
+    _year = val;
     notifyListeners();
   }
 }

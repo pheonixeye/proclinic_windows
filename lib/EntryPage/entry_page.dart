@@ -87,7 +87,7 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
           padding: const EdgeInsets.all(8.0),
           child: Text(
             'ProClinic Entry Page'.tr(),
-            textScaler: const TextScaler.linear(2.0),
+            textScaler: const TextScaler.linear(1.4),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

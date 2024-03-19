@@ -1,11 +1,9 @@
 // ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
 
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:proclinic_windows/EntryPage/Update_Data_Page/update_data_page.dart';
-import 'package:proclinic_windows/PatientProfile/Patient_Profile_Page.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/visitModel.dart';
@@ -13,9 +11,11 @@ import 'package:proclinic_windows/_mongoRequests/_visit_req.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
 import 'package:proclinic_windows/printReciept/reciept_page_UI.dart';
+import 'package:proclinic_windows/widgets/item_text.dart';
+import 'package:proclinic_windows/widgets/qr_dialog.dart';
 import 'package:provider/src/provider.dart';
 
-class LocalDBInfoCard extends StatefulWidget {
+class LocalDBInfoCard extends StatelessWidget {
   const LocalDBInfoCard({
     Key? key,
     required this.visit,
@@ -25,164 +25,148 @@ class LocalDBInfoCard extends StatefulWidget {
   final int index;
 
   @override
-  _LocalDBInfoCardState createState() => _LocalDBInfoCardState();
-}
-
-class _LocalDBInfoCardState extends State<LocalDBInfoCard> {
-  @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 20,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: Colors.blueGrey[300],
-      child: ListTile(
-        isThreeLine: true,
-        leading: CircleAvatar(
-          backgroundColor:
-              Colors.primaries[Random().nextInt(Colors.primaries.length)],
-          child: Text('${widget.index + 1}'),
-        ),
-        title: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: Colors.grey.shade300,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(widget.visit.ptName.toUpperCase()),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(widget.visit.phone.toUpperCase()),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    '${'Date of Birth'.tr()}  ${widget.visit.dob.substring(0, 10)}',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        elevation: 20,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: ListTile(
+          title: Card(
+            elevation: 8,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Wrap(
+                runAlignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                children: [
+                  ItemText(
+                    title: "Name".tr(),
+                    data: visit.ptName.toUpperCase(),
+                    iconData: Icons.person,
                   ),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                      '${'Visit Date'.tr()}  ${widget.visit.visitDate.substring(0, 10)}'),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                      '${'Affiliation'.tr()}  ${english(context) ? widget.visit.affiliationEN.toUpperCase() : widget.visit.affiliationAR.toUpperCase()}'),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-            ],
-          ),
-        ),
-        subtitle: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: Colors.grey.shade300,
-          child: Wrap(
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text('${'Doc-ID'.tr()}  ${widget.visit.docid}'),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                      '${'Dr.'.tr()}  ${english(context) ? widget.visit.docNameEN.toUpperCase() : widget.visit.docNameAR.toUpperCase()}'),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(english(context)
-                      ? widget.visit.clinicEN.toUpperCase()
-                      : widget.visit.clinicAR.toUpperCase()),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(widget.visit.visitType.tr().toUpperCase()),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              widget.visit.visitType != SxVisit.PROCEDURE_E
-                  ? const SizedBox()
-                  : Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(english(context)
-                            ? widget.visit.procedureEN!
-                            : widget.visit.procedureAR!),
-                      ),
-                      margin: const EdgeInsets.all(10),
-                    ),
-              Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text('Amount'.tr() +
-                        '  ${widget.visit.amount}' +
-                        "  " +
-                        'L.E.'.tr()),
+                  ItemText(
+                    title: "Phone".tr(),
+                    data: visit.phone,
+                    iconData: Icons.phone,
                   ),
-                  margin: const EdgeInsets.all(10)),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text('Remaining'.tr() +
-                      '  ${widget.visit.remaining}' +
-                      "  " +
-                      'L.E.'.tr()),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                      '${'Payment Type'.tr()}  ${widget.visit.cashType.tr()}'),
-                ),
-                margin: const EdgeInsets.all(10),
-              ),
-            ],
-          ),
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PatientProfilePage(
-                visit: widget.visit,
+                  Builder(
+                    builder: (context) {
+                      final d = DateTime.parse(visit.dob);
+                      return ItemText(
+                        title: 'Date of Birth'.tr(),
+                        data: '${d.day}-${d.month}-${d.year}',
+                        iconData: Icons.calendar_month,
+                      );
+                    },
+                  ),
+                  Builder(
+                    builder: (context) {
+                      final aff = english(context)
+                          ? visit.affiliationEN.toUpperCase()
+                          : visit.affiliationAR.toUpperCase();
+                      return ItemText(
+                        title: 'Affiliation'.tr(),
+                        data: aff,
+                        iconData: Icons.replay_circle_filled_rounded,
+                      );
+                    },
+                  ),
+                  Builder(
+                    builder: (context) {
+                      final doc = english(context)
+                          ? visit.docNameEN.toUpperCase()
+                          : visit.docNameAR.toUpperCase();
+                      return ItemText(
+                        title: 'Dr.'.tr(),
+                        data: doc,
+                        iconData: Icons.person,
+                      );
+                    },
+                  ),
+                  Builder(
+                    builder: (context) {
+                      final clinic = english(context)
+                          ? visit.clinicEN.toUpperCase()
+                          : visit.clinicAR.toUpperCase();
+                      return ItemText(
+                        title: 'Clinic'.tr(),
+                        data: clinic,
+                        iconData: Icons.local_hospital,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-          );
-        },
-        trailing: PopUpMenuButtonForActions(
-          visit: widget.visit,
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              children: [
+                Builder(
+                  builder: (context) {
+                    final d = DateTime.parse(visit.visitDate);
+                    return ItemText(
+                      title: 'Visit Date'.tr(),
+                      data: '${d.day}-${d.month}-${d.year}',
+                      iconData: Icons.calendar_today,
+                    );
+                  },
+                ),
+                ItemText(
+                  title: "Visit Type".tr(),
+                  data: visit.visitType.tr().toUpperCase(),
+                  iconData: Icons.vaccines_sharp,
+                ),
+                visit.visitType != SxVisit.PROCEDURE_E
+                    ? const SizedBox()
+                    : Builder(
+                        builder: (context) {
+                          final p = english(context)
+                              ? visit.procedureEN?.toUpperCase()
+                              : visit.procedureAR?.toUpperCase();
+                          return ItemText(
+                            title: 'Procedure'.tr(),
+                            data: p ?? "No Procedure".tr(),
+                            iconData: Icons.calendar_today,
+                          );
+                        },
+                      ),
+                ItemText(
+                  title: "Paid".tr(),
+                  data: visit.amount.toString() + "L.E.".tr(),
+                  iconData: Icons.attach_money,
+                ),
+                ItemText(
+                  title: "Remaining".tr(),
+                  data: visit.remaining.toString() + "L.E.".tr(),
+                  iconData: Icons.money_off,
+                ),
+                ItemText(
+                  title: "Payment Type".tr(),
+                  data: visit.cashType,
+                  iconData: Icons.local_atm,
+                ),
+              ],
+            ),
+          ),
+          onTap: () async {
+            await showDialog(
+              context: context,
+              builder: (context) => QrDialog(
+                code: QrCode.fromData(
+                  data: visit.id.oid,
+                  errorCorrectLevel: QrErrorCorrectLevel.H,
+                ),
+              ),
+            );
+          },
+          trailing: PopUpMenuButtonForActions(
+            visit: visit,
+          ),
+          selected: false,
         ),
-        selected: false,
       ),
     );
   }

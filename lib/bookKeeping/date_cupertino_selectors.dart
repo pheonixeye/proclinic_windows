@@ -1,16 +1,9 @@
-// ignore_for_file: avoid_print, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:proclinic_windows/_providers/bookKeepingProvider.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 //yearpicker
-
-bool globalVisibility = true;
-List<int> years = List.generate(10, (i) => (DateTime.now().year - 5) + i);
-
 class YearClinicPicker extends StatefulWidget {
   const YearClinicPicker({Key? key}) : super(key: key);
 
@@ -19,10 +12,12 @@ class YearClinicPicker extends StatefulWidget {
 }
 
 class YearClinicPickerState extends State<YearClinicPicker> {
+  final List<int> years = List.generate(5, (i) => (DateTime.now().year - i));
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 50,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -33,33 +28,30 @@ class YearClinicPickerState extends State<YearClinicPicker> {
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Pick Year'.tr(),
-            textAlign: TextAlign.center,
-          ),
-          CupertinoPicker(
-            scrollController: FixedExtentScrollController(
-                initialItem: years.indexOf(DateTime.now().year)),
-            looping: true,
-            itemExtent: 32,
-            onSelectedItemChanged: (value) {
-              context.read<BookKeepingProvider>().adjustYear(value);
-              setState(() {});
-            },
-            children: years.map((e) {
-              return Center(child: Text('${e}'));
-            }).toList(),
-          ),
-          CircleAvatar(
-            child: Text(
-              '${context.read<BookKeepingProvider>().year}',
+      child: Consumer<BookKeepingProvider>(
+        builder: (context, b, _) {
+          return DropdownButton<int>(
+            isExpanded: true,
+            alignment: Alignment.center,
+            hint: Text(
+              'Pick Year'.tr(),
               textAlign: TextAlign.center,
             ),
-          ),
-        ],
+            items: years.map((e) {
+              return DropdownMenuItem<int>(
+                value: e,
+                alignment: Alignment.center,
+                child: Text(
+                  e.toString(),
+                ),
+              );
+            }).toList(),
+            value: b.year,
+            onChanged: (value) {
+              b.adjustYear(value!);
+            },
+          );
+        },
       ),
     );
   }
@@ -67,7 +59,7 @@ class YearClinicPickerState extends State<YearClinicPicker> {
 
 //monthpicker
 
-Map<int, String> months = {
+final Map<int, String> months = {
   1: 'January'.tr(),
   2: 'February'.tr(),
   3: 'March'.tr(),
@@ -93,7 +85,7 @@ class MonthClinicPickerState extends State<MonthClinicPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 50,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -104,35 +96,30 @@ class MonthClinicPickerState extends State<MonthClinicPicker> {
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Pick Month'.tr(),
-            textAlign: TextAlign.center,
-          ),
-          CupertinoPicker(
-            scrollController: FixedExtentScrollController(
-                initialItem:
-                    months.keys.toList().indexOf(DateTime.now().month)),
-            useMagnifier: true,
-            looping: true,
-            itemExtent: 32,
-            onSelectedItemChanged: (value) {
-              context.read<BookKeepingProvider>().adjustMonth(value);
-              setState(() {});
-            },
-            children: months.values.map((e) {
-              return Center(child: Text('${e}'));
-            }).toList(),
-          ),
-          CircleAvatar(
-            child: Text(
-              '${context.read<BookKeepingProvider>().month}',
+      child: Consumer<BookKeepingProvider>(
+        builder: (context, b, _) {
+          return DropdownButton<int>(
+            isExpanded: true,
+            alignment: Alignment.center,
+            hint: Text(
+              'Pick Month'.tr(),
               textAlign: TextAlign.center,
             ),
-          ),
-        ],
+            items: months.entries.map((e) {
+              return DropdownMenuItem<int>(
+                value: e.key,
+                alignment: Alignment.center,
+                child: Text(
+                  e.value,
+                ),
+              );
+            }).toList(),
+            value: b.month,
+            onChanged: (value) {
+              b.adjustMonth(value!);
+            },
+          );
+        },
       ),
     );
   }
@@ -185,7 +172,7 @@ class _DayClinicPickerState extends State<DayClinicPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 50,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -196,35 +183,30 @@ class _DayClinicPickerState extends State<DayClinicPicker> {
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Pick Day'.tr(),
-            textAlign: TextAlign.center,
-          ),
-          CupertinoPicker(
-            scrollController: FixedExtentScrollController(
-              initialItem: days.keys.toList().indexOf(DateTime.now().day),
-            ),
-            useMagnifier: true,
-            looping: true,
-            itemExtent: 32,
-            onSelectedItemChanged: (value) {
-              context.read<BookKeepingProvider>().adjustDay(value);
-              setState(() {});
-            },
-            children: days.values.map((e) {
-              return Center(child: Text('${e}'));
-            }).toList(),
-          ),
-          CircleAvatar(
-            child: Text(
-              '${context.read<BookKeepingProvider>().day}',
+      child: Consumer<BookKeepingProvider>(
+        builder: (context, b, _) {
+          return DropdownButton<int>(
+            isExpanded: true,
+            alignment: Alignment.center,
+            hint: Text(
+              'Pick Day'.tr(),
               textAlign: TextAlign.center,
             ),
-          ),
-        ],
+            items: days.entries.map((e) {
+              return DropdownMenuItem<int>(
+                value: e.key,
+                alignment: Alignment.center,
+                child: Text(
+                  e.value,
+                ),
+              );
+            }).toList(),
+            value: b.day,
+            onChanged: (value) {
+              b.adjustDay(value!);
+            },
+          );
+        },
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
 import 'package:proclinic_windows/localdb_search_pts/_widgets.dart';
 import 'package:proclinic_windows/localdb_search_pts/_widgets2.dart';
+import 'package:proclinic_windows/widgets/divider.dart';
 import 'package:provider/provider.dart';
 // import 'package:provider/src/provider.dart';
 
@@ -54,7 +55,7 @@ class _CollectivePatientDataUIState extends State<CollectivePatientDataUI> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Patient Database'.tr(),
-                textScaler: const TextScaler.linear(2.0),
+                textScaler: const TextScaler.linear(1.4),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -114,11 +115,7 @@ class _CollectivePatientDataUIState extends State<CollectivePatientDataUI> {
                             );
                           },
                           separatorBuilder: (context, index) {
-                            return const Divider(
-                              color: Colors.blueGrey,
-                              height: 5,
-                              thickness: 5,
-                            );
+                            return const SeparatorLine();
                           },
                         ),
                       );

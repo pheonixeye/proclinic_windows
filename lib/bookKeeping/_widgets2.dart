@@ -9,6 +9,8 @@ import 'package:proclinic_windows/_models/visitModel.dart';
 import 'package:proclinic_windows/_providers/bookKeepingProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
+import 'package:proclinic_windows/widgets/divider.dart';
+import 'package:proclinic_windows/widgets/item_text.dart';
 import 'package:provider/provider.dart';
 
 class KeepingResultsContainer extends StatefulWidget {
@@ -24,11 +26,11 @@ class _KeepingResultsContainerState extends State<KeepingResultsContainer> {
 
   @override
   void initState() {
-    initVisits();
     super.initState();
+    initVisits();
   }
 
-  Future initVisits() async {
+  Future<void> initVisits() async {
     await context.read<VisitsSearchController>().initializeVisits();
   }
 
@@ -45,15 +47,6 @@ class _KeepingResultsContainerState extends State<KeepingResultsContainer> {
               decoration: BoxDecoration(
                 color: Colors.white54.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors
-                        .primaries[Random().nextInt(Colors.primaries.length)],
-                    offset: const Offset(5, 5),
-                    blurRadius: 5,
-                    spreadRadius: 5,
-                  ),
-                ],
               ),
               child: CupertinoScrollbar(
                 controller: _scroll,
@@ -67,11 +60,7 @@ class _KeepingResultsContainerState extends State<KeepingResultsContainer> {
                     return InfoTile(visit: visits.visits![index], index: index);
                   },
                   separatorBuilder: (context, index) {
-                    return const Divider(
-                      thickness: 5,
-                      height: 15,
-                      color: Colors.blueGrey,
-                    );
+                    return const SeparatorLine();
                   },
                 ),
               ),
@@ -108,111 +97,100 @@ class InfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime visDate = DateTime.parse(visit.visitDate);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            leading: CircleAvatar(
-              child: Text('${index + 1}'),
-            ),
-            title: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.person),
-                      ),
-                    ),
-                    Text('${'Name'.tr()} : ${visit.ptName}'),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.local_hospital_sharp),
-                      ),
-                    ),
-                    Text(
-                        '${'Doctor'.tr()} : ${english(context) ? visit.docNameEN : visit.docNameAR}'),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.phone),
-                      ),
-                    ),
-                    Text('${'Phone'.tr()} : ${visit.phone}'),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.tonality_sharp),
-                      ),
-                    ),
-                    Text('${'Visit Type'.tr()} : ${visit.visitType.tr()}'),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                  ],
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CircleAvatar(
+                  child: Text('${index + 1}'),
                 ),
               ),
-            ),
-            subtitle: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.monetization_on),
-                      ),
-                    ),
-                    Text('${'Paid'.tr()}: ${visit.amount} ${'L.E.'.tr()}'),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.money_off),
-                      ),
-                    ),
-                    Text(
-                        '${'Remaining'.tr()}: ${visit.remaining} ${'L.E.'.tr()}'),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.calendar_today),
-                      ),
-                    ),
-                    Text(
-                        '${'Visit Date'.tr()}: ${visDate.day}-${visDate.month}-${visDate.year}'),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.local_florist),
-                      ),
-                    ),
-                    Text(
-                        '${'Affiliation'.tr()} : ${english(context) ? visit.affiliationEN : visit.affiliationAR}'),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                  ],
-                ),
+              ItemText(
+                title: "Name".tr(),
+                data: visit.ptName.toUpperCase(),
+                iconData: Icons.person,
               ),
-            ),
+              ItemText(
+                title: "Phone".tr(),
+                data: visit.phone,
+                iconData: Icons.phone,
+              ),
+              Builder(
+                builder: (context) {
+                  final doc = english(context)
+                      ? visit.docNameEN.toUpperCase()
+                      : visit.docNameAR.toUpperCase();
+                  return ItemText(
+                    title: 'Dr.'.tr(),
+                    data: doc,
+                    iconData: Icons.person,
+                  );
+                },
+              ),
+              Builder(
+                builder: (context) {
+                  final d = DateTime.parse(visit.visitDate);
+                  return ItemText(
+                    title: 'Visit Date'.tr(),
+                    data: '${d.day}-${d.month}-${d.year}',
+                    iconData: Icons.calendar_today,
+                  );
+                },
+              ),
+              ItemText(
+                title: "Visit Type".tr(),
+                data: visit.visitType.tr().toUpperCase(),
+                iconData: Icons.vaccines_sharp,
+              ),
+              visit.visitType != SxVisit.PROCEDURE_E
+                  ? const SizedBox()
+                  : Builder(
+                      builder: (context) {
+                        final p = english(context)
+                            ? visit.procedureEN?.toUpperCase()
+                            : visit.procedureAR?.toUpperCase();
+                        return ItemText(
+                          title: 'Procedure'.tr(),
+                          data: p ?? "No Procedure".tr(),
+                          iconData: Icons.calendar_today,
+                        );
+                      },
+                    ),
+              Builder(
+                builder: (context) {
+                  final aff = english(context)
+                      ? visit.affiliationEN.toUpperCase()
+                      : visit.affiliationAR.toUpperCase();
+                  return ItemText(
+                    title: 'Affiliation'.tr(),
+                    data: aff,
+                    iconData: Icons.replay_circle_filled_rounded,
+                  );
+                },
+              ),
+              ItemText(
+                title: "Paid".tr(),
+                data: visit.amount.toString() + "L.E.".tr(),
+                iconData: Icons.attach_money,
+              ),
+              ItemText(
+                title: "Remaining".tr(),
+                data: visit.remaining.toString() + "L.E.".tr(),
+                iconData: Icons.money_off,
+              ),
+              ItemText(
+                title: "Payment Type".tr(),
+                data: visit.cashType,
+                iconData: Icons.local_atm,
+              ),
+            ],
           ),
         ),
       ),

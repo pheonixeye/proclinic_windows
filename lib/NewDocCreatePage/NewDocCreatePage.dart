@@ -44,7 +44,7 @@ class _NewDoctorCreationPageState extends State<NewDoctorCreationPage> {
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
-          textScaler: const TextScaler.linear(2.0),
+          textScaler: const TextScaler.linear(1.4),
         ),
         centerTitle: true,
       ),
@@ -54,12 +54,7 @@ class _NewDoctorCreationPageState extends State<NewDoctorCreationPage> {
           decoration: docCreationPageDecoration,
           child: Form(
             key: formKey,
-            child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 4,
-                crossAxisSpacing: 20,
-              ),
+            child: ListView(
               children: [
                 ItemWidgetDoctorCreationPage(
                   itemController: engNameController,

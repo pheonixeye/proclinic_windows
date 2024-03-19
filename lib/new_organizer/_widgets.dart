@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -90,8 +88,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
         key: formKey,
         child: Card(
           elevation: 20,
-          shadowColor:
-              Colors.primaries[Random().nextInt(Colors.primaries.length)],
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color: Colors.grey[300],
@@ -106,15 +102,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.primaries[
-                                Random().nextInt(Colors.primaries.length)],
-                            offset: const Offset(3, 3),
-                            blurRadius: 3.0,
-                            spreadRadius: 3.0,
-                          ),
-                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -145,16 +132,12 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                 Tooltip(
                   message: 'ادخل التاريخ',
                   child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        backgroundColor: Colors.orangeAccent,
-                      ),
-                      onPressed: () {
-                        showCalenderDate(context);
-                      },
-                      icon: const Icon(Icons.calendar_today),
-                      label: Text('input Date'.tr())),
+                    onPressed: () {
+                      showCalenderDate(context);
+                    },
+                    icon: const Icon(Icons.calendar_today),
+                    label: Text('input Date'.tr()),
+                  ),
                 ),
                 const SizedBox(
                   width: 20.0,
@@ -167,14 +150,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.primaries[
-                                  Random().nextInt(Colors.primaries.length)],
-                              offset: const Offset(3, 3),
-                              blurRadius: 3.0,
-                              spreadRadius: 3.0),
-                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -205,16 +180,12 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                 Tooltip(
                   message: 'ادخل الوقت',
                   child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        backgroundColor: Colors.purpleAccent,
-                      ),
-                      onPressed: () {
-                        showCalenderTime(context);
-                      },
-                      icon: const Icon(Icons.access_time),
-                      label: Text('input Time'.tr())),
+                    onPressed: () {
+                      showCalenderTime(context);
+                    },
+                    icon: const Icon(Icons.access_time),
+                    label: Text('input Time'.tr()),
+                  ),
                 ),
               ],
             ),
@@ -228,27 +199,11 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.primaries[
-                                  Random().nextInt(Colors.primaries.length)],
-                              offset: const Offset(3, 3),
-                              blurRadius: 3.0,
-                              spreadRadius: 3.0),
-                        ],
                       ),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.primaries[
-                                    Random().nextInt(Colors.primaries.length)],
-                                offset: const Offset(3, 3),
-                                blurRadius: 3.0,
-                                spreadRadius: 3.0),
-                          ],
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -289,14 +244,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.primaries[
-                                Random().nextInt(Colors.primaries.length)],
-                            offset: const Offset(3, 3),
-                            blurRadius: 3.0,
-                            spreadRadius: 3.0),
-                      ],
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.search),
@@ -321,14 +268,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.primaries[
-                                  Random().nextInt(Colors.primaries.length)],
-                              offset: const Offset(3, 3),
-                              blurRadius: 3.0,
-                              spreadRadius: 3.0)
-                        ],
                       ),
                       child: const Tooltip(
                         message: 'العيادة',
@@ -348,14 +287,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.primaries[
-                                  Random().nextInt(Colors.primaries.length)],
-                              offset: const Offset(3, 3),
-                              blurRadius: 3.0,
-                              spreadRadius: 3.0),
-                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -394,14 +325,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors
-                          .primaries[Random().nextInt(Colors.primaries.length)],
-                      offset: const Offset(3, 3),
-                      blurRadius: 3.0,
-                      spreadRadius: 3.0),
-                ],
               ),
               child: Tooltip(
                 message: 'حفظ',

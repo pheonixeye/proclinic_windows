@@ -14,7 +14,7 @@ class WrongMacAddressPage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'UnAuthorized Device'.tr(),
-          textScaler: const TextScaler.linear(2.0),
+          textScaler: const TextScaler.linear(1.4),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

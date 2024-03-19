@@ -41,7 +41,7 @@ class _ClinicListState extends State<ClinicList> {
       appBar: AppBar(
         title: Text(
           'Doctors & Clinics'.tr(),
-          textScaler: const TextScaler.linear(2.0),
+          textScaler: const TextScaler.linear(1.4),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -71,73 +71,59 @@ class _ClinicListState extends State<ClinicList> {
                     while (doctors.doctorList == null) {
                       return const WhileValueEqualNullWidget();
                     }
-                    return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent:
-                            MediaQuery.of(context).size.height * 0.45,
-                      ),
+                    return ListView.builder(
                       addAutomaticKeepAlives: true,
                       itemCount: doctors.doctorList!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<SelectedDoctor>()
-                                  .selectDoctor(doctors.doctorList![index].id);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DoctorClinicOptionsPage(
-                                    initDoctors: initDoctors,
-                                    doctor: doctors.doctorList![index],
+                          child: Card(
+                            shape: cardbuttonstyle,
+                            elevation: 20,
+                            child: ListTile(
+                              onTap: () {
+                                context.read<SelectedDoctor>().selectDoctor(
+                                    doctors.doctorList![index].id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DoctorClinicOptionsPage(
+                                      initDoctors: initDoctors,
+                                      doctor: doctors.doctorList![index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              leading: CircleAvatar(
+                                radius: 50,
+                                child: Text(
+                                  (index + 1).toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              );
-                            },
-                            child: Card(
-                              shape: cardbuttonstyle,
-                              elevation: 20,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 50,
-                                    child: Text(
-                                      (index + 1).toString(),
-                                      style: const TextStyle(
-                                        fontSize: 42,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    english(context)
-                                        ? doctors.doctorList![index].docnameEN
-                                            .toString()
-                                            .toUpperCase()
-                                        : doctors.doctorList![index].docnameAR
-                                            .toString()
-                                            .toUpperCase(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 42,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    english(context)
-                                        ? doctors.doctorList![index].clinicEN
-                                        : doctors.doctorList![index].clinicAR,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 42,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                              ),
+                              title: Text(
+                                english(context)
+                                    ? doctors.doctorList![index].docnameEN
+                                        .toString()
+                                        .toUpperCase()
+                                    : doctors.doctorList![index].docnameAR
+                                        .toString()
+                                        .toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                english(context)
+                                    ? doctors.doctorList![index].clinicEN
+                                    : doctors.doctorList![index].clinicAR,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                           ),

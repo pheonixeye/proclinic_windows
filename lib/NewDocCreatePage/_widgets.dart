@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:proclinic_windows/_const/_constWidgets.dart';
 
 class ItemWidgetDoctorCreationPage extends StatelessWidget {
   const ItemWidgetDoctorCreationPage({
@@ -124,13 +123,9 @@ class FinalizeAdditionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 20,
-      shape: cardbuttonstyle,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            shape: cardbuttonstyle,
-          ),
           onPressed: () async {
             if (formKey.currentState!.validate() == false) {
               await confirmatoryDialog(context);

@@ -37,11 +37,14 @@ class _SettingsPageState extends State<SettingsPage> with AfterLayoutMixin {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Settings',
-          textScaler: TextScaler.linear(2.0),
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ).tr(),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Settings Page'.tr(),
+            textScaler: const TextScaler.linear(1.4),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),

@@ -38,7 +38,7 @@ class ButtonType1 extends StatelessWidget {
         ),
         label: Text(
           title,
-          textScaler: const TextScaler.linear(2.0),
+          textScaler: const TextScaler.linear(1.4),
           style: const TextStyle(
             color: Colors.black,
           ),
@@ -100,7 +100,7 @@ class ButtonType2 extends StatelessWidget {
             ),
             Text(
               title,
-              textScaler: const TextScaler.linear(2.0),
+              textScaler: const TextScaler.linear(1.4),
               style: const TextStyle(
                 color: Colors.black,
               ),

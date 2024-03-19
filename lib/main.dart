@@ -66,7 +66,17 @@ class _ProClinicState extends State<ProClinic> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light(),
+      theme: ThemeData.light().copyWith(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).primaryColor,
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ),
       darkTheme: modedDarkTheme,
       themeMode: themeChanger.currentTheme(),
       debugShowCheckedModeBanner: false,

@@ -45,7 +45,7 @@ class _RecieptPageState extends State<RecieptPage> {
           appBar: AppBar(
             title: Text(
               'Print Reciept'.tr(),
-              textScaler: const TextScaler.linear(2.0),
+              textScaler: const TextScaler.linear(1.4),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             centerTitle: true,
