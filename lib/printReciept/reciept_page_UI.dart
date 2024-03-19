@@ -24,6 +24,9 @@ class RecieptPage extends StatefulWidget {
 class _RecieptPageState extends State<RecieptPage> {
   late ScreenshotController sscontroller;
   final LocalStorage _db = LocalStorage('$DBPATH.json');
+  final _style = const TextStyle(
+    color: Colors.black,
+  );
   @override
   void initState() {
     sscontroller = ScreenshotController();
@@ -56,226 +59,284 @@ class _RecieptPageState extends State<RecieptPage> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.2,
               height: MediaQuery.of(context).size.height * 0.9,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(4, 4),
-                    blurRadius: 4,
-                    spreadRadius: 4,
-                  ),
-                ],
-              ),
+              color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
                       flex: 9,
                       child: Screenshot(
                         controller: sscontroller,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Date'.tr()} : '),
-                                const Spacer(),
-                                Text('${d.day}-${d.month}-${d.year}'),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Time'.tr()} : '),
-                                const Spacer(),
-                                Text('${d.hour} : ${d.minute}'),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Name'.tr()} : '),
-                                const Spacer(),
-                                Text(widget.visit!.ptName.toUpperCase()),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Clinic'.tr()} : '),
-                                const Spacer(),
-                                Text(english(context)
-                                    ? widget.visit!.clinicEN.toUpperCase()
-                                    : widget.visit!.clinicAR),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Doctor'.tr()} : '),
-                                const Spacer(),
-                                Text(english(context)
-                                    ? widget.visit!.docNameEN.toUpperCase()
-                                    : widget.visit!.docNameAR),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Phone'.tr()} : '),
-                                const Spacer(),
-                                Text(widget.visit!.phone),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Date of Birth'.tr()} : '),
-                                const Spacer(),
-                                Text('${db.day}-${db.month}-${db.year}'),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Visit Type'.tr()} : '),
-                                const Spacer(),
-                                Text(widget.visit!.visitType.tr()),
-                                const Spacer(),
-                              ],
-                            ),
-                            SizedBox(
-                              height:
-                                  widget.visit!.procedureEN == null ? 0 : 10,
-                            ),
-                            widget.visit!.procedureEN == null
-                                ? const SizedBox()
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      // const Spacer(),
-                                      Text('${'Procedure'.tr()} : '),
-                                      const Spacer(),
-                                      Text(english(context)
-                                          ? widget.visit!.procedureEN!
-                                          : widget.visit!.procedureAR!),
-                                      const Spacer(),
-                                    ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Date'.tr()} : ',
+                                    style: _style,
                                   ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Amount'.tr()} : '),
-                                const Spacer(),
-                                Text('${widget.visit!.amount} ${'L.E.'.tr()}'),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Remaining'.tr()} : '),
-                                const Spacer(),
-                                Text(
-                                  '${widget.visit!.remaining} ${'L.E.'.tr()}',
-                                ),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Affiliation'.tr()} : '),
-                                const Spacer(),
-                                Text(english(context)
-                                    ? widget.visit!.affiliationEN
-                                    : widget.visit!.affiliationAR),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // const Spacer(),
-                                Text('${'Payment Type'.tr()} : '),
-                                const Spacer(),
-                                Text(widget.visit!.cashType),
-                                const Spacer(),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  //TODO: change per user
-                                  '${'Thank You for Your Visit'.tr()}\n${'Phone'.tr()} : {{01012345678}}\n${'Landline'.tr()} : 023456789\n{{https://website.com}}\n{{email@gmail.com}}',
-                                  textAlign: TextAlign.start,
-                                ),
-                              ],
-                            ),
-                          ],
+                                  const Spacer(),
+                                  Text(
+                                    '${d.day}-${d.month}-${d.year}',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Name'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.visit!.ptName.toUpperCase(),
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Clinic'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    english(context)
+                                        ? widget.visit!.clinicEN.toUpperCase()
+                                        : widget.visit!.clinicAR,
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Doctor'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    english(context)
+                                        ? widget.visit!.docNameEN.toUpperCase()
+                                        : widget.visit!.docNameAR,
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Phone'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.visit!.phone,
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Date of Birth'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${db.day}-${db.month}-${db.year}',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Visit Type'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.visit!.visitType.tr(),
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              SizedBox(
+                                height:
+                                    widget.visit!.procedureEN == null ? 0 : 10,
+                              ),
+                              widget.visit!.procedureEN == null
+                                  ? const SizedBox()
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // const Spacer(),
+                                        Text(
+                                          '${'Procedure'.tr()} : ',
+                                          style: _style,
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          english(context)
+                                              ? widget.visit!.procedureEN!
+                                              : widget.visit!.procedureAR!,
+                                          style: _style,
+                                        ),
+                                        const Spacer(),
+                                      ],
+                                    ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Amount'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${widget.visit!.amount} ${'L.E.'.tr()}',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Remaining'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${widget.visit!.remaining} ${'L.E.'.tr()}',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Affiliation'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    english(context)
+                                        ? widget.visit!.affiliationEN
+                                        : widget.visit!.affiliationAR,
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // const Spacer(),
+                                  Text(
+                                    '${'Payment Type'.tr()} : ',
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    widget.visit!.cashType,
+                                    style: _style,
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Divider(
+                                height: 10,
+                                thickness: 2,
+                                color: Colors.black,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    //TODO: change per user
+                                    '\n${'Thank You for Your Visit'.tr()}\n\n${'Phone'.tr()} : {{01012345678}}\n\n${'Landline'.tr()} : {{023456789}}\n\n{{https://website.com}}\n\n{{email@gmail.com}}',
+                                    style: _style,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
