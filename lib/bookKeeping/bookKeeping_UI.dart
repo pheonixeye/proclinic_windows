@@ -40,7 +40,6 @@ class _BookKeepingState extends State<BookKeeping> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.white54.withOpacity(0.8),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
@@ -57,7 +56,6 @@ class _BookKeepingState extends State<BookKeeping> {
                       height: MediaQuery.of(context).size.height * 0.15,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Colors.white54.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(

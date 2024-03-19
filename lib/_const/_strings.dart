@@ -10,6 +10,7 @@ final List<int> YEARS =
     List.generate(10, (index) => (DateTime.now().year - 5) + index);
 final List<int> DAYS = List.generate(31, (index) => index + 1);
 
+//TODO: change per user
 const String UUID = '4C4C4544-0039-4610-804A-B9C04F445331';
 
 final qrCode = QrCode.fromData(

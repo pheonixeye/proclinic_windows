@@ -23,113 +23,65 @@ class ProceduresDropDownState extends State<ProceduresDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProcedureVisibilityProvider>(
-      builder: (context, visibility, child) {
+    return Consumer2<ProcedureVisibilityProvider, SelectedDoctor>(
+      builder: (context, v, d, _) {
+        while (d.doctor == null) {
+          return const SizedBox();
+        }
         return Visibility(
-          visible: visibility.visible,
-          child: Consumer<SelectedDoctor>(
-            builder: (context, doctor, child) {
-              while (doctor.doctor == null) {
-                return const SizedBox();
-              }
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 150.0,
-                    child: Tooltip(
-                      message: 'اختر الإجراء الطبي',
-                      child: Text('Select Procedure'.tr()),
+          visible: v.visible,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 150.0,
+                child: Tooltip(
+                  message: 'اختر الإجراء الطبي',
+                  child: Text('Select Procedure'.tr()),
+                ),
+              ),
+              const SizedBox(
+                width: 20.0,
+              ),
+              SizedBox(
+                width: 350,
+                height: 50.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Card(
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        icon: const Icon(Icons.arrow_drop_down_circle),
+                        isExpanded: true,
+                        items: d.doctor!.proceduersEN.map((e) {
+                          return DropdownMenuItem<String>(
+                            value: e,
+                            alignment: Alignment.center,
+                            child: Text(english(context)
+                                ? e
+                                : d.doctor!.proceduersAR.elementAt(
+                                    d.doctor!.proceduersEN.indexOf(e))),
+                          );
+                        }).toList(),
+                        value: context.watch<NewVisitProvider>().procedureEN,
+                        onChanged: (val) {
+                          if (val != null) {
+                            context
+                                .read<NewVisitProvider>()
+                                .setProcedureEN(val);
+                            context.read<NewVisitProvider>().setProcedureAR(
+                                d.doctor!.proceduersAR.elementAt(
+                                    d.doctor!.proceduersEN.indexOf(val)));
+                          }
+                        },
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 20.0,
-                  ),
-                  SizedBox(
-                    width: 350,
-                    height: 50.0,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(4.0, 4.0),
-                                blurRadius: 4.0,
-                              ),
-                            ],
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: doctor.doctor!.proceduersEN.map((e) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Radio<String>(
-                                        value: e,
-                                        groupValue: groupValue,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            groupValue = val;
-                                          });
-                                          context
-                                              .read<NewVisitProvider>()
-                                              .setProcedureEN(e);
-                                          context
-                                              .read<NewVisitProvider>()
-                                              .setProcedureEN(doctor
-                                                  .doctor!.proceduersAR
-                                                  .elementAt(doctor
-                                                      .doctor!.proceduersEN
-                                                      .indexOf(e)));
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      Text(
-                                        english(context)
-                                            ? e
-                                            : doctor.doctor!.proceduersAR
-                                                .elementAt(doctor
-                                                    .doctor!.proceduersEN
-                                                    .indexOf(e)),
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                        //blue line
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Container(
-                              height: 2,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
+                ),
+              ),
+            ],
           ),
         );
       },

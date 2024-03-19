@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 
@@ -18,60 +16,53 @@ class ItemWidgetDoctorCreationPage extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 20,
-        child: ListTile(
-          leading: Icon(
-            Icons.near_me,
-            color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+    return Card(
+      child: ListTile(
+        leading: const Icon(Icons.near_me),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            itemTitle,
+            textScaler: const TextScaler.linear(1.5),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          title: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              itemTitle,
-              textScaler: const TextScaler.linear(1.5),
-              style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            validator: (val) {
+              if (val == '' || itemController.text == '') {
+                return 'Please Complete Information...'.tr();
+              }
+              return null;
+            },
+            onChanged: (value) {
+              mysetstate();
+            },
+            controller: itemController,
+            style: const TextStyle(
+              fontSize: 24,
             ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              validator: (val) {
-                if (val == '' || itemController.text == '') {
-                  return 'Please Complete Information...'.tr();
-                }
-                return null;
-              },
-              onChanged: (value) {
-                mysetstate();
-              },
-              controller: itemController,
-              style: const TextStyle(
-                fontSize: 24,
+            decoration: InputDecoration(
+              suffix: IconButton(
+                icon: const Icon(
+                  Icons.clear_all,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  itemController.clear();
+                  mysetstate();
+                },
               ),
-              decoration: InputDecoration(
-                suffix: IconButton(
-                  icon: const Icon(
-                    Icons.clear_all,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    itemController.clear();
-                    mysetstate();
-                  },
-                ),
-                prefixIcon: const Icon(
-                  Icons.edit_rounded,
-                ),
-                filled: true,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              prefixIcon: const Icon(
+                Icons.edit_rounded,
+              ),
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),

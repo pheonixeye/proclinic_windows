@@ -55,7 +55,6 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
                 constraints: const BoxConstraints.expand(),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[400],
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Column(
@@ -67,44 +66,38 @@ class _PatientOrganizerState extends State<PatientOrganizer> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey[100],
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  offset: Offset(3, 3),
-                                  blurRadius: 3.0,
-                                  spreadRadius: 3.0,
-                                ),
-                              ],
                             ),
-                            child: Consumer<OrgAppProvider>(
-                                builder: (context, apps, child) {
-                              while (apps.appointements == null) {
-                                return const WhileValueEqualNullWidget();
-                              }
-                              return CupertinoScrollbar(
-                                controller: _scrollController,
-                                thumbVisibility: true,
-                                thickness: 20,
-                                child: ListView.separated(
+                            child: Card(
+                              elevation: 10,
+                              child: Consumer<OrgAppProvider>(
+                                  builder: (context, apps, child) {
+                                while (apps.appointements == null) {
+                                  return const WhileValueEqualNullWidget();
+                                }
+                                return CupertinoScrollbar(
                                   controller: _scrollController,
-                                  itemCount: apps.appointements!.length,
-                                  itemBuilder: (context, index) {
-                                    return OrgInfoCard(
-                                      app: apps.appointements![index],
-                                      index: index,
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return const Divider(
-                                      color: Colors.blueGrey,
-                                      height: 5.0,
-                                      thickness: 5.0,
-                                    );
-                                  },
-                                ),
-                              );
-                            }),
+                                  thumbVisibility: true,
+                                  thickness: 20,
+                                  child: ListView.separated(
+                                    controller: _scrollController,
+                                    itemCount: apps.appointements!.length,
+                                    itemBuilder: (context, index) {
+                                      return OrgInfoCard(
+                                        app: apps.appointements![index],
+                                        index: index,
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return const Divider(
+                                        height: 5.0,
+                                        thickness: 5.0,
+                                      );
+                                    },
+                                  ),
+                                );
+                              }),
+                            ),
                           ),
                         ),
                       ),

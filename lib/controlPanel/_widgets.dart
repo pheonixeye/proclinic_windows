@@ -51,7 +51,7 @@ class _SelectionButtonState extends State<SelectionButton> {
             height: MediaQuery.of(context).size.height * 0.3,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: pressed ? Colors.blue : Colors.white,
+              color: pressed ? Colors.blue : Theme.of(context).primaryColor,
               boxShadow: [
                 BoxShadow(
                   offset: pressed ? Offset(0, 0) : Offset(5, 5),
@@ -127,7 +127,7 @@ class _QRCodeSelectionButtonState extends State<QRCodeSelectionButton> {
             height: MediaQuery.of(context).size.height * 0.3,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: pressed ? Colors.blue : Colors.white,
+              color: pressed ? Colors.blue : Theme.of(context).primaryColor,
               boxShadow: [
                 BoxShadow(
                   offset: pressed ? Offset(0, 0) : Offset(5, 5),

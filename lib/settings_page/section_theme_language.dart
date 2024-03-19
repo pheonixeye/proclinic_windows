@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:proclinic_windows/_localization/_localization.dart';
-import 'package:proclinic_windows/theming/theme_config.dart';
+import 'package:proclinic_windows/theming/theme_data.dart';
+import 'package:provider/provider.dart';
 
 class ThemeChangerSection extends StatefulWidget {
   const ThemeChangerSection({
@@ -28,10 +28,7 @@ class _ThemeChangerSectionState extends State<ThemeChangerSection> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors
-                  .primaries[Random.secure().nextInt(Colors.primaries.length)],
-            ),
+            leading: const CircleAvatar(),
             title: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(widget.language ? 'Language' : 'Dark Mode').tr(),
@@ -61,9 +58,7 @@ class _ThemeChangerSectionState extends State<ThemeChangerSection> {
                 : IconButton(
                     icon: const Icon(Icons.theater_comedy),
                     onPressed: () {
-                      setState(() {
-                        themeChanger.switchTheme();
-                      });
+                      context.read<ThemeChanger>().switchTheme();
                     },
                   ),
           ),

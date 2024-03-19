@@ -24,8 +24,8 @@ class _NewlyFormatedDoctorsDropDownButtonState
 
   @override
   void initState() {
-    initDoctors();
     super.initState();
+    initDoctors();
   }
 
   initDoctors() async {
@@ -76,71 +76,64 @@ class _NewlyFormatedDoctorsDropDownButtonState
         return SizedBox(
           height: 50.0,
           width: 200,
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  offset: Offset(4.0, 4.0),
-                  blurRadius: 4.0,
+          child: Card(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: DropdownButton<int>(
+                itemHeight: 50,
+                hint: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      english(context) ? 'Select Clinic . . .' : 'اختر العيادة',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-              ],
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton<int>(
-              itemHeight: 50,
-              hint: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    english(context) ? 'Select Clinic . . .' : 'اختر العيادة',
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              value: intselval,
-              items: _items,
-              onChanged: (value) async {
-                setState(() {
-                  intselval = value!;
-                });
+                value: intselval,
+                items: _items,
+                onChanged: (value) async {
+                  setState(() {
+                    intselval = value!;
+                  });
 
-                context
-                    .read<SelectedDoctor>()
-                    .selectDoctor(doctors[intselval!].id);
-                context
-                    .read<NewVisitProvider>()
-                    .setDocNameEN(doctors[intselval!].docnameEN);
-                context
-                    .read<NewVisitProvider>()
-                    .setClinicEN(doctors[intselval!].clinicEN);
-                context
-                    .read<NewVisitProvider>()
-                    .setDocNameAR(doctors[intselval!].docnameAR);
-                context
-                    .read<NewVisitProvider>()
-                    .setClinicAR(doctors[intselval!].clinicAR);
-                context
-                    .read<NewVisitProvider>()
-                    .setDocId(doctors[intselval!].id);
-                // for organizer
-                context
-                    .read<OrgAppProvider>()
-                    .rClinic(doctors[intselval!].clinicEN);
-                context
-                    .read<OrgAppProvider>()
-                    .rDocname(doctors[intselval!].docnameEN);
-                context.read<OrgAppProvider>().rDocid(doctors[intselval!].id);
-              },
-              underline: Container(
-                height: 2,
-                color: Colors.blue,
+                  context
+                      .read<SelectedDoctor>()
+                      .selectDoctor(doctors[intselval!].id);
+                  context
+                      .read<NewVisitProvider>()
+                      .setDocNameEN(doctors[intselval!].docnameEN);
+                  context
+                      .read<NewVisitProvider>()
+                      .setClinicEN(doctors[intselval!].clinicEN);
+                  context
+                      .read<NewVisitProvider>()
+                      .setDocNameAR(doctors[intselval!].docnameAR);
+                  context
+                      .read<NewVisitProvider>()
+                      .setClinicAR(doctors[intselval!].clinicAR);
+                  context
+                      .read<NewVisitProvider>()
+                      .setDocId(doctors[intselval!].id);
+                  // for organizer
+                  context
+                      .read<OrgAppProvider>()
+                      .rClinic(doctors[intselval!].clinicEN);
+                  context
+                      .read<OrgAppProvider>()
+                      .rDocname(doctors[intselval!].docnameEN);
+                  context.read<OrgAppProvider>().rDocid(doctors[intselval!].id);
+                },
+                underline: Container(
+                  height: 2,
+                ),
+                icon: Icon(
+                  Icons.arrow_drop_down_circle,
+                ),
+                isExpanded: true,
               ),
-              icon: Icon(
-                Icons.arrow_drop_down_circle,
-                color: Colors.blue,
-              ),
-              isExpanded: true,
             ),
           ),
         );

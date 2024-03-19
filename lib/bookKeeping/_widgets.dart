@@ -15,45 +15,39 @@ class _AllOrOneClinicDropDownState extends State<AllOrOneClinicDropDown> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(4.0, 4.0),
-            blurRadius: 4.0,
-          ),
-        ],
-        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Consumer<BookKeepingProvider>(
-        builder: (context, b, _) {
-          return DropdownButton<int>(
-            underline: Container(
-              height: 2.0,
-              color: Colors.blue,
-            ),
-            isExpanded: true,
-            hint: Center(
-              child: Text(
-                'All / Single Clinic'.tr(),
-                textAlign: TextAlign.center,
+      child: Card(
+        child: Consumer<BookKeepingProvider>(
+          builder: (context, b, _) {
+            return DropdownButton<int>(
+              underline: Container(
+                height: 2.0,
               ),
-            ),
-            value: b.allOrOne,
-            items: <DropdownMenuItem<int>>[
-              DropdownMenuItem(
-                child: Center(child: Text('All Clinics'.tr())),
-                value: 0,
+              isExpanded: true,
+              hint: Center(
+                child: Text(
+                  'All / Single Clinic'.tr(),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              DropdownMenuItem(
-                child: Center(child: Text('One Clinic'.tr())),
-                value: 1,
-              ),
-            ],
-            onChanged: (value) {
-              b.setAllOrOne(value!);
-            },
-          );
-        },
+              value: b.allOrOne,
+              items: <DropdownMenuItem<int>>[
+                DropdownMenuItem(
+                  child: Center(child: Text('All Clinics'.tr())),
+                  value: 0,
+                ),
+                DropdownMenuItem(
+                  child: Center(child: Text('One Clinic'.tr())),
+                  value: 1,
+                ),
+              ],
+              onChanged: (value) {
+                b.setAllOrOne(value!);
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -71,45 +65,39 @@ class _DayDurationDropDownState extends State<DayDurationDropDown> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(4.0, 4.0),
-            blurRadius: 4.0,
-          ),
-        ],
-        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Consumer<BookKeepingProvider>(
-        builder: (context, b, _) {
-          return DropdownButton<int>(
-            underline: Container(
-              height: 2.0,
-              color: Colors.blue,
-            ),
-            isExpanded: true,
-            hint: Center(
-              child: Text(
-                'Day / Duration'.tr(),
-                textAlign: TextAlign.center,
+      child: Card(
+        child: Consumer<BookKeepingProvider>(
+          builder: (context, b, _) {
+            return DropdownButton<int>(
+              underline: Container(
+                height: 2.0,
               ),
-            ),
-            value: b.dayDuration,
-            items: <DropdownMenuItem<int>>[
-              DropdownMenuItem(
-                child: Center(child: Text('Day by Day'.tr())),
-                value: 0,
+              isExpanded: true,
+              hint: Center(
+                child: Text(
+                  'Day / Duration'.tr(),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              DropdownMenuItem(
-                child: Center(child: Text('Monthly'.tr())),
-                value: 1,
-              ),
-            ],
-            onChanged: (value) {
-              b.setDayDuration(value!);
-            },
-          );
-        },
+              value: b.dayDuration,
+              items: <DropdownMenuItem<int>>[
+                DropdownMenuItem(
+                  child: Center(child: Text('Day by Day'.tr())),
+                  value: 0,
+                ),
+                DropdownMenuItem(
+                  child: Center(child: Text('Monthly'.tr())),
+                  value: 1,
+                ),
+              ],
+              onChanged: (value) {
+                b.setDayDuration(value!);
+              },
+            );
+          },
+        ),
       ),
     );
   }

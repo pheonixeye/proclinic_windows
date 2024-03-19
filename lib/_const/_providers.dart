@@ -8,6 +8,7 @@ import 'package:proclinic_windows/_providers/settingsProvider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
 import 'package:proclinic_windows/_providers/procedureVisibilityProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
+import 'package:proclinic_windows/theming/theme_data.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -22,4 +23,5 @@ final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => SettingsProvider()),
   ChangeNotifierProvider(create: (context) => PatientDocumentProvider()),
   ChangeNotifierProvider(create: (context) => OrgAppProvider()),
+  ChangeNotifierProvider(create: (context) => ThemeChanger()),
 ];

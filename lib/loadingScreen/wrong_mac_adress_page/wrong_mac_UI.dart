@@ -10,13 +10,13 @@ class WrongMacAddressPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(
           'UnAuthorized Device'.tr(),
           textScaler: const TextScaler.linear(1.4),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
+        leading: const SizedBox(),
       ),
       body: Builder(
         builder: (context) {
@@ -31,7 +31,6 @@ class WrongMacAddressPage extends StatelessWidget {
                     blurRadius: 4.0,
                   ),
                 ],
-                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
@@ -49,18 +48,12 @@ class WrongMacAddressPage extends StatelessWidget {
                         height: 30,
                       ),
                       ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 10,
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                        ),
                         icon: const Icon(Icons.exit_to_app),
                         label: Text('Exit'.tr()),
                         onPressed: () {
                           exit(0);
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),

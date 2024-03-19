@@ -269,7 +269,8 @@ class _RecieptPageState extends State<RecieptPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${'Thank You for Your Visit'.tr()}\n${'Phone'.tr()} : 010091966224\n${'Landline'.tr()} : 0225165064\nwww.CosmoSurgeCairo.com\nCosmosurgeCairo@gmail.com',
+                                  //TODO: change per user
+                                  '${'Thank You for Your Visit'.tr()}\n${'Phone'.tr()} : {{01012345678}}\n${'Landline'.tr()} : 023456789\n{{https://website.com}}\n{{email@gmail.com}}',
                                   textAlign: TextAlign.start,
                                 ),
                               ],

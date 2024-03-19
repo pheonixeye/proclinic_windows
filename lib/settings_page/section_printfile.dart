@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:io';
-import 'dart:math';
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:file_picker/file_picker.dart';
@@ -47,10 +46,7 @@ class _PrintFileSectionState extends State<PrintFileSection> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors
-                  .primaries[Random.secure().nextInt(Colors.primaries.length)],
-            ),
+            leading: const CircleAvatar(),
             title: Padding(
               padding: const EdgeInsets.all(8.0),
               child: const Text('Set Print File Path').tr(),

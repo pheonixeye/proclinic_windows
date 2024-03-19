@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/loadingScreen/loading_screen.dart';
 import 'dart:io';
@@ -14,12 +15,11 @@ class _NoDBConnectionPageState extends State<NoDBConnectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Failed to innitialize ProClinic App.'),
+            Text('Failed to innitialize ProClinic App.'.tr()),
             const SizedBox(
               height: 20,
             ),
@@ -29,18 +29,20 @@ class _NoDBConnectionPageState extends State<NoDBConnectionPage> {
             const SizedBox(
               height: 20,
             ),
-            const Text('Please Resolve this Error and try again later.'),
+            Text('Please Resolve this Error and try again later.'.tr()),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton.icon(
               icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
+              label: Text('Retry'.tr()),
               onPressed: () {
                 Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoadingScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoadingScreen(),
+                  ),
+                );
               },
             ),
             const SizedBox(
@@ -48,7 +50,7 @@ class _NoDBConnectionPageState extends State<NoDBConnectionPage> {
             ),
             ElevatedButton.icon(
               icon: const Icon(Icons.close),
-              label: const Text('Exit'),
+              label: Text('Exit'.tr()),
               onPressed: () {
                 exit(0);
               },

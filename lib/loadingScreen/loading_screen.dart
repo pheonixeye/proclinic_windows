@@ -1,6 +1,5 @@
 import 'dart:async' show Timer;
 
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/Mongo_db/Mongo_db.dart';
 import 'package:proclinic_windows/_localization/_localization.dart';
@@ -15,12 +14,10 @@ class LoadingScreen extends StatefulWidget {
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-class _LoadingScreenState extends State<LoadingScreen> with AfterLayoutMixin {
-  @override
-  void afterFirstLayout(BuildContext context) {}
-
+class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
+    super.initState();
     MongoDB.openYaMongo().then((value) {
       Timer(
         const Duration(seconds: 5),
@@ -42,7 +39,6 @@ class _LoadingScreenState extends State<LoadingScreen> with AfterLayoutMixin {
         );
       },
     );
-    super.initState();
   }
 
   @override
@@ -50,18 +46,16 @@ class _LoadingScreenState extends State<LoadingScreen> with AfterLayoutMixin {
     runshellmac(context);
 
     return Scaffold(
-      backgroundColor: Colors.blue[500],
       body: Container(
         alignment: Alignment.center,
-        color: Colors.white70.withOpacity(0.3),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Image(
               image: AssetImage('assets/color.png'),
-              width: 500,
-              height: 500,
+              width: 400,
+              height: 400,
             ),
             const SizedBox(
               height: 20.0,
@@ -90,6 +84,7 @@ class _LoadingScreenState extends State<LoadingScreen> with AfterLayoutMixin {
               width: 300,
               height: 80,
             ),
+            const Spacer(),
           ],
         ),
       ),

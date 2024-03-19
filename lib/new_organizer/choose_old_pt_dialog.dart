@@ -29,7 +29,6 @@ pickoldptorg({
         content: Container(
           width: 600,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.7),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Column(

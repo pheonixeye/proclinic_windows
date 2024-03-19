@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'theme_config.dart';
+import 'package:hive/hive.dart';
 
 class ThemeChanger with ChangeNotifier {
   static bool isDark = true;
+
+  static late final Box box;
 
   ThemeChanger() {
     if (box.containsKey('themestore')) {
@@ -22,20 +24,3 @@ class ThemeChanger with ChangeNotifier {
     notifyListeners();
   }
 }
-
-ThemeData modedDarkTheme = ThemeData.light().copyWith(
-    primaryColor: Colors.grey,
-    textTheme: const TextTheme(
-      titleLarge: TextStyle(color: Colors.black87),
-      headlineSmall: TextStyle(color: Colors.black87),
-      headlineMedium: TextStyle(color: Colors.black87),
-      displaySmall: TextStyle(color: Colors.black87),
-      displayMedium: TextStyle(color: Colors.black87),
-      displayLarge: TextStyle(color: Colors.black87),
-      titleSmall: TextStyle(color: Colors.black87),
-      titleMedium: TextStyle(color: Colors.black87),
-      bodyLarge: TextStyle(color: Colors.black87),
-      bodyMedium: TextStyle(color: Colors.black87),
-    ),
-    appBarTheme: AppBarTheme(color: Colors.grey[700]),
-    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.red));

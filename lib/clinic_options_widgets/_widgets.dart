@@ -1,8 +1,7 @@
 // ignore_for_file: constant_identifier_names, implementation_imports
 
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_models/doctorModel.dart';
 import 'package:proclinic_windows/_mongoRequests/_doc_req.dart';
@@ -31,7 +30,6 @@ class MyDivider extends StatelessWidget {
       child: Divider(
         height: 15,
         thickness: 15,
-        color: Colors.blueGrey,
       ),
     );
   }
@@ -123,8 +121,6 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
 
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor:
-            Colors.primaries[Random().nextInt(Colors.primaries.length)],
         child: Text('${_buildValue()!.length}'),
       ),
       title: Column(
@@ -134,16 +130,7 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
               padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.primaries[
-                            Random().nextInt(Colors.primaries.length)],
-                        offset: const Offset(3, 3),
-                        blurRadius: 3.0,
-                        spreadRadius: 3.0),
-                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -166,20 +153,9 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.primaries[
-                              Random().nextInt(Colors.primaries.length)],
-                          offset: const Offset(3, 3),
-                          blurRadius: 3.0,
-                          spreadRadius: 3.0,
-                        ),
-                      ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: Card(
                       child: TextField(
                         controller: procedureController,
                         decoration: InputDecoration(
@@ -195,12 +171,8 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
                 width: 20,
               ),
               ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors
-                      .primaries[Random().nextInt(Colors.primaries.length)],
-                  shape: cardbuttonstyle,
-                ),
                 onPressed: () async {
+                  await EasyLoading.show(status: "Loading...".tr());
                   await DoctorRequests.pushToList(
                     id: doctor.id,
                     parameter: _buildParameter(),
@@ -212,6 +184,7 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
                   setState(() {});
 
                   procedureController.clear();
+                  await EasyLoading.dismiss();
                 },
                 icon: const Icon(Icons.add_circle),
                 label: Text(_buildText()[2]),
@@ -223,7 +196,6 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
       subtitle: SizedBox(
         height: 400,
         child: Card(
-          color: Colors.grey[200],
           elevation: 10.0,
           child: Builder(
             builder: (context) {
@@ -236,14 +208,13 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
                     child: Card(
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Colors.primaries[
-                              Random().nextInt(Colors.primaries.length)],
                           child: Text('${index + 1}'),
                         ),
                         title: Text(_buildValue()![index]),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete_forever),
                           onPressed: () async {
+                            await EasyLoading.show(status: "Loading...".tr());
                             await DoctorRequests.pullFromList(
                               id: doctor.id,
                               parameter: _buildParameter(),
@@ -254,6 +225,7 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
                                 .selectDoctor(doctor.id);
                             widget.rebuildParent();
                             setState(() {});
+                            await EasyLoading.dismiss();
                           },
                         ),
                       ),

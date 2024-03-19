@@ -25,8 +25,12 @@ Future runshellmac(BuildContext context) async {
     // await macadr.setItem('macadr', netadapter.stdout);
   } else if (await boxInternals.get('macadr') != netadapter.stdout) {
     print('wrong address ${netadapter.stdout}');
-    await Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const WrongMacAddressPage()));
+    await Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const WrongMacAddressPage(),
+      ),
+    );
   } else if (await boxInternals.get('macadr') == netadapter.stdout) {
     print('true address ${netadapter.stdout}');
 

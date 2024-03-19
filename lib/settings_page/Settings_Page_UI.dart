@@ -1,13 +1,10 @@
 // ignore_for_file: file_names
 
-import 'dart:math';
-
 import 'package:after_layout/after_layout.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/_providers/settingsProvider.dart';
-import 'package:proclinic_windows/settings_page/section_Scanner.dart';
 import 'package:proclinic_windows/settings_page/section_database.dart';
 import 'package:proclinic_windows/settings_page/section_theme_language.dart';
 import 'package:provider/src/provider.dart';
@@ -40,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> with AfterLayoutMixin {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Settings Page'.tr(),
+            'Settings'.tr(),
             textScaler: const TextScaler.linear(1.4),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
@@ -50,22 +47,18 @@ class _SettingsPageState extends State<SettingsPage> with AfterLayoutMixin {
         padding: const EdgeInsets.all(12.0),
         child: Container(
           decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
+            boxShadow: const <BoxShadow>[
               BoxShadow(
-                offset: const Offset(5.0, 5.0),
+                offset: Offset(5.0, 5.0),
                 blurRadius: 5.0,
                 spreadRadius: 5.0,
-                color: Colors.primaries[
-                    Random.secure().nextInt(Colors.primaries.length)],
               ),
             ],
-            color: Colors.grey[300],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
-              color: Colors.grey[150],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               elevation: 10,
@@ -98,8 +91,8 @@ class _SettingsPageState extends State<SettingsPage> with AfterLayoutMixin {
                       // CustomDivider_Settings(),
 
                       //scan script path
-                      ScannerScriptSection(),
-                      CustomDivider_Settings(),
+                      // ScannerScriptSection(),
+                      // CustomDivider_Settings(),
                     ],
                   ),
                 ),

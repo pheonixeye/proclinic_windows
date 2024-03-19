@@ -58,51 +58,44 @@ class _TypeofVisitDropdownState extends State<TypeofVisitDropdown> {
       width: 350,
       height: 50,
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(4.0, 4.0),
-            blurRadius: 4.0,
-          ),
-        ],
-        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: DropdownButton<String>(
-        underline: Container(
-          height: 2,
-          color: Colors.blue,
-        ),
-        icon: const Icon(
-          Icons.arrow_drop_down_circle,
-          color: Colors.blue,
-        ),
-        isExpanded: true,
-        hint: Tooltip(
-          message: 'اختر نوع الزيارة',
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Select Visit Type'.tr(),
-                textAlign: TextAlign.center,
-              ),
-            ],
+      child: Card(
+        child: DropdownButton<String>(
+          underline: Container(
+            height: 2,
           ),
+          icon: const Icon(
+            Icons.arrow_drop_down_circle,
+          ),
+          isExpanded: true,
+          hint: Tooltip(
+            message: 'اختر نوع الزيارة',
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Select Visit Type'.tr(),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          value: typeofvisitstring,
+          items: _items,
+          onChanged: (value) {
+            setState(() {
+              typeofvisitstring = value;
+            });
+            context.read<NewVisitProvider>().setVisitType(value!);
+            if (value == TypeofVisitDropdown.typeofvisit[2]) {
+              //make vis true
+              context.read<ProcedureVisibilityProvider>().showProcPicker();
+            } else {
+              context.read<ProcedureVisibilityProvider>().hideProcPicker();
+            }
+          },
         ),
-        value: typeofvisitstring,
-        items: _items,
-        onChanged: (value) {
-          setState(() {
-            typeofvisitstring = value;
-          });
-          context.read<NewVisitProvider>().setVisitType(value!);
-          if (value == TypeofVisitDropdown.typeofvisit[2]) {
-            //make vis true
-            context.read<ProcedureVisibilityProvider>().showProcPicker();
-          } else {
-            context.read<ProcedureVisibilityProvider>().hideProcPicker();
-          }
-        },
       ),
     );
   }

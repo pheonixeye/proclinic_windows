@@ -48,7 +48,6 @@ class _FromOrganizerState extends State<FromOrganizer> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
               boxShadow: const [
                 BoxShadow(
                   offset: Offset(2, 2),
@@ -112,7 +111,6 @@ class EntryOrganizerTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        color: Colors.grey.shade300,
         child: ListTile(
           leading: CircleAvatar(
             child: Text('${index + 1}'),

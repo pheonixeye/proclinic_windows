@@ -1,16 +1,14 @@
 // ignore_for_file: avoid_print
 
-import 'dart:math';
-
 import 'package:after_layout/after_layout.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/affiliation_dropdown.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/fromOrganizer.dart';
 import 'package:proclinic_windows/EntryPage/new_pt_tab.dart';
 import 'package:proclinic_windows/EntryPage/old_pt_tab.dart';
-import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/_mongoRequests/_visit_req.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
@@ -43,7 +41,7 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
   //tab controller
   late TabController _tabController;
   //local id
-  get localId => (int.parse(phoneController.text) * 2020).toString();
+  // get localId => (int.parse(phoneController.text) * 2020).toString();
 
   void clrflds() {
     dateController.dispose();
@@ -372,12 +370,7 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Card(
-                      shadowColor: Colors
-                          .primaries[Random().nextInt(Colors.primaries.length)],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      color: Colors.grey[300],
-                      elevation: 20,
+                      elevation: 8,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -386,27 +379,18 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
                                 onPressed: () async {
-                                  if (formkey.currentState!.validate() ==
-                                      true) {
-                                    await EmbeddEasyLoading(() async {
-                                      context
-                                          .read<NewVisitProvider>()
-                                          .setVISIT();
-                                      await VisitRequests.addNewVisitToDb(
-                                          context
-                                              .read<NewVisitProvider>()
-                                              .visit!);
-                                      context
-                                          .read<NewVisitProvider>()
-                                          .nullifyVisit();
-                                    });
+                                  if (formkey.currentState!.validate()) {
+                                    await EasyLoading.show(
+                                        status: "Loading...".tr());
+                                    context.read<NewVisitProvider>().setVISIT();
+                                    await VisitRequests.addNewVisitToDb(context
+                                        .read<NewVisitProvider>()
+                                        .visit!);
+                                    context
+                                        .read<NewVisitProvider>()
+                                        .nullifyVisit();
+                                    await EasyLoading.dismiss();
                                     Navigator.pop(context);
                                   }
                                 },

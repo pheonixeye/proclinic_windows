@@ -8,57 +8,42 @@ class VisitsSearchController extends ChangeNotifier {
   List<Visit>? _visits;
   List<Visit>? get visits => _visits;
 
-  Future initializeVisits() async {
-    var _v = await MongoDB.PATIENTS.find().toList();
-    _v.sort((a, b) {
-      var aDateString = a[SxVisit.VISITDATE];
-      var bDateString = b[SxVisit.VISITDATE];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return bdate.compareTo(adate);
-    });
+  Future<void> initializeVisits() async {
+    final _v = await MongoDB.PATIENTS
+        .find(where.sortBy(SxVisit.VISITDATE, descending: true).limit(25))
+        .toList();
     _visits = Visit.visitList(_v);
     notifyListeners();
   }
 
-  Future searchVisitsbyPhoneNumber(String phone) async {
-    var _v =
-        await MongoDB.PATIENTS.find(where.eq(SxVisit.PHONE, phone)).toList();
-    _v.sort((a, b) {
-      var aDateString = a[SxVisit.VISITDATE];
-      var bDateString = b[SxVisit.VISITDATE];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return bdate.compareTo(adate);
-    });
+  Future<void> searchVisitsbyPhoneNumber(String phone) async {
+    var _v = await MongoDB.PATIENTS
+        .find(where
+            .eq(SxVisit.PHONE, phone)
+            .sortBy(SxVisit.VISITDATE, descending: true))
+        .toList();
     _visits = Visit.visitList(_v);
     notifyListeners();
   }
 
-  // TODO :mod to src by doc id
-  Future searchVisitsbyDoctorName(int id) async {
-    var _v = await MongoDB.PATIENTS.find(where.eq(SxVisit.DOCID, id)).toList();
-    _v.sort((a, b) {
-      var aDateString = a[SxVisit.VISITDATE];
-      var bDateString = b[SxVisit.VISITDATE];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return bdate.compareTo(adate);
-    });
+  // todo :mod to src by doc id
+  Future<void> searchVisitsbyDoctorId(int id) async {
+    var _v = await MongoDB.PATIENTS
+        .find(where
+            .eq(SxVisit.DOCID, id)
+            .sortBy(SxVisit.VISITDATE, descending: true))
+        .toList();
+
     _visits = Visit.visitList(_v);
     notifyListeners();
   }
 
-  Future searchVisitsbyDate(int month, year) async {
-    var _v = await MongoDB.PATIENTS.find().toList();
+  Future<void> searchVisitsbyDate(int month, year) async {
+    var _v = await MongoDB.PATIENTS
+        .find(where.sortBy(SxVisit.VISITDATE, descending: true))
+        .toList();
     var _dateV = [];
-    _v.sort((a, b) {
-      var aDateString = a[SxVisit.VISITDATE];
-      var bDateString = b[SxVisit.VISITDATE];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return bdate.compareTo(adate);
-    });
+
     _v.map((e) {
       String stringdate = e[SxVisit.VISITDATE];
       DateTime date = DateTime.parse(stringdate);
@@ -71,7 +56,7 @@ class VisitsSearchController extends ChangeNotifier {
   }
 
   //bookkeeping requests
-  Future parametrizedRequest({
+  Future<void> parametrizedRequest({
     required int allOrOne,
     required int dayDuration,
     required int day,
@@ -82,26 +67,14 @@ class VisitsSearchController extends ChangeNotifier {
     List<Map<String, dynamic>>? _v;
     // List<Map<String, dynamic>>? _x;
     List<Map<String, dynamic>> data = [];
-    _v = await MongoDB.PATIENTS.find().toList();
-    _v.sort((a, b) {
-      var aDateString = a[SxVisit.VISITDATE];
-      var bDateString = b[SxVisit.VISITDATE];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return bdate.compareTo(adate);
-    });
-    //TODO: modifiy to use doc id
+    _v = await MongoDB.PATIENTS
+        .find(where.sortBy(SxVisit.VISITDATE, descending: true))
+        .toList();
+
+    //todo: modifiy to use doc id
 
     //search patterns
     if (allOrOne == 0 && dayDuration == 0) {
-      _v = await MongoDB.PATIENTS.find().toList();
-      _v.sort((a, b) {
-        var aDateString = a[SxVisit.VISITDATE];
-        var bDateString = b[SxVisit.VISITDATE];
-        DateTime adate = DateTime.parse(aDateString);
-        DateTime bdate = DateTime.parse(bDateString);
-        return bdate.compareTo(adate);
-      });
       _v.map((e) {
         var date = e[SxVisit.VISITDATE] as String;
         final dt = DateTime.parse(date);
@@ -110,14 +83,6 @@ class VisitsSearchController extends ChangeNotifier {
         }
       }).toList();
     } else if (allOrOne == 0 && dayDuration == 1) {
-      _v = await MongoDB.PATIENTS.find().toList();
-      _v.sort((a, b) {
-        var aDateString = a[SxVisit.VISITDATE];
-        var bDateString = b[SxVisit.VISITDATE];
-        DateTime adate = DateTime.parse(aDateString);
-        DateTime bdate = DateTime.parse(bDateString);
-        return bdate.compareTo(adate);
-      });
       _v.map((e) {
         var date = e[SxVisit.VISITDATE] as String;
         final dt = DateTime.parse(date);
@@ -127,15 +92,11 @@ class VisitsSearchController extends ChangeNotifier {
       }).toList();
     } else if (allOrOne == 1 && dayDuration == 0) {
       _v = await MongoDB.PATIENTS
-          .find(where.eq(SxVisit.DOCID, doctor?.id))
+          .find(where
+              .eq(SxVisit.DOCID, doctor?.id)
+              .sortBy(SxVisit.VISITDATE, descending: true))
           .toList();
-      _v.sort((a, b) {
-        var aDateString = a[SxVisit.VISITDATE];
-        var bDateString = b[SxVisit.VISITDATE];
-        DateTime adate = DateTime.parse(aDateString);
-        DateTime bdate = DateTime.parse(bDateString);
-        return bdate.compareTo(adate);
-      });
+
       _v.map((e) {
         var date = e[SxVisit.VISITDATE] as String;
         final dt = DateTime.parse(date);
@@ -145,15 +106,10 @@ class VisitsSearchController extends ChangeNotifier {
       }).toList();
     } else if (allOrOne == 1 && dayDuration == 1) {
       _v = await MongoDB.PATIENTS
-          .find(where.eq(SxVisit.DOCID, doctor?.id))
+          .find(where
+              .eq(SxVisit.DOCID, doctor?.id)
+              .sortBy(SxVisit.VISITDATE, descending: true))
           .toList();
-      _v.sort((a, b) {
-        var aDateString = a[SxVisit.VISITDATE];
-        var bDateString = b[SxVisit.VISITDATE];
-        DateTime adate = DateTime.parse(aDateString);
-        DateTime bdate = DateTime.parse(bDateString);
-        return bdate.compareTo(adate);
-      });
       _v.map((e) {
         var date = e[SxVisit.VISITDATE] as String;
         final dt = DateTime.parse(date);
@@ -168,16 +124,12 @@ class VisitsSearchController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future searchVisitsByPatientPhone(String phone) async {
-    var _v =
-        await MongoDB.PATIENTS.find(where.eq(SxVisit.PHONE, phone)).toList();
-    _v.sort((a, b) {
-      var aDateString = a[SxVisit.VISITDATE];
-      var bDateString = b[SxVisit.VISITDATE];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return bdate.compareTo(adate);
-    });
+  Future<void> searchVisitsByPatientPhone(String phone) async {
+    var _v = await MongoDB.PATIENTS
+        .find(where
+            .eq(SxVisit.PHONE, phone)
+            .sortBy(SxVisit.VISITDATE, descending: true))
+        .toList();
     _visits = Visit.visitList(_v);
     notifyListeners();
   }

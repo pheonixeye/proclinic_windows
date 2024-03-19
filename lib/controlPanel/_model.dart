@@ -18,29 +18,33 @@ class SelectionButtonModel {
   final Color shadowColor =
       Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
-  SelectionButtonModel(
-      {required this.iconData,
-      required this.title,
-      required this.tooltip,
-      required this.route});
+  SelectionButtonModel({
+    required this.iconData,
+    required this.title,
+    required this.tooltip,
+    required this.route,
+  });
 
   static List<SelectionButtonModel> modelList() {
     return [
       SelectionButtonModel(
-          iconData: Icons.person_add,
-          title: 'New Patient'.tr(),
-          tooltip: 'مريض جديد',
-          route: const HomePageWithTabView()),
+        iconData: Icons.person_add,
+        title: 'New Patient'.tr(),
+        tooltip: 'مريض جديد',
+        route: const HomePageWithTabView(),
+      ),
       SelectionButtonModel(
-          iconData: Icons.format_list_numbered,
-          title: 'Patient Database'.tr(),
-          tooltip: 'بيانات المرضي',
-          route: const CollectivePatientDataUI()),
+        iconData: Icons.format_list_numbered,
+        title: 'Patient Database'.tr(),
+        tooltip: 'بيانات المرضي',
+        route: const CollectivePatientDataUI(),
+      ),
       SelectionButtonModel(
-          iconData: Icons.offline_bolt,
-          title: 'Appointment Organizer'.tr(),
-          tooltip: 'ترتيب المواعيد',
-          route: const PatientOrganizer()),
+        iconData: Icons.offline_bolt,
+        title: 'Appointment Organizer'.tr(),
+        tooltip: 'ترتيب المواعيد',
+        route: const PatientOrganizer(),
+      ),
       SelectionButtonModel(
         iconData: Icons.local_hospital,
         title: 'New Doctor'.tr(),

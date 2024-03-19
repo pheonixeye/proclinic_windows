@@ -19,39 +19,34 @@ class YearClinicPickerState extends State<YearClinicPicker> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(4.0, 4.0),
-            blurRadius: 4.0,
-          ),
-        ],
-        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Consumer<BookKeepingProvider>(
-        builder: (context, b, _) {
-          return DropdownButton<int>(
-            isExpanded: true,
-            alignment: Alignment.center,
-            hint: Text(
-              'Pick Year'.tr(),
-              textAlign: TextAlign.center,
-            ),
-            items: years.map((e) {
-              return DropdownMenuItem<int>(
-                value: e,
-                alignment: Alignment.center,
-                child: Text(
-                  e.toString(),
-                ),
-              );
-            }).toList(),
-            value: b.year,
-            onChanged: (value) {
-              b.adjustYear(value!);
-            },
-          );
-        },
+      child: Card(
+        child: Consumer<BookKeepingProvider>(
+          builder: (context, b, _) {
+            return DropdownButton<int>(
+              isExpanded: true,
+              alignment: Alignment.center,
+              hint: Text(
+                'Pick Year'.tr(),
+                textAlign: TextAlign.center,
+              ),
+              items: years.map((e) {
+                return DropdownMenuItem<int>(
+                  value: e,
+                  alignment: Alignment.center,
+                  child: Text(
+                    e.toString(),
+                  ),
+                );
+              }).toList(),
+              value: b.year,
+              onChanged: (value) {
+                b.adjustYear(value!);
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -87,39 +82,34 @@ class MonthClinicPickerState extends State<MonthClinicPicker> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(4.0, 4.0),
-            blurRadius: 4.0,
-          ),
-        ],
-        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Consumer<BookKeepingProvider>(
-        builder: (context, b, _) {
-          return DropdownButton<int>(
-            isExpanded: true,
-            alignment: Alignment.center,
-            hint: Text(
-              'Pick Month'.tr(),
-              textAlign: TextAlign.center,
-            ),
-            items: months.entries.map((e) {
-              return DropdownMenuItem<int>(
-                value: e.key,
-                alignment: Alignment.center,
-                child: Text(
-                  e.value,
-                ),
-              );
-            }).toList(),
-            value: b.month,
-            onChanged: (value) {
-              b.adjustMonth(value!);
-            },
-          );
-        },
+      child: Card(
+        child: Consumer<BookKeepingProvider>(
+          builder: (context, b, _) {
+            return DropdownButton<int>(
+              isExpanded: true,
+              alignment: Alignment.center,
+              hint: Text(
+                'Pick Month'.tr(),
+                textAlign: TextAlign.center,
+              ),
+              items: months.entries.map((e) {
+                return DropdownMenuItem<int>(
+                  value: e.key,
+                  alignment: Alignment.center,
+                  child: Text(
+                    e.value,
+                  ),
+                );
+              }).toList(),
+              value: b.month,
+              onChanged: (value) {
+                b.adjustMonth(value!);
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -174,39 +164,34 @@ class _DayClinicPickerState extends State<DayClinicPicker> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(4.0, 4.0),
-            blurRadius: 4.0,
-          ),
-        ],
-        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Consumer<BookKeepingProvider>(
-        builder: (context, b, _) {
-          return DropdownButton<int>(
-            isExpanded: true,
-            alignment: Alignment.center,
-            hint: Text(
-              'Pick Day'.tr(),
-              textAlign: TextAlign.center,
-            ),
-            items: days.entries.map((e) {
-              return DropdownMenuItem<int>(
-                value: e.key,
-                alignment: Alignment.center,
-                child: Text(
-                  e.value,
-                ),
-              );
-            }).toList(),
-            value: b.day,
-            onChanged: (value) {
-              b.adjustDay(value!);
-            },
-          );
-        },
+      child: Card(
+        child: Consumer<BookKeepingProvider>(
+          builder: (context, b, _) {
+            return DropdownButton<int>(
+              isExpanded: true,
+              alignment: Alignment.center,
+              hint: Text(
+                'Pick Day'.tr(),
+                textAlign: TextAlign.center,
+              ),
+              items: days.entries.map((e) {
+                return DropdownMenuItem<int>(
+                  value: e.key,
+                  alignment: Alignment.center,
+                  child: Text(
+                    e.value,
+                  ),
+                );
+              }).toList(),
+              value: b.day,
+              onChanged: (value) {
+                b.adjustDay(value!);
+              },
+            );
+          },
+        ),
       ),
     );
   }

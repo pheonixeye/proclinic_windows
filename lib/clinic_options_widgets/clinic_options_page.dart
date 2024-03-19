@@ -51,15 +51,7 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(3, 3),
-                    blurRadius: 3.0,
-                    spreadRadius: 3.0,
-                  ),
-                ],
               ),
               child: ListView(
                 children: [
@@ -141,8 +133,6 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
-                          style:
-                              ElevatedButton.styleFrom(shape: cardbuttonstyle),
                           onPressed: () async {
                             await showDialog(
                               context: context,

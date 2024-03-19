@@ -315,9 +315,6 @@ class _DeleteEntryDialogState extends State<DeleteEntryDialog> {
       ),
       actions: [
         ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            shape: cardbuttonstyle,
-          ),
           icon: const Icon(
             Icons.check,
             color: Colors.green,
@@ -332,9 +329,6 @@ class _DeleteEntryDialogState extends State<DeleteEntryDialog> {
           },
         ),
         ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            shape: cardbuttonstyle,
-          ),
           icon: const Icon(
             Icons.cancel,
             color: Colors.red,

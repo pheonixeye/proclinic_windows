@@ -59,42 +59,35 @@ class _CashTypeDropdownButtonState extends State<CashTypeDropdownButton> {
       height: 50.0,
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-              offset: Offset(4.0, 4.0),
-              blurRadius: 4.0,
-            ),
-          ],
-          color: Colors.grey[300],
           borderRadius: BorderRadius.circular(10),
         ),
-        child: DropdownButton<String>(
-          underline: Container(
-            color: Colors.blue,
-            height: 2.0,
-          ),
-          icon: const Icon(
-            Icons.arrow_drop_down_circle,
-            color: Colors.blue,
-          ),
-          hint: Tooltip(
-            message: 'اختر طريقة الدفع',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Select Payment Type'.tr()),
-              ],
+        child: Card(
+          child: DropdownButton<String>(
+            underline: Container(
+              height: 2.0,
             ),
+            icon: const Icon(
+              Icons.arrow_drop_down_circle,
+            ),
+            hint: Tooltip(
+              message: 'اختر طريقة الدفع',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Select Payment Type'.tr()),
+                ],
+              ),
+            ),
+            isExpanded: true,
+            items: _dropdowncashlist,
+            onChanged: (value) {
+              setState(() {
+                cashtype = value!;
+              });
+              context.read<NewVisitProvider>().setCashType(value!);
+            },
+            value: cashtype,
           ),
-          isExpanded: true,
-          items: _dropdowncashlist,
-          onChanged: (value) {
-            setState(() {
-              cashtype = value!;
-            });
-            context.read<NewVisitProvider>().setCashType(value!);
-          },
-          value: cashtype,
         ),
       ),
     );

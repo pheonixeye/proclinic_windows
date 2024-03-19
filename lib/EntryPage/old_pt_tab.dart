@@ -105,7 +105,6 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

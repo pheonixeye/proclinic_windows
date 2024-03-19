@@ -1,7 +1,5 @@
 // ignore_for_file: constant_identifier_names, implementation_imports
 
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
@@ -42,10 +40,7 @@ class _PhoneEditingSectionState extends State<PhoneEditingSection> {
       return const WhileValueEqualNullWidget();
     }
     return ListTile(
-      leading: CircleAvatar(
-        backgroundColor:
-            Colors.primaries[Random().nextInt(Colors.primaries.length)],
-      ),
+      leading: const CircleAvatar(),
       title: Row(
         children: [
           Padding(
@@ -53,17 +48,7 @@ class _PhoneEditingSectionState extends State<PhoneEditingSection> {
             child: Container(
               width: 220,
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors
-                        .primaries[Random().nextInt(Colors.primaries.length)],
-                    offset: const Offset(3, 3),
-                    blurRadius: 3.0,
-                    spreadRadius: 3.0,
-                  )
-                ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -148,10 +133,7 @@ class _ItemWidgetDoctorCreationPageModifiedPhoneState
       child: Card(
         elevation: 20,
         child: ListTile(
-          leading: Icon(
-            Icons.near_me,
-            color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-          ),
+          leading: const Icon(Icons.near_me),
           title: Row(
             children: [
               Padding(

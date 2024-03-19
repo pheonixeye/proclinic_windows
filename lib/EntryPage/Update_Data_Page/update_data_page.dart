@@ -450,10 +450,6 @@ class _UpdateVisitInfoPageState extends State<UpdateVisitInfoPage>
                       height: 30.0,
                     ),
                     ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        shape: cardbuttonstyle,
-                        backgroundColor: Colors.blue,
-                      ),
                       icon: const Icon(Icons.update),
                       label: Text('Update'.tr()),
                       onPressed: () async {

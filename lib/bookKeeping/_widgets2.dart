@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +43,6 @@ class _KeepingResultsContainerState extends State<KeepingResultsContainer> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.white54.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: CupertinoScrollbar(
@@ -213,17 +210,7 @@ class BookKeepingDetailsDialog extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.9,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.white54.withOpacity(0.8),
               borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors
-                      .primaries[Random().nextInt(Colors.primaries.length)],
-                  offset: const Offset(5, 5),
-                  blurRadius: 5,
-                  spreadRadius: 5,
-                ),
-              ],
             ),
             child: const Column(
               children: [
@@ -261,7 +248,6 @@ class DetailsTitle extends StatelessWidget {
           const Spacer(),
           Card(
             elevation: 20,
-            shape: cardbuttonstyle,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -281,7 +267,6 @@ class DetailsTitle extends StatelessWidget {
             },
             icon: const Icon(
               Icons.close,
-              color: Colors.black,
             ),
           ),
         ],
@@ -323,7 +308,6 @@ class SearchParams extends StatelessWidget {
 
           return Card(
             elevation: 20,
-            shape: cardbuttonstyle,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -335,8 +319,6 @@ class SearchParams extends StatelessWidget {
                   ),
                   Card(
                     elevation: 20,
-                    shape: cardbuttonstyle,
-                    color: Colors.blue.shade200,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -351,8 +333,6 @@ class SearchParams extends StatelessWidget {
                   ),
                   Card(
                     elevation: 20,
-                    shape: cardbuttonstyle,
-                    color: Colors.blue.shade200,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -373,8 +353,6 @@ class SearchParams extends StatelessWidget {
                           builder: (context, d, child) {
                             return Card(
                               elevation: 20,
-                              shape: cardbuttonstyle,
-                              color: Colors.blue.shade200,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
@@ -395,8 +373,6 @@ class SearchParams extends StatelessWidget {
                   ),
                   Card(
                     elevation: 20,
-                    shape: cardbuttonstyle,
-                    color: Colors.blue.shade200,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -411,8 +387,6 @@ class SearchParams extends StatelessWidget {
                   ),
                   Card(
                     elevation: 20,
-                    shape: cardbuttonstyle,
-                    color: Colors.blue.shade200,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -431,8 +405,6 @@ class SearchParams extends StatelessWidget {
                       ? const SizedBox()
                       : Card(
                           elevation: 20,
-                          shape: cardbuttonstyle,
-                          color: Colors.blue.shade200,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
@@ -465,7 +437,6 @@ class KeepingAnalysis extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Card(
             elevation: 20,
-            shape: cardbuttonstyle,
             child: ListView(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -478,8 +449,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -493,7 +462,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -504,8 +472,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
@@ -529,7 +495,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -540,8 +505,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
@@ -565,7 +528,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -576,8 +538,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
@@ -601,7 +561,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -612,8 +571,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
@@ -657,7 +614,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -668,8 +624,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
@@ -692,7 +646,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -703,8 +656,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
@@ -727,7 +678,6 @@ class KeepingAnalysis extends StatelessWidget {
                 const Divider(
                   height: 3,
                   thickness: 3,
-                  color: Colors.blue,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -738,8 +688,6 @@ class KeepingAnalysis extends StatelessWidget {
                     ),
                     Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
-                      color: Colors.blue.shade200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(

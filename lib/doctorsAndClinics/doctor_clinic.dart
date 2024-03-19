@@ -17,8 +17,8 @@ class ClinicList extends StatefulWidget {
 class _ClinicListState extends State<ClinicList> {
   @override
   void initState() {
-    initDoctors();
     super.initState();
+    initDoctors();
   }
 
   @override
@@ -28,12 +28,12 @@ class _ClinicListState extends State<ClinicList> {
 
   void initDoctors() async {
     await context.read<DoctorListProvider>().fetchAllDoctors();
-    setState(() {});
+    // setState(() {});
   }
 
-  void setstatehere() {
-    setState(() {});
-  }
+  // void setstatehere() {
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +50,6 @@ class _ClinicListState extends State<ClinicList> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(3.0, 3.0),
-                blurRadius: 5.0,
-                spreadRadius: 5.0,
-              ),
-            ],
-            color: Colors.grey[300],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -78,7 +70,6 @@ class _ClinicListState extends State<ClinicList> {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
-                            shape: cardbuttonstyle,
                             elevation: 20,
                             child: ListTile(
                               onTap: () {

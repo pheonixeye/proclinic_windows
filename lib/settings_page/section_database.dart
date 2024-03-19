@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:math';
-
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -40,10 +38,7 @@ class _DatabaseSectionState extends State<DatabaseSection> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors
-                  .primaries[Random.secure().nextInt(Colors.primaries.length)],
-            ),
+            leading: const CircleAvatar(),
             title: Padding(
               padding: const EdgeInsets.all(8.0),
               child: const Text('Set Database Path').tr(),

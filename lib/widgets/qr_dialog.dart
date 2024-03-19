@@ -29,6 +29,9 @@ class QrDialog extends StatelessWidget {
             qrImage: QrImage(
               code,
             ),
+            decoration: const PrettyQrDecoration(
+              background: Colors.white,
+            ),
           ),
         ),
       ),

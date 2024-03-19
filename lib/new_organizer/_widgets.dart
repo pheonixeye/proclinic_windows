@@ -90,7 +90,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
           elevation: 20,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: Colors.grey[300],
           child: ListTile(
             subtitle: Row(
               children: [
@@ -100,7 +99,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                     width: 200.0,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
@@ -148,7 +146,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                     width: 200.0,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
@@ -197,35 +194,28 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                     width: 350.0,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Tooltip(
-                            message: 'الاسم',
-                            child: TextFormField(
-                              validator: (val) {
-                                if (val == null || val.isEmpty) {
-                                  return 'Missing data...'.tr();
-                                }
-                                return null;
-                              },
-                              onChanged: (val) {
-                                context
-                                    .read<OrgAppProvider>()
-                                    .rPtname(namecontroller.text);
-                              },
-                              controller: namecontroller,
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: 'Name'.tr(),
-                              ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Tooltip(
+                          message: 'الاسم',
+                          child: TextFormField(
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return 'Missing data...'.tr();
+                              }
+                              return null;
+                            },
+                            onChanged: (val) {
+                              context
+                                  .read<OrgAppProvider>()
+                                  .rPtname(namecontroller.text);
+                            },
+                            controller: namecontroller,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Name'.tr(),
                             ),
                           ),
                         ),
@@ -242,7 +232,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                   height: 50,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: IconButton(
@@ -266,7 +255,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                     width: 350,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Tooltip(
@@ -285,7 +273,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                     width: 350,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
@@ -323,7 +310,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
             ),
             trailing: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Tooltip(

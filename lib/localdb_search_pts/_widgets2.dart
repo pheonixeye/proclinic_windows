@@ -21,25 +21,13 @@ class SearchEndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 20,
-      shape: cardbuttonstyle,
-      color: Colors.blue.shade300,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: MediaQuery.of(context).size.width * 0.5,
           height: MediaQuery.of(context).size.height * 0.9,
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
             borderRadius: BorderRadius.circular(20),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                offset: const Offset(3, 3),
-                blurRadius: 3,
-                spreadRadius: 3,
-                color: Colors.orange.shade200,
-              ),
-            ],
           ),
           child: Column(
             children: [
@@ -89,9 +77,6 @@ class SearchButton extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    shape: cardbuttonstyle,
-                  ),
                   onPressed: () async {
                     switch (search.groupValue) {
                       case 0:
@@ -122,7 +107,7 @@ class SearchButton extends StatelessWidget {
                         EmbeddEasyLoading(() async {
                           await context
                               .read<VisitsSearchController>()
-                              .searchVisitsbyDoctorName(
+                              .searchVisitsbyDoctorId(
                                   context.read<SelectedDoctor>().doctor!.id);
                         });
                         break;
@@ -151,7 +136,13 @@ class SearchFilterOptions extends StatefulWidget {
 }
 
 class _SearchFilterOptionsState extends State<SearchFilterOptions> {
-  final _searchController = TextEditingController();
+  late final TextEditingController _searchController;
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SearchValueProvider>(
@@ -159,8 +150,6 @@ class _SearchFilterOptionsState extends State<SearchFilterOptions> {
         switch (valProv.groupValue) {
           case 0:
             return Card(
-              elevation: 20,
-              shape: cardbuttonstyle,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
@@ -186,13 +175,11 @@ class _SearchFilterOptionsState extends State<SearchFilterOptions> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
                   ),
                   child: Tooltip(
                     message: 'بحث برقم الموبايل',
                     child: Card(
                       elevation: 20,
-                      shape: cardbuttonstyle,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
@@ -232,8 +219,6 @@ class _SearchFilterOptionsState extends State<SearchFilterOptions> {
             );
           case 2:
             return Card(
-              elevation: 20,
-              shape: cardbuttonstyle,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -289,7 +274,6 @@ class _SearchFilterOptionsState extends State<SearchFilterOptions> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CupertinoPicker(
-                            backgroundColor: Colors.orange.shade200,
                             useMagnifier: true,
                             magnification: 1.5,
                             itemExtent: 40,
@@ -344,30 +328,8 @@ class SearchFilterIcons extends StatefulWidget {
 class _SearchFilterIconsState extends State<SearchFilterIcons> {
   // int? groupValue;
   final duration = const Duration(milliseconds: 200);
-  var activeColor = Colors.blue;
-  final pressedDecoration = BoxDecoration(
-    color: Colors.orange,
-    borderRadius: BorderRadius.circular(20),
-    boxShadow: const <BoxShadow>[
-      BoxShadow(
-        offset: Offset(0, 0),
-        blurRadius: 0,
-        spreadRadius: 0,
-      ),
-    ],
-  );
-  final unpressedDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(20),
-    boxShadow: const <BoxShadow>[
-      BoxShadow(
-        offset: Offset(3, 3),
-        blurRadius: 3,
-        spreadRadius: 3,
-      ),
-    ],
-  );
   final double padding = 16.0;
+
   @override
   Widget build(BuildContext context) {
     final valProv = context.read<SearchValueProvider>();
@@ -376,20 +338,18 @@ class _SearchFilterIconsState extends State<SearchFilterIcons> {
         Padding(
           padding: EdgeInsets.all(padding),
           child: AnimatedContainer(
-            decoration: valProv.groupValue == 1
-                ? pressedDecoration
-                : unpressedDecoration,
             duration: duration,
-            child: RadioListTile<int>(
-              activeColor: activeColor,
-              title: Text('By Phone Number...'.tr()),
-              value: 1,
-              groupValue: valProv.groupValue,
-              onChanged: (val) {
-                setState(() {
-                  valProv.adjust(val!);
-                });
-              },
+            child: Card(
+              child: RadioListTile<int>(
+                title: Text('By Phone Number...'.tr()),
+                value: 1,
+                groupValue: valProv.groupValue,
+                onChanged: (val) {
+                  setState(() {
+                    valProv.adjust(val!);
+                  });
+                },
+              ),
             ),
           ),
         ),
@@ -397,19 +357,17 @@ class _SearchFilterIconsState extends State<SearchFilterIcons> {
           padding: EdgeInsets.all(padding),
           child: AnimatedContainer(
             duration: duration,
-            decoration: valProv.groupValue == 2
-                ? pressedDecoration
-                : unpressedDecoration,
-            child: RadioListTile<int>(
-              activeColor: activeColor,
-              title: Text('By Date...'.tr()),
-              value: 2,
-              groupValue: valProv.groupValue,
-              onChanged: (val) {
-                setState(() {
-                  valProv.adjust(val!);
-                });
-              },
+            child: Card(
+              child: RadioListTile<int>(
+                title: Text('By Date...'.tr()),
+                value: 2,
+                groupValue: valProv.groupValue,
+                onChanged: (val) {
+                  setState(() {
+                    valProv.adjust(val!);
+                  });
+                },
+              ),
             ),
           ),
         ),
@@ -417,19 +375,17 @@ class _SearchFilterIconsState extends State<SearchFilterIcons> {
           padding: EdgeInsets.all(padding),
           child: AnimatedContainer(
             duration: duration,
-            decoration: valProv.groupValue == 3
-                ? pressedDecoration
-                : unpressedDecoration,
-            child: RadioListTile<int>(
-              activeColor: activeColor,
-              title: Text('By Clinic...'.tr()),
-              value: 3,
-              groupValue: valProv.groupValue,
-              onChanged: (val) {
-                setState(() {
-                  valProv.adjust(val!);
-                });
-              },
+            child: Card(
+              child: RadioListTile<int>(
+                title: Text('By Clinic...'.tr()),
+                value: 3,
+                groupValue: valProv.groupValue,
+                onChanged: (val) {
+                  setState(() {
+                    valProv.adjust(val!);
+                  });
+                },
+              ),
             ),
           ),
         ),
@@ -457,8 +413,6 @@ class TitleOfSearch extends StatelessWidget {
         ),
         Expanded(
           child: Card(
-            elevation: 20,
-            shape: cardbuttonstyle,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -469,7 +423,6 @@ class TitleOfSearch extends StatelessWidget {
           ),
         ),
         IconButton(
-          color: Colors.blue,
           onPressed: () {
             Navigator.pop(context);
             context.read<SearchValueProvider>().adjust(0);
