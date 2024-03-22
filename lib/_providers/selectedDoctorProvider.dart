@@ -9,7 +9,7 @@ class SelectedDoctor extends ChangeNotifier {
   Doctor? _doctor;
   Doctor? get doctor => _doctor;
 
-  void selectDoctor(int id) async {
+  Future<void> selectDoctor(int id) async {
     var doc = await MongoDB.allDoctors.findOne(where.eq(SxDoctor.ID, id));
     _doctor = Doctor.fromJson(doc);
     print('doc selected ==>> ${_doctor!.docnameEN}');

@@ -1,3 +1,4 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
@@ -14,26 +15,11 @@ class ClinicList extends StatefulWidget {
   _ClinicListState createState() => _ClinicListState();
 }
 
-class _ClinicListState extends State<ClinicList> {
+class _ClinicListState extends State<ClinicList> with AfterLayoutMixin {
   @override
-  void initState() {
-    super.initState();
-    initDoctors();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  void initDoctors() async {
+  void afterFirstLayout(BuildContext context) async {
     await context.read<DoctorListProvider>().fetchAllDoctors();
-    // setState(() {});
   }
-
-  // void setstatehere() {
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,79 +38,81 @@ class _ClinicListState extends State<ClinicList> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Consumer<DoctorListProvider>(
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Consumer<DoctorListProvider>(
                       builder: (context, doctors, child) {
-                    while (doctors.doctorList == null) {
-                      return const WhileValueEqualNullWidget();
-                    }
-                    return ListView.builder(
-                      addAutomaticKeepAlives: true,
-                      itemCount: doctors.doctorList!.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 20,
-                            child: ListTile(
-                              onTap: () {
-                                context.read<SelectedDoctor>().selectDoctor(
-                                    doctors.doctorList![index].id);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DoctorClinicOptionsPage(
-                                      initDoctors: initDoctors,
-                                      doctor: doctors.doctorList![index],
+                        while (doctors.doctorList == null) {
+                          return const WhileValueEqualNullWidget();
+                        }
+                        return ListView.builder(
+                          addAutomaticKeepAlives: true,
+                          itemCount: doctors.doctorList!.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                elevation: 20,
+                                child: ListTile(
+                                  onTap: () {
+                                    context.read<SelectedDoctor>().selectDoctor(
+                                        doctors.doctorList![index].id);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            DoctorClinicOptionsPage(
+                                          doctor: doctors.doctorList![index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  leading: CircleAvatar(
+                                    radius: 50,
+                                    child: Text(
+                                      (index + 1).toString(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
-                              leading: CircleAvatar(
-                                radius: 50,
-                                child: Text(
-                                  (index + 1).toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                  title: Text(
+                                    english(context)
+                                        ? doctors.doctorList![index].docnameEN
+                                            .toString()
+                                            .toUpperCase()
+                                        : doctors.doctorList![index].docnameAR
+                                            .toString()
+                                            .toUpperCase(),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    english(context)
+                                        ? doctors.doctorList![index].clinicEN
+                                        : doctors.doctorList![index].clinicAR,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                               ),
-                              title: Text(
-                                english(context)
-                                    ? doctors.doctorList![index].docnameEN
-                                        .toString()
-                                        .toUpperCase()
-                                    : doctors.doctorList![index].docnameAR
-                                        .toString()
-                                        .toUpperCase(),
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Text(
-                                english(context)
-                                    ? doctors.doctorList![index].clinicEN
-                                    : doctors.doctorList![index].clinicAR,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
-                    );
-                  }),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

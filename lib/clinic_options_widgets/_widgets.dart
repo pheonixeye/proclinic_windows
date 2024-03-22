@@ -6,6 +6,7 @@ import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_models/doctorModel.dart';
 import 'package:proclinic_windows/_mongoRequests/_doc_req.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -36,11 +37,11 @@ class MyDivider extends StatelessWidget {
 }
 
 class AddRemoveListWidget extends StatefulWidget {
-  final Function rebuildParent;
+  // final Function rebuildParent;
   final PARAMETER param;
   const AddRemoveListWidget({
     Key? key,
-    required this.rebuildParent,
+    // required this.rebuildParent,
     required this.param,
   }) : super(key: key);
   @override
@@ -94,149 +95,147 @@ class _AddRemoveListWidgetState extends State<AddRemoveListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final doctor = context.read<SelectedDoctor>().doctor;
-
-    _buildValue() {
-      if (doctor != null) {
-        switch (widget.param) {
-          case PARAMETER.PROCEDURES_EN:
-            return doctor.proceduersEN;
-          case PARAMETER.TITLES_EN:
-            return doctor.titlesEN;
-          case PARAMETER.AFFILIATES_EN:
-            return doctor.affiliatesEN;
-          case PARAMETER.AFFILIATES_AR:
-            return doctor.affiliatesAR;
-          case PARAMETER.PROCEDURES_AR:
-            return doctor.proceduersAR;
-          case PARAMETER.TITLES_AR:
-            return doctor.titlesAR;
+    return Consumer<SelectedDoctor>(
+      builder: (context, d, _) {
+        final doctor = d.doctor;
+        while (doctor == null) {
+          return const WhileValueEqualNullWidget();
         }
-      }
-    }
+        _buildValue() {
+          switch (widget.param) {
+            case PARAMETER.PROCEDURES_EN:
+              return doctor.proceduersEN;
+            case PARAMETER.TITLES_EN:
+              return doctor.titlesEN;
+            case PARAMETER.AFFILIATES_EN:
+              return doctor.affiliatesEN;
+            case PARAMETER.AFFILIATES_AR:
+              return doctor.affiliatesAR;
+            case PARAMETER.PROCEDURES_AR:
+              return doctor.proceduersAR;
+            case PARAMETER.TITLES_AR:
+              return doctor.titlesAR;
+          }
+        }
 
-    while (doctor == null) {
-      return const WhileValueEqualNullWidget();
-    }
-
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text('${_buildValue()!.length}'),
-      ),
-      title: Column(
-        children: [
-          Row(children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    _buildText()[0],
-                    textScaler: const TextScaler.linear(1.5),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            )
-          ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+        return ListTile(
+          leading: CircleAvatar(
+            child: Text('${_buildValue().length}'),
+          ),
+          title: Column(
             children: [
-              SizedBox(
-                width: 350,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+              Row(children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Card(
-                      child: TextField(
-                        controller: procedureController,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: _buildText()[1],
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        _buildText()[0],
+                        textScaler: const TextScaler.linear(1.5),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                )
+              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 350,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Card(
+                          child: TextField(
+                            controller: procedureController,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: _buildText()[1],
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  await EasyLoading.show(status: "Loading...".tr());
-                  await DoctorRequests.pushToList(
-                    id: doctor.id,
-                    parameter: _buildParameter(),
-                    value: procedureController.text,
-                  );
-                  context.read<SelectedDoctor>().selectDoctor(doctor.id);
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      await EasyLoading.show(status: "Loading...".tr());
+                      await DoctorRequests.pushToList(
+                        id: doctor.id,
+                        parameter: _buildParameter(),
+                        value: procedureController.text,
+                      );
+                      await context
+                          .read<SelectedDoctor>()
+                          .selectDoctor(doctor.id);
 
-                  widget.rebuildParent();
-                  setState(() {});
-
-                  procedureController.clear();
-                  await EasyLoading.dismiss();
-                },
-                icon: const Icon(Icons.add_circle),
-                label: Text(_buildText()[2]),
+                      procedureController.clear();
+                      await EasyLoading.dismiss();
+                    },
+                    icon: const Icon(Icons.add_circle),
+                    label: Text(_buildText()[2]),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
-      subtitle: SizedBox(
-        height: 400,
-        child: Card(
-          elevation: 10.0,
-          child: Builder(
-            builder: (context) {
-              return ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: _buildValue()!.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Card(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          child: Text('${index + 1}'),
+          subtitle: SizedBox(
+            height: 400,
+            child: Card(
+              elevation: 10.0,
+              child: Builder(
+                builder: (context) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: _buildValue().length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Card(
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              child: Text('${index + 1}'),
+                            ),
+                            title: Text(_buildValue()[index]),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete_forever),
+                              onPressed: () async {
+                                await EasyLoading.show(
+                                    status: "Loading...".tr());
+                                await DoctorRequests.pullFromList(
+                                  id: doctor.id,
+                                  parameter: _buildParameter(),
+                                  value: _buildValue()[index],
+                                );
+                                await context
+                                    .read<SelectedDoctor>()
+                                    .selectDoctor(doctor.id);
+                                await EasyLoading.dismiss();
+                              },
+                            ),
+                          ),
                         ),
-                        title: Text(_buildValue()![index]),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete_forever),
-                          onPressed: () async {
-                            await EasyLoading.show(status: "Loading...".tr());
-                            await DoctorRequests.pullFromList(
-                              id: doctor.id,
-                              parameter: _buildParameter(),
-                              value: _buildValue()![index],
-                            );
-                            context
-                                .read<SelectedDoctor>()
-                                .selectDoctor(doctor.id);
-                            widget.rebuildParent();
-                            setState(() {});
-                            await EasyLoading.dismiss();
-                          },
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   );
                 },
-              );
-            },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

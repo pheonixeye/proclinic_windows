@@ -2,23 +2,18 @@
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/doctorModel.dart';
-import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:proclinic_windows/clinic_options_widgets/c_options_phones.dart';
 import 'package:proclinic_windows/doctorsAndClinics/_widgets.dart';
-import 'package:provider/src/provider.dart';
 
 import '_widgets.dart';
 
 class DoctorClinicOptionsPage extends StatefulWidget {
   const DoctorClinicOptionsPage({
     Key? key,
-    required this.initDoctors,
     required this.doctor,
   }) : super(key: key);
-  final Function initDoctors;
   final Doctor doctor;
   @override
   _DoctorClinicOptionsPageState createState() =>
@@ -32,14 +27,10 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var doctor = context.read<SelectedDoctor>().doctor;
-    while (doctor == null) {
-      return const WhileValueEqualNullWidget();
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          english(context) ? doctor.docnameEN : doctor.docnameAR,
+          english(context) ? widget.doctor.docnameEN : widget.doctor.docnameAR,
           textScaler: const TextScaler.linear(1.4),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -59,19 +50,17 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
                     height: 25,
                   ),
                   //procedure list tile
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                         flex: 1,
                         child: AddRemoveListWidget(
-                          rebuildParent: setstatehere,
                           param: PARAMETER.PROCEDURES_EN,
                         ),
                       ),
                       Expanded(
                         flex: 1,
                         child: AddRemoveListWidget(
-                          rebuildParent: setstatehere,
                           param: PARAMETER.PROCEDURES_AR,
                         ),
                       ),
@@ -82,19 +71,17 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
                   const MyDivider(),
 
                   //beginning of doctor titles list tile
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                         flex: 1,
                         child: AddRemoveListWidget(
-                          rebuildParent: setstatehere,
                           param: PARAMETER.TITLES_EN,
                         ),
                       ),
                       Expanded(
                         flex: 1,
                         child: AddRemoveListWidget(
-                          rebuildParent: setstatehere,
                           param: PARAMETER.TITLES_AR,
                         ),
                       ),
@@ -110,19 +97,17 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
                   const MyDivider(),
 
                   //beginning of doctor affiliates list tile
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
                         flex: 1,
                         child: AddRemoveListWidget(
-                          rebuildParent: setstatehere,
                           param: PARAMETER.AFFILIATES_EN,
                         ),
                       ),
                       Expanded(
                         flex: 1,
                         child: AddRemoveListWidget(
-                          rebuildParent: setstatehere,
                           param: PARAMETER.AFFILIATES_AR,
                         ),
                       ),
@@ -137,7 +122,7 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
                             await showDialog(
                               context: context,
                               builder: (context) => DeleteDoctorAlertDialog(
-                                doctor: doctor,
+                                doctor: widget.doctor,
                               ),
                             ).then((value) {
                               Navigator.pop(context);

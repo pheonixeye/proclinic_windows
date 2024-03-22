@@ -95,318 +95,323 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
         child: SizedBox(
           width: 800,
           height: MediaQuery.of(context).size.height * 0.9,
-          child: SingleChildScrollView(
-            child: Form(
-              key: formkey,
-              child: Column(
-                children: <Widget>[
-                  // construct the profile details widget here
-                  const SizedBox(
-                    height: 5,
-                  ),
+          child: Card(
+            child: SingleChildScrollView(
+              child: Form(
+                key: formkey,
+                child: Column(
+                  children: <Widget>[
+                    // construct the profile details widget here
+                    const SizedBox(
+                      height: 5,
+                    ),
 
-                  // the tab bar with two items
-                  SizedBox(
-                    height: 75,
-                    width: 400,
-                    child: AppBar(
-                      bottom: TabBar(
+                    // the tab bar with two items
+                    SizedBox(
+                      height: 75,
+                      width: 400,
+                      child: AppBar(
+                        bottom: TabBar(
+                          controller: _tabController,
+                          tabs: [
+                            Tab(
+                              icon: const Tooltip(
+                                message: 'مريض جديد',
+                                child: Icon(Icons.person_add),
+                              ),
+                              text: 'New Patient'.tr(),
+                            ),
+                            Tab(
+                              icon: const Tooltip(
+                                message: 'مريض سابق',
+                                child: Icon(
+                                  Icons.person_search,
+                                ),
+                              ),
+                              text: 'Find Patient'.tr(),
+                            ),
+                            Tab(
+                              icon: const Tooltip(
+                                message: 'من المواعيد',
+                                child: Icon(
+                                  Icons.person_search,
+                                ),
+                              ),
+                              text: 'From Organizer'.tr(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // create widgets for each tab bar here
+                    SizedBox(
+                      height: 330,
+                      width: 600,
+                      child: TabBarView(
                         controller: _tabController,
-                        tabs: [
-                          Tab(
-                            icon: const Tooltip(
-                              message: 'مريض جديد',
-                              child: Icon(Icons.person_add),
-                            ),
-                            text: 'New Patient'.tr(),
+                        children: [
+                          // first tab bar view widget (New Patient)
+                          NewPatientSelector(
+                            dateController: dateController,
+                            dobController: dobController,
+                            nameController: nameController,
+                            phoneController: phoneController,
+                            formKey: formkey,
                           ),
-                          Tab(
-                            icon: const Tooltip(
-                              message: 'مريض سابق',
-                              child: Icon(
-                                Icons.person_search,
-                              ),
-                            ),
-                            text: 'Find Patient'.tr(),
+
+                          // second tab bar viiew widget (Find Patient)
+                          OldPatientSelector(
+                            dateController: dateController,
+                            dobController: dobController,
+                            nameController: nameController,
+                            phoneController: phoneController,
+                            tabController: _tabController,
+                            organizer: false,
                           ),
-                          Tab(
-                            icon: const Tooltip(
-                              message: 'من المواعيد',
-                              child: Icon(
-                                Icons.person_search,
-                              ),
-                            ),
-                            text: 'From Organizer'.tr(),
-                          ),
+
+                          //third tab from organizer
+                          FromOrganizer(
+                            dateController: dateController,
+                            dobController: dobController,
+                            nameController: nameController,
+                            phoneController: phoneController,
+                            tabController: _tabController,
+                          )
                         ],
                       ),
                     ),
-                  ),
+                    // rest of selection criteria
 
-                  // create widgets for each tab bar here
-                  SizedBox(
-                    height: 330,
-                    width: 600,
-                    child: TabBarView(
-                      controller: _tabController,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // first tab bar view widget (New Patient)
-                        NewPatientSelector(
-                          dateController: dateController,
-                          dobController: dobController,
-                          nameController: nameController,
-                          phoneController: phoneController,
-                          formKey: formkey,
+                        SizedBox(
+                          width: 150.0,
+                          child: Tooltip(
+                            message: 'العيادة',
+                            child: Text('Clinic'.tr()),
+                          ),
                         ),
-
-                        // second tab bar viiew widget (Find Patient)
-                        OldPatientSelector(
-                          dateController: dateController,
-                          dobController: dobController,
-                          nameController: nameController,
-                          phoneController: phoneController,
-                          tabController: _tabController,
-                          organizer: false,
+                        const SizedBox(
+                          width: 20.0,
                         ),
-
-                        //third tab from organizer
-                        FromOrganizer(
-                          dateController: dateController,
-                          dobController: dobController,
-                          nameController: nameController,
-                          phoneController: phoneController,
-                          tabController: _tabController,
-                        )
+                        const SizedBox(
+                          width: 350.0,
+                          height: 50.0,
+                          child: NewlyFormatedDoctorsDropDownButton(),
+                        ),
                       ],
                     ),
-                  ),
-                  // rest of selection criteria
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150.0,
-                        child: Tooltip(
-                          message: 'العيادة',
-                          child: Text('Clinic'.tr()),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20.0,
-                      ),
-                      const SizedBox(
-                        width: 350.0,
-                        height: 50.0,
-                        child: NewlyFormatedDoctorsDropDownButton(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150.0,
-                        child: Tooltip(
-                          message: 'نوع الزيارة',
-                          child: Text('Visit type'.tr()),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20.0,
-                      ),
-                      const TypeofVisitDropdown(),
-                    ],
-                  ),
-                  Consumer<ProcedureVisibilityProvider>(
-                    builder: (context, visibility, child) {
-                      return SizedBox(
-                        height: visibility.visible == false ? 0 : 20.0,
-                      );
-                    },
-                  ),
-                  Consumer<ProcedureVisibilityProvider>(
-                    builder: (context, visibility, child) {
-                      return const ProceduresDropDown();
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  const AffiliationDropdown(),
-
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150.0,
-                        child: Tooltip(
-                          message: 'المدفوع',
-                          child: Text('Amount'.tr()),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20.0,
-                      ),
-                      SizedBox(
-                        width: textfieldwidth,
-                        height: textfieldheight,
-                        child: TextFormField(
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'kindly Enter Amount...'.tr();
-                            }
-                            return null;
-                          },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          onChanged: (val) {
-                            try {
-                              int amount = int.parse(
-                                  amountController.text.isEmpty
-                                      ? '0'
-                                      : amountController.text);
-                              context
-                                  .read<NewVisitProvider>()
-                                  .setAmount(amount);
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          controller: amountController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Enter Amount'.tr(),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150.0,
+                          child: Tooltip(
+                            message: 'نوع الزيارة',
+                            child: Text('Visit type'.tr()),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150.0,
-                        child: Tooltip(
-                          message: 'المتبقي',
-                          child: Text('Remaining Amount'.tr()),
+                        const SizedBox(
+                          width: 20.0,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 20.0,
-                      ),
-                      SizedBox(
-                        width: textfieldwidth,
-                        height: textfieldheight,
-                        child: TextFormField(
-                          validator: (val) {
-                            return null;
-                          },
-                          onChanged: (val) {
-                            try {
-                              int remaining = int.parse(
-                                  remainingController.text.isEmpty
-                                      ? '0'
-                                      : remainingController.text);
-                              context
-                                  .read<NewVisitProvider>()
-                                  .setRemaining(remaining);
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          controller: remainingController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: 'Enter Remaining Amount'.tr(),
+                        const TypeofVisitDropdown(),
+                      ],
+                    ),
+                    Consumer<ProcedureVisibilityProvider>(
+                      builder: (context, visibility, child) {
+                        return SizedBox(
+                          height: visibility.visible == false ? 0 : 20.0,
+                        );
+                      },
+                    ),
+                    Consumer<ProcedureVisibilityProvider>(
+                      builder: (context, visibility, child) {
+                        return const ProceduresDropDown();
+                      },
+                    ),
+
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    const AffiliationDropdown(),
+
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150.0,
+                          child: Tooltip(
+                            message: 'المدفوع',
+                            child: Text('Amount'.tr()),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 150.0,
-                        child: Tooltip(
-                          message: 'طريقة الدفع',
-                          child: Text('Payment Type'.tr()),
+                        const SizedBox(
+                          width: 20.0,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 20.0,
-                      ),
-                      const SizedBox(
-                        width: 350,
-                        child: CashTypeDropdownButton(),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  //----------------Buttons for actions--------------------//
+                        SizedBox(
+                          width: textfieldwidth,
+                          height: textfieldheight,
+                          child: TextFormField(
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'kindly Enter Amount...'.tr();
+                              }
+                              return null;
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            onChanged: (val) {
+                              try {
+                                int amount = int.parse(
+                                    amountController.text.isEmpty
+                                        ? '0'
+                                        : amountController.text);
+                                context
+                                    .read<NewVisitProvider>()
+                                    .setAmount(amount);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            controller: amountController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Enter Amount'.tr(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150.0,
+                          child: Tooltip(
+                            message: 'المتبقي',
+                            child: Text('Remaining Amount'.tr()),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20.0,
+                        ),
+                        SizedBox(
+                          width: textfieldwidth,
+                          height: textfieldheight,
+                          child: TextFormField(
+                            validator: (val) {
+                              return null;
+                            },
+                            onChanged: (val) {
+                              try {
+                                int remaining = int.parse(
+                                    remainingController.text.isEmpty
+                                        ? '0'
+                                        : remainingController.text);
+                                context
+                                    .read<NewVisitProvider>()
+                                    .setRemaining(remaining);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            controller: remainingController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Enter Remaining Amount'.tr(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150.0,
+                          child: Tooltip(
+                            message: 'طريقة الدفع',
+                            child: Text('Payment Type'.tr()),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20.0,
+                        ),
+                        const SizedBox(
+                          width: 350,
+                          child: CashTypeDropdownButton(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    //----------------Buttons for actions--------------------//
 
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton.icon(
-                                onPressed: () async {
-                                  if (formkey.currentState!.validate()) {
-                                    await EasyLoading.show(
-                                        status: "Loading...".tr());
-                                    context.read<NewVisitProvider>().setVISIT();
-                                    await VisitRequests.addNewVisitToDb(context
-                                        .read<NewVisitProvider>()
-                                        .visit!);
-                                    context
-                                        .read<NewVisitProvider>()
-                                        .nullifyVisit();
-                                    await EasyLoading.dismiss();
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                icon: const Icon(Icons.person_add),
-                                label: Tooltip(
-                                  message: 'اضافة الي قاعدة البيانات',
-                                  child: Text('Add to Database'.tr()),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Card(
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton.icon(
+                                  onPressed: () async {
+                                    if (formkey.currentState!.validate()) {
+                                      await EasyLoading.show(
+                                          status: "Loading...".tr());
+                                      context
+                                          .read<NewVisitProvider>()
+                                          .setVISIT();
+                                      await VisitRequests.addNewVisitToDb(
+                                          context
+                                              .read<NewVisitProvider>()
+                                              .visit!);
+                                      context
+                                          .read<NewVisitProvider>()
+                                          .nullifyVisit();
+                                      await EasyLoading.dismiss();
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                  icon: const Icon(Icons.person_add),
+                                  label: Tooltip(
+                                    message: 'اضافة الي قاعدة البيانات',
+                                    child: Text('Add to Database'.tr()),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

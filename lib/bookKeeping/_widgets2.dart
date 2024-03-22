@@ -692,33 +692,57 @@ class KeepingAnalysis extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Builder(
                           builder: (context) {
-                            List<String> affiliations = [];
-                            Map<String, int> a = {};
+                            List<String> affiliationsEN = [];
+                            List<String> affiliationsAR = [];
+                            Map<String, int> aEN = {};
+                            Map<String, int> aAR = {};
                             v.visits!.map((e) {
-                              affiliations.add(e.affiliationEN);
+                              affiliationsEN.add(e.affiliationEN);
+                              affiliationsAR.add(e.affiliationAR);
                             }).toList();
-                            var affset = affiliations.toSet();
-                            affset.map((e) {
-                              a.addEntries([MapEntry(e, 0)]);
-                              for (String element in affiliations) {
+                            var affsetEN = affiliationsEN.toSet();
+                            var affsetAR = affiliationsAR.toSet();
+                            affsetEN.map((e) {
+                              aEN.addEntries([MapEntry(e, 0)]);
+                              for (String element in affiliationsEN) {
                                 if (e == element) {
-                                  a[e] = a[e]! + 1;
+                                  aEN[e] = aEN[e]! + 1;
+                                }
+                              }
+                            }).toSet();
+                            affsetAR.map((e) {
+                              aAR.addEntries([MapEntry(e, 0)]);
+                              for (String element in affiliationsAR) {
+                                if (e == element) {
+                                  aAR[e] = aAR[e]! + 1;
                                 }
                               }
                             }).toSet();
 
                             return Column(
-                              children: a.entries.map(
-                                (e) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      '${e.key.toUpperCase()} : ${e.value}',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  );
-                                },
-                              ).toList(),
+                              children: english(context)
+                                  ? aEN.entries.map(
+                                      (e) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '${e.key.toUpperCase()} : ${e.value}',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        );
+                                      },
+                                    ).toList()
+                                  : aAR.entries.map(
+                                      (e) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '${e.key.toUpperCase()} : ${e.value}',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        );
+                                      },
+                                    ).toList(),
                             );
                           },
                         ),

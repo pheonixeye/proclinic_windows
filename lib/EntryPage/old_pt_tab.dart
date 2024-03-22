@@ -34,11 +34,11 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
 
   @override
   void initState() {
-    initVisits();
     super.initState();
+    initVisits();
   }
 
-  Future initVisits() async {
+  void initVisits() async {
     await context.read<VisitsSearchController>().initializeVisits();
   }
 
@@ -118,7 +118,6 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                           itemExtent: 60,
                           itemBuilder: (context, index) {
                             return Card(
-                              color: Colors.grey[300],
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: Text(

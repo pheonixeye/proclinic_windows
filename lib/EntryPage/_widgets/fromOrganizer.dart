@@ -4,6 +4,7 @@ import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/orgAppModel.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/orgAppProvider.dart';
+import 'package:proclinic_windows/functions/format_time.dart';
 import 'package:provider/provider.dart';
 
 class FromOrganizer extends StatefulWidget {
@@ -49,13 +50,6 @@ class _FromOrganizerState extends State<FromOrganizer> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              boxShadow: const [
-                BoxShadow(
-                  offset: Offset(2, 2),
-                  blurRadius: 2,
-                  spreadRadius: 2,
-                ),
-              ],
             ),
             child: Consumer<OrgAppProvider>(
               builder: (context, org, child) {
@@ -71,10 +65,9 @@ class _FromOrganizerState extends State<FromOrganizer> {
                       index: index,
                       onTap: () {
                         widget.dateController!.text =
-                            '${d.day}-${d.month}-${d.year} - ${d.hour} : ${d.minute}';
-                        context
-                            .read<NewVisitProvider>()
-                            .setVisitDate(DateTime.now().toIso8601String());
+                            '${d.day}-${d.month}-${d.year}';
+                        context.read<NewVisitProvider>().setVisitDate(
+                            DateTime(d.year, d.month, d.day).toIso8601String());
                         widget.nameController.text =
                             org.appointements![index].ptname;
                         context
@@ -128,7 +121,7 @@ class EntryOrganizerTile extends StatelessWidget {
               Text(english(context) ? app.docnameEN : app.docnameAR),
               const Spacer(),
               Text(
-                '${d.day}-${d.month}-${d.year}\n${d.hour} : ${d.minute}',
+                '${d.day}-${d.month}-${d.year}\n${formatTime(d.hour, d.minute)}',
                 textAlign: TextAlign.center,
               ),
             ],
