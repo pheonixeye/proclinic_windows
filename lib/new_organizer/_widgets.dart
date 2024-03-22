@@ -314,14 +314,14 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
               ),
               child: Tooltip(
                 message: 'حفظ',
-                child: IconButton(
-                  icon: const Icon(
+                child: FloatingActionButton(
+                  heroTag: 'app-save-btn',
+                  child: const Icon(
                     Icons.save,
-                    color: Colors.lightGreen,
                   ),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      if (context.read<OrgAppProvider>().docname == null) {
+                      if (context.read<OrgAppProvider>().docnameEN == null) {
                         await EasyLoading.showError(
                             'Unselected Clinic...'.tr());
                       } else {

@@ -120,10 +120,16 @@ class _NewlyFormatedDoctorsDropDownButtonState
                   // for organizer
                   context
                       .read<OrgAppProvider>()
-                      .rClinic(doctors[intselval!].clinicEN);
+                      .rClinicEN(doctors[intselval!].clinicEN);
                   context
                       .read<OrgAppProvider>()
-                      .rDocname(doctors[intselval!].docnameEN);
+                      .rClinicAR(doctors[intselval!].clinicAR);
+                  context
+                      .read<OrgAppProvider>()
+                      .rDocnameEN(doctors[intselval!].docnameEN);
+                  context
+                      .read<OrgAppProvider>()
+                      .rDocnameAR(doctors[intselval!].docnameAR);
                   context.read<OrgAppProvider>().rDocid(doctors[intselval!].id);
                 },
                 underline: Container(

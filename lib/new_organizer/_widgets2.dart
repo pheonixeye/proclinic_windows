@@ -1,8 +1,10 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
+import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/orgAppModel.dart';
 import 'package:proclinic_windows/_providers/orgAppProvider.dart';
+import 'package:proclinic_windows/functions/format_time.dart';
 import 'package:provider/src/provider.dart';
 
 class DeleteAppDialog extends StatelessWidget {
@@ -69,7 +71,6 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Colors.white,
         child: ListTile(
           leading: CircleAvatar(
             child: Text((widget.index + 1).toString()),
@@ -106,7 +107,9 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Text(
                 widget.app.ptname,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(
                 width: 50,
@@ -124,7 +127,9 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               ),
               Text(
                 widget.app.phone,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -143,10 +148,11 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
                 width: 10,
               ),
               Text(
-                  '${d.day}-${d.month}-${d.year}'
-                  '    '
-                  '${d.hour} : ${d.minute}',
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+                '${d.day}-${d.month}-${d.year}\n${formatTime(d.hour, d.minute)}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(
                 width: 10,
               ),
@@ -161,8 +167,14 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               const SizedBox(
                 width: 10,
               ),
-              Text(widget.app.docname.toUpperCase(),
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                english(context)
+                    ? widget.app.docnameEN.toUpperCase()
+                    : widget.app.docnameAR,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(Icons.local_hospital),
@@ -174,8 +186,14 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
               const SizedBox(
                 width: 10,
               ),
-              Text(widget.app.clinic.toUpperCase(),
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                english(context)
+                    ? widget.app.clinicEN.toUpperCase()
+                    : widget.app.clinicAR,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const Spacer(),
             ],
           ),

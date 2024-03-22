@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:proclinic_windows/_const/_strings.dart';
 
 class SearchValueProvider extends ChangeNotifier {
   int _groupValue = 0;
@@ -10,19 +9,19 @@ class SearchValueProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _month = MONTHS[0];
+  int _month = DateTime.now().month;
   int get month => _month;
 
   void adjustMonth(int val) {
-    _month = MONTHS[val];
+    _month = val;
     notifyListeners();
   }
 
-  int _year = YEARS[0];
+  int _year = DateTime.now().year;
   int get year => _year;
 
   void adjustYear(int val) {
-    _year = YEARS[val];
+    _year = val;
     notifyListeners();
   }
 

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
+import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/orgAppModel.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/orgAppProvider.dart';
 import 'package:provider/provider.dart';
 
 class FromOrganizer extends StatefulWidget {
-  const FromOrganizer(
-      {Key? key,
-      this.dateController,
-      this.dobController,
-      this.tabController,
-      required this.nameController,
-      required this.phoneController})
-      : super(key: key);
+  const FromOrganizer({
+    Key? key,
+    this.dateController,
+    this.dobController,
+    this.tabController,
+    required this.nameController,
+    required this.phoneController,
+  }) : super(key: key);
   final TextEditingController? dateController;
   final TextEditingController? dobController;
   final TabController? tabController;
@@ -124,7 +125,7 @@ class EntryOrganizerTile extends StatelessWidget {
           ),
           subtitle: Row(
             children: [
-              Text(app.docname),
+              Text(english(context) ? app.docnameEN : app.docnameAR),
               const Spacer(),
               Text(
                 '${d.day}-${d.month}-${d.year}\n${d.hour} : ${d.minute}',

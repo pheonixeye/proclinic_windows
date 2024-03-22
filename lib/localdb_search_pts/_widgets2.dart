@@ -1,10 +1,8 @@
 import 'package:easy_localization/src/public_ext.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/doctors_dropdownmenubutton.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
-import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/_providers/searchValueProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
@@ -137,6 +135,21 @@ class SearchFilterOptions extends StatefulWidget {
 
 class _SearchFilterOptionsState extends State<SearchFilterOptions> {
   late final TextEditingController _searchController;
+  final List<int> years = List.generate(5, (i) => (DateTime.now().year - i));
+  final Map<int, String> months = {
+    1: 'January'.tr(),
+    2: 'February'.tr(),
+    3: 'March'.tr(),
+    4: 'April'.tr(),
+    5: 'May'.tr(),
+    6: 'June'.tr(),
+    7: 'July'.tr(),
+    8: 'August'.tr(),
+    9: 'September'.tr(),
+    10: 'October'.tr(),
+    11: 'November'.tr(),
+    12: 'December'.tr()
+  };
   @override
   void initState() {
     super.initState();
@@ -224,77 +237,54 @@ class _SearchFilterOptionsState extends State<SearchFilterOptions> {
                 children: [
                   //month picker
                   Expanded(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Select Month...'.tr(),
-                            textAlign: TextAlign.center,
-                          ),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButton<int>(
+                          isExpanded: true,
+                          icon: const Icon(Icons.arrow_drop_down_circle),
+                          hint: Text('Select Month...'.tr()),
+                          items: months.entries.map((e) {
+                            return DropdownMenuItem<int>(
+                              alignment: Alignment.center,
+                              value: e.key,
+                              child: Text(e.value),
+                            );
+                          }).toList(),
+                          value: context.watch<SearchValueProvider>().month,
+                          onChanged: (val) {
+                            context
+                                .read<SearchValueProvider>()
+                                .adjustMonth(val!);
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CupertinoPicker(
-                            backgroundColor: Colors.blue.shade200,
-                            useMagnifier: true,
-                            magnification: 1.5,
-                            itemExtent: 40,
-                            onSelectedItemChanged: (item) {
-                              context
-                                  .read<SearchValueProvider>()
-                                  .adjustMonth(item);
-                            },
-                            children: MONTHS.map((e) {
-                              return Text(
-                                e.toString(),
-                                textAlign: TextAlign.center,
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                        CircleAvatar(
-                          child: Text(
-                              '${context.read<SearchValueProvider>().month}'),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   //year picker
                   Expanded(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Select Year...'.tr(),
-                            textAlign: TextAlign.center,
-                          ),
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButton<int>(
+                          isExpanded: true,
+                          icon: const Icon(Icons.arrow_drop_down_circle),
+                          hint: Text('Select Year...'.tr()),
+                          items: years.map((e) {
+                            return DropdownMenuItem<int>(
+                              alignment: Alignment.center,
+                              value: e,
+                              child: Text(e.toString()),
+                            );
+                          }).toList(),
+                          value: context.watch<SearchValueProvider>().year,
+                          onChanged: (val) {
+                            context
+                                .read<SearchValueProvider>()
+                                .adjustYear(val!);
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CupertinoPicker(
-                            useMagnifier: true,
-                            magnification: 1.5,
-                            itemExtent: 40,
-                            onSelectedItemChanged: (item) {
-                              context
-                                  .read<SearchValueProvider>()
-                                  .adjustYear(item);
-                            },
-                            children: YEARS.map((e) {
-                              return Text(
-                                e.toString(),
-                                textAlign: TextAlign.center,
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                        CircleAvatar(
-                          child: Text(
-                              '${context.read<SearchValueProvider>().year}'),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ],

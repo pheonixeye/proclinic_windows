@@ -8,8 +8,10 @@ import 'package:proclinic_windows/_models/orgAppModel.dart';
 class OrgAppProvider extends ChangeNotifier {
   String? _ptname;
   String? _phone;
-  String? _docname;
-  String? _clinic;
+  String? _docnameEN;
+  String? _docnameAR;
+  String? _clinicEN;
+  String? _clinicAR;
   int? _docid;
   String? _visitDate;
   int? _day;
@@ -23,8 +25,10 @@ class OrgAppProvider extends ChangeNotifier {
 
   String? get ptname => _ptname;
   String? get phone => _phone;
-  String? get docname => _docname;
-  String? get clinic => _clinic;
+  String? get docnameEN => _docnameEN;
+  String? get docnameAR => _docnameAR;
+  String? get clinicEN => _clinicEN;
+  String? get clinicAR => _clinicAR;
   String? get visitDate => _visitDate;
   int? get docid => _docid;
   int? get day => _day;
@@ -37,8 +41,10 @@ class OrgAppProvider extends ChangeNotifier {
     _orgAppointement = OrgAppointement(
         ptname: ptname!,
         phone: phone!,
-        docname: docname!,
-        clinic: clinic!,
+        docnameEN: docnameEN!,
+        docnameAR: docnameAR!,
+        clinicEN: clinicEN!,
+        clinicAR: clinicAR!,
         dateTime: visitDate!,
         docid: docid!);
   }
@@ -53,13 +59,23 @@ class OrgAppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void rDocname(String val) {
-    _docname = val;
+  void rDocnameEN(String val) {
+    _docnameEN = val;
     notifyListeners();
   }
 
-  void rClinic(String val) {
-    _clinic = val;
+  void rDocnameAR(String val) {
+    _docnameAR = val;
+    notifyListeners();
+  }
+
+  void rClinicEN(String val) {
+    _clinicEN = val;
+    notifyListeners();
+  }
+
+  void rClinicAR(String val) {
+    _clinicAR = val;
     notifyListeners();
   }
 
@@ -103,14 +119,10 @@ class OrgAppProvider extends ChangeNotifier {
   List<OrgAppointement>? get appointements => _appList;
 
   Future fetchAppointements() async {
-    var a = await MongoDB.appOrganizer.find().toList();
-    a.sort((a, b) {
-      var aDateString = a[SxOrgApp.DATETIME];
-      var bDateString = b[SxOrgApp.DATETIME];
-      DateTime adate = DateTime.parse(aDateString);
-      DateTime bdate = DateTime.parse(bDateString);
-      return adate.compareTo(bdate);
-    });
+    var a = await MongoDB.appOrganizer
+        .find(where.sortBy(SxOrgApp.DATETIME, descending: true))
+        .toList();
+
     _appList = OrgAppointement.makeList(a);
     notifyListeners();
   }

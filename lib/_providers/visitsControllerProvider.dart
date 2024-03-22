@@ -38,20 +38,25 @@ class VisitsSearchController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchVisitsbyDate(int month, year) async {
+  Future<void> searchVisitsbyDate(int month, int year) async {
+    final upperBound = DateTime(year, month + 1).toIso8601String();
+    final lowerBound = DateTime(year, month).toIso8601String();
     var _v = await MongoDB.PATIENTS
-        .find(where.sortBy(SxVisit.VISITDATE, descending: true))
+        .find(where
+            .gt(SxVisit.VISITDATE, lowerBound)
+            .lt(SxVisit.VISITDATE, upperBound)
+            .sortBy(SxVisit.VISITDATE, descending: true))
         .toList();
-    var _dateV = [];
+    // var _dateV = [];
 
-    _v.map((e) {
-      String stringdate = e[SxVisit.VISITDATE];
-      DateTime date = DateTime.parse(stringdate);
-      if (date.month == month && date.year == year) {
-        _dateV.add(e);
-      }
-    }).toList();
-    _visits = Visit.visitList(_dateV);
+    // _v.map((e) {
+    //   String stringdate = e[SxVisit.VISITDATE];
+    //   DateTime date = DateTime.parse(stringdate);
+    //   if (date.month == month && date.year == year) {
+    //     _dateV.add(e);
+    //   }
+    // }).toList();
+    _visits = Visit.visitList(_v);
     notifyListeners();
   }
 
