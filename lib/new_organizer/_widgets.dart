@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/doctors_dropdownmenubutton.dart';
 import 'package:proclinic_windows/_providers/orgAppProvider.dart';
+import 'package:proclinic_windows/functions/format_time.dart';
 import 'package:proclinic_windows/new_organizer/choose_old_pt_dialog.dart';
 import 'package:provider/src/provider.dart';
 
@@ -57,8 +58,7 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
     if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
-        timecontroller.text =
-            '${_date.hourOfPeriod} : ${_date.minute} - ${_date.period.name.toUpperCase()}';
+        timecontroller.text = formatTime(_date.hour, _date.minute);
         context.read<OrgAppProvider>().rHour(_date.hour);
         context.read<OrgAppProvider>().rMinute(_date.minute);
       });

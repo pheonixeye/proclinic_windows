@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/widgets/qr_dialog.dart';
 
@@ -133,6 +134,7 @@ class _QRCodeSelectionButtonState extends State<QRCodeSelectionButton> {
                   offset: pressed ? Offset(0, 0) : Offset(5, 5),
                   blurRadius: pressed ? 0 : 5,
                   spreadRadius: pressed ? 0 : 5,
+                  color: randomShadowColor,
                 ),
               ],
             ),

@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
+import 'dart:math' show Random;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -26,3 +28,6 @@ Future EmbeddEasyLoading(Function call) async {
   await call();
   await EasyLoading.dismiss();
 }
+
+final randomShadowColor =
+    Colors.primaries[Random().nextInt(Colors.primaries.length)];

@@ -20,38 +20,28 @@ class ControlPanel extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Wrap(
-                    children: [
-                      ...SelectionButtonModel.modelList().map((e) {
-                        return SelectionButton(
-                          iconData: e.iconData,
-                          title: e.title,
-                          tooltip: e.tooltip,
-                          route: e.route,
-                          shadowColor: e.shadowColor,
-                        );
-                      }).toList(),
-                      QRCodeSelectionButton(),
-                    ],
-                  ),
-                ),
-              ),
+      body: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 1.5,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
             ),
+            children: [
+              ...SelectionButtonModel.modelList().map((e) {
+                return SelectionButton(
+                  iconData: e.iconData,
+                  title: e.title,
+                  tooltip: e.tooltip,
+                  route: e.route,
+                  shadowColor: e.shadowColor,
+                );
+              }).toList(),
+              QRCodeSelectionButton(),
+            ],
           ),
         ),
       ),

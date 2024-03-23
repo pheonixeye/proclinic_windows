@@ -38,12 +38,9 @@ class _DoctorClinicOptionsPageState extends State<DoctorClinicOptionsPage> {
       ),
       body: Builder(
         builder: (BuildContext context) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: [
                   const SizedBox(

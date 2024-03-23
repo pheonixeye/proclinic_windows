@@ -88,6 +88,14 @@ class VisitData {
   static List<String> stringifyList(List<dynamic> ld) {
     return ld.map((dynamic e) => e.toString()).toList();
   }
+
+  static const Map<String, String> paperData = {
+    "Sheet Documents": SxVD.SHEETSPAPERS,
+    "Lab Results": SxVD.LABSPAPERS,
+    "Radiology Results": SxVD.RADSPAPERS,
+    "Perscriptions": SxVD.DRUGPAPERS,
+    "Miscellaneous": SxVD.COMMENTSPAPERS,
+  };
 }
 
 class SxVD {

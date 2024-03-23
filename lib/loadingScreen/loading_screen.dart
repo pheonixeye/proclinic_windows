@@ -46,8 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     runshellmac(context);
 
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
+      body: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
