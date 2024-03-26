@@ -118,19 +118,17 @@ class _NewlyFormatedDoctorsDropDownButtonState
                       .read<NewVisitProvider>()
                       .setDocId(doctors[intselval!].id);
                   // for organizer
+                  context.read<OrgAppProvider>().setOrgAppointment(
+                      clinicEN: doctors[intselval!].clinicEN);
+                  context.read<OrgAppProvider>().setOrgAppointment(
+                      clinicAR: doctors[intselval!].clinicAR);
+                  context.read<OrgAppProvider>().setOrgAppointment(
+                      docnameEN: doctors[intselval!].docnameEN);
+                  context.read<OrgAppProvider>().setOrgAppointment(
+                      docnameAR: doctors[intselval!].docnameAR);
                   context
                       .read<OrgAppProvider>()
-                      .rClinicEN(doctors[intselval!].clinicEN);
-                  context
-                      .read<OrgAppProvider>()
-                      .rClinicAR(doctors[intselval!].clinicAR);
-                  context
-                      .read<OrgAppProvider>()
-                      .rDocnameEN(doctors[intselval!].docnameEN);
-                  context
-                      .read<OrgAppProvider>()
-                      .rDocnameAR(doctors[intselval!].docnameAR);
-                  context.read<OrgAppProvider>().rDocid(doctors[intselval!].id);
+                      .setOrgAppointment(docid: doctors[intselval!].id);
                 },
                 underline: Container(
                   height: 2,

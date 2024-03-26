@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
-import 'package:proclinic_windows/_providers/visitsControllerProvider.dart';
+import 'package:proclinic_windows/_providers/orgAppProvider.dart';
+import 'package:proclinic_windows/_providers/patient_provider.dart';
 import 'package:provider/provider.dart';
 
 class OldPatientSelector extends StatefulWidget {
   final TextEditingController? dateController;
-  final TextEditingController? dobController;
+  final TextEditingController dobController;
   final TabController? tabController;
   final TextEditingController nameController;
   final TextEditingController phoneController;
@@ -29,17 +30,17 @@ class OldPatientSelector extends StatefulWidget {
 }
 
 class _OldPatientSelectorState extends State<OldPatientSelector> {
-  final searchController = TextEditingController();
+  // final searchController = TextEditingController();
   final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    initVisits();
+    _initPatients();
   }
 
-  void initVisits() async {
-    await context.read<VisitsSearchController>().initializeVisits();
+  void _initPatients() async {
+    await context.read<PxPatient>().fetchPatients();
   }
 
   final fkey = GlobalKey<FormState>();
@@ -48,9 +49,9 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Consumer<VisitsSearchController>(
-        builder: (context, visits, child) {
-          while (visits.visits == null) {
+      child: Consumer<PxPatient>(
+        builder: (context, p, _) {
+          while (p.patients.isEmpty) {
             return const WhileValueEqualNullWidget();
           }
           return Column(
@@ -74,25 +75,18 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                         }
                         return null;
                       },
-                      onChanged: (String value) {},
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                       ],
-                      controller: searchController,
+                      // controller: searchController,
                       obscureText: false,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: 'Search by Phone...'.tr(),
-                        suffix: IconButton(
-                          onPressed: () async {
-                            if (fkey.currentState!.validate() == true) {
-                              await visits.searchVisitsbyPhoneNumber(
-                                  searchController.text);
-                            }
-                          },
-                          icon: const Icon(Icons.search),
-                        ),
                       ),
+                      onChanged: (value) {
+                        p.filterPatients(value);
+                      },
                     ),
                   ),
                 ),
@@ -114,7 +108,7 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                         thumbVisibility: true,
                         child: ListView.builder(
                           controller: _scrollController,
-                          itemCount: visits.visits!.length,
+                          itemCount: p.filtered.length,
                           itemExtent: 60,
                           itemBuilder: (context, index) {
                             return Card(
@@ -125,14 +119,14 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                                     textScaler: const TextScaler.linear(1.0),
                                   ),
                                 ),
-                                title: Text(visits.visits![index].ptName),
-                                subtitle: Text(visits.visits![index].phone),
+                                title: Text(p.filtered[index].name),
+                                subtitle: Text(p.filtered[index].phone),
                                 onTap: () {
-                                  if (widget.organizer == false) {
-                                    DateTime parseDates(String dateString) {
-                                      return DateTime.parse(dateString);
-                                    }
+                                  DateTime parseDates(String dateString) {
+                                    return DateTime.parse(dateString);
+                                  }
 
+                                  if (widget.organizer == false) {
                                     final _now = DateTime.now();
                                     final d = DateTime(
                                         _now.year, _now.month, _now.day);
@@ -143,28 +137,45 @@ class _OldPatientSelectorState extends State<OldPatientSelector> {
                                         .read<NewVisitProvider>()
                                         .setVisitDate(d.toIso8601String());
                                     widget.nameController.text =
-                                        visits.visits![index].ptName;
-                                    context.read<NewVisitProvider>().setPtName(
-                                        visits.visits![index].ptName);
+                                        p.filtered[index].name;
+                                    context
+                                        .read<NewVisitProvider>()
+                                        .setPtName(p.filtered[index].name);
                                     widget.phoneController.text =
-                                        visits.visits![index].phone;
+                                        p.filtered[index].phone;
                                     context
                                         .read<NewVisitProvider>()
-                                        .setPhone(visits.visits![index].phone);
-                                    var dateofbith =
-                                        parseDates(visits.visits![index].dob);
-                                    widget.dobController!.text =
-                                        '${dateofbith.day}-${dateofbith.month}-${dateofbith.year}';
+                                        .setPhone(p.filtered[index].phone);
+                                    final dob =
+                                        parseDates(p.filtered[index].dob);
+                                    widget.dobController.text =
+                                        '${dob.day}-${dob.month}-${dob.year}';
                                     context
                                         .read<NewVisitProvider>()
-                                        .setDob(visits.visits![index].dob);
+                                        .setDob(p.filtered[index].dob);
+                                    context
+                                        .read<NewVisitProvider>()
+                                        .setptId(p.filtered[index].id);
                                     widget.tabController!.animateTo(
                                         (widget.tabController!.index + 1) % 2);
                                   } else if (widget.organizer == true) {
                                     widget.nameController.text =
-                                        visits.visits![index].ptName;
+                                        p.filtered[index].name;
                                     widget.phoneController.text =
-                                        visits.visits![index].phone;
+                                        p.filtered[index].phone;
+                                    final dob =
+                                        parseDates(p.filtered[index].dob);
+                                    widget.dobController.text =
+                                        '${dob.day}-${dob.month}-${dob.year}';
+                                    context
+                                        .read<OrgAppProvider>()
+                                        .setOrgAppointment(
+                                          ptname: p.filtered[index].name,
+                                          phone: p.filtered[index].phone,
+                                          dob: DateTime(
+                                                  dob.year, dob.month, dob.day)
+                                              .toIso8601String(),
+                                        );
                                     Navigator.pop(context);
                                   }
                                 },

@@ -5,6 +5,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:mongo_dart/mongo_dart.dart' show ObjectId;
 import 'package:proclinic_windows/EntryPage/_widgets/affiliation_dropdown.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/fromOrganizer.dart';
 import 'package:proclinic_windows/EntryPage/new_pt_tab.dart';
@@ -12,6 +13,7 @@ import 'package:proclinic_windows/EntryPage/old_pt_tab.dart';
 import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/_mongoRequests/_visit_req.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
+import 'package:proclinic_windows/_providers/patient_provider.dart';
 import 'package:proclinic_windows/_providers/procedureVisibilityProvider.dart';
 import 'package:proclinic_windows/_providers/selectedDoctorProvider.dart';
 import 'package:proclinic_windows/EntryPage/_widgets/cash_type_dropdown.dart';
@@ -75,6 +77,8 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
     setState(() {});
   }
 
+  bool isFirstVisit = false;
+
   final formkey = GlobalKey<FormState>();
 
   @override
@@ -116,10 +120,10 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
                           tabs: [
                             Tab(
                               icon: const Tooltip(
-                                message: 'مريض جديد',
+                                message: 'زيارة جديدة',
                                 child: Icon(Icons.person_add),
                               ),
-                              text: 'New Patient'.tr(),
+                              text: 'New Visit'.tr(),
                             ),
                             Tab(
                               icon: const Tooltip(
@@ -366,6 +370,36 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
                     const SizedBox(
                       height: 20.0,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150.0,
+                          child: Tooltip(
+                            message: 'اول زيارة',
+                            child: Text("is First Visit".tr()),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20.0,
+                        ),
+                        SizedBox(
+                          width: 350,
+                          child: Checkbox(
+                            value: isFirstVisit,
+                            onChanged: (value) {
+                              setState(() {
+                                isFirstVisit = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(
+                      height: 20.0,
+                    ),
                     //----------------Buttons for actions--------------------//
 
                     Padding(
@@ -382,21 +416,44 @@ class _HomePageWithTabViewState extends State<HomePageWithTabView>
                                 child: ElevatedButton.icon(
                                   onPressed: () async {
                                     if (formkey.currentState!.validate()) {
-                                      await EasyLoading.show(
-                                          status: "Loading...".tr());
-                                      context
-                                          .read<NewVisitProvider>()
-                                          .setVISIT();
-                                      await VisitRequests.addNewVisitToDb(
-                                          context
-                                              .read<NewVisitProvider>()
-                                              .visit!);
-                                      context
-                                          .read<NewVisitProvider>()
-                                          .nullifyVisit();
-                                      await EasyLoading.dismiss();
-                                      Navigator.pop(context);
+                                      if (isFirstVisit) {
+                                        //todo: ADD PT ENTITY TO DB
+                                        context
+                                            .read<NewVisitProvider>()
+                                            .setVISIT(ObjectId());
+                                        final _v = context
+                                            .read<NewVisitProvider>()
+                                            .visit;
+                                        await EasyLoading.show(
+                                            status: "Loading...".tr());
+                                        context.read<PxPatient>().setPatient(
+                                              id: _v?.ptId,
+                                              name: _v?.ptName,
+                                              phone: _v?.phone,
+                                              dob: _v?.dob,
+                                            );
+                                        await context
+                                            .read<PxPatient>()
+                                            .addNewPatient();
+                                        await EasyLoading.dismiss();
+                                      } else {
+                                        context
+                                            .read<NewVisitProvider>()
+                                            .setVISIT();
+                                      }
                                     }
+
+                                    await EasyLoading.show(
+                                        status: "Loading...".tr());
+
+                                    await VisitRequests.addNewVisitToDb(context
+                                        .read<NewVisitProvider>()
+                                        .visit!);
+                                    context
+                                        .read<NewVisitProvider>()
+                                        .nullifyVisit();
+                                    await EasyLoading.dismiss();
+                                    Navigator.pop(context);
                                   },
                                   icon: const Icon(Icons.person_add),
                                   label: Tooltip(

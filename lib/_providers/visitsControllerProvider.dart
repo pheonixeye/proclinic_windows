@@ -9,7 +9,7 @@ class VisitsSearchController extends ChangeNotifier {
   List<Visit>? get visits => _visits;
 
   Future<void> initializeVisits() async {
-    final _v = await MongoDB.PATIENTS
+    final _v = await MongoDB.visits
         .find(where.sortBy(SxVisit.VISITDATE, descending: true).limit(25))
         .toList();
     _visits = Visit.visitList(_v);
@@ -17,7 +17,7 @@ class VisitsSearchController extends ChangeNotifier {
   }
 
   Future<void> searchVisitsbyPhoneNumber(String phone) async {
-    var _v = await MongoDB.PATIENTS
+    var _v = await MongoDB.visits
         .find(where
             .eq(SxVisit.PHONE, phone)
             .sortBy(SxVisit.VISITDATE, descending: true))
@@ -28,7 +28,7 @@ class VisitsSearchController extends ChangeNotifier {
 
   // todo :mod to src by doc id
   Future<void> searchVisitsbyDoctorId(int id) async {
-    var _v = await MongoDB.PATIENTS
+    var _v = await MongoDB.visits
         .find(where
             .eq(SxVisit.DOCID, id)
             .sortBy(SxVisit.VISITDATE, descending: true))
@@ -41,7 +41,7 @@ class VisitsSearchController extends ChangeNotifier {
   Future<void> searchVisitsbyDate(int month, int year) async {
     final upperBound = DateTime(year, month + 1).toIso8601String();
     final lowerBound = DateTime(year, month).toIso8601String();
-    var _v = await MongoDB.PATIENTS
+    var _v = await MongoDB.visits
         .find(where
             .gt(SxVisit.VISITDATE, lowerBound)
             .lt(SxVisit.VISITDATE, upperBound)
@@ -72,7 +72,7 @@ class VisitsSearchController extends ChangeNotifier {
     List<Map<String, dynamic>>? _v;
     // List<Map<String, dynamic>>? _x;
     List<Map<String, dynamic>> data = [];
-    _v = await MongoDB.PATIENTS
+    _v = await MongoDB.visits
         .find(where.sortBy(SxVisit.VISITDATE, descending: true))
         .toList();
 
@@ -96,7 +96,7 @@ class VisitsSearchController extends ChangeNotifier {
         }
       }).toList();
     } else if (allOrOne == 1 && dayDuration == 0) {
-      _v = await MongoDB.PATIENTS
+      _v = await MongoDB.visits
           .find(where
               .eq(SxVisit.DOCID, doctor?.id)
               .sortBy(SxVisit.VISITDATE, descending: true))
@@ -110,7 +110,7 @@ class VisitsSearchController extends ChangeNotifier {
         }
       }).toList();
     } else if (allOrOne == 1 && dayDuration == 1) {
-      _v = await MongoDB.PATIENTS
+      _v = await MongoDB.visits
           .find(where
               .eq(SxVisit.DOCID, doctor?.id)
               .sortBy(SxVisit.VISITDATE, descending: true))
@@ -130,7 +130,7 @@ class VisitsSearchController extends ChangeNotifier {
   }
 
   Future<void> searchVisitsByPatientPhone(String phone) async {
-    var _v = await MongoDB.PATIENTS
+    var _v = await MongoDB.visits
         .find(where
             .eq(SxVisit.PHONE, phone)
             .sortBy(SxVisit.VISITDATE, descending: true))

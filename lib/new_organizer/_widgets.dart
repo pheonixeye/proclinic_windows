@@ -7,6 +7,8 @@ import 'package:proclinic_windows/functions/format_time.dart';
 import 'package:proclinic_windows/new_organizer/choose_old_pt_dialog.dart';
 import 'package:provider/src/provider.dart';
 
+enum _dates { appDate, birthDate }
+
 class OrganizerControllerMenu extends StatefulWidget {
   const OrganizerControllerMenu({Key? key}) : super(key: key);
 
@@ -16,25 +18,46 @@ class OrganizerControllerMenu extends StatefulWidget {
 }
 
 class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
-  Future<void> showCalenderDate(BuildContext context) async {
-    DateTime _date = DateTime.now();
+  DateTime? _appDate;
+  DateTime? _dobDate;
+  Future<void> showCalenderDate(
+    BuildContext context,
+    _dates dates,
+  ) async {
+    DateTime _appDate = DateTime.now();
+    DateTime _dobDate = DateTime.now();
 
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _date,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2025),
+      initialDate: _appDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
       confirmText: 'Confirm'.tr(),
       cancelText: 'Cancel'.tr(),
     );
 
-    if (picked != null && picked != _date) {
+    if (picked != null) {
       setState(() {
-        _date = picked;
-        datecontroller.text = '${_date.day}-${_date.month}-${_date.year}';
-        context.read<OrgAppProvider>().rDay(_date.day);
-        context.read<OrgAppProvider>().rMonth(_date.month);
-        context.read<OrgAppProvider>().rYear(_date.year);
+        switch (dates) {
+          case _dates.appDate:
+            _appDate = picked;
+            datecontroller.text =
+                '${_appDate.day}-${_appDate.month}-${_appDate.year}';
+
+            context
+                .read<OrgAppProvider>()
+                .setOrgAppointment(dateTime: _appDate.toIso8601String());
+            break;
+          case _dates.birthDate:
+            _dobDate = picked;
+            dobcontroller.text =
+                '${_dobDate.day}-${_dobDate.month}-${_dobDate.year}';
+
+            context
+                .read<OrgAppProvider>()
+                .setOrgAppointment(dob: _dobDate.toIso8601String());
+            break;
+        }
       });
     }
   }
@@ -59,18 +82,34 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
       setState(() {
         _date = picked;
         timecontroller.text = formatTime(_date.hour, _date.minute);
-        context.read<OrgAppProvider>().rHour(_date.hour);
-        context.read<OrgAppProvider>().rMinute(_date.minute);
+        final ad = DateTime.parse(context.read<OrgAppProvider>().app.dateTime);
+        final _d =
+            DateTime(ad.year, ad.month, ad.day, _date.hour, _date.minute);
+        context
+            .read<OrgAppProvider>()
+            .setOrgAppointment(dateTime: _d.toIso8601String());
       });
     }
   }
 
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController cliniccontroller = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController datecontroller = TextEditingController();
-  TextEditingController timecontroller = TextEditingController();
+  late final TextEditingController namecontroller;
+  late final TextEditingController cliniccontroller;
+  late final TextEditingController phoneController;
+  late final TextEditingController datecontroller;
+  late final TextEditingController timecontroller;
+  late final TextEditingController dobcontroller;
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    namecontroller = TextEditingController();
+    cliniccontroller = TextEditingController();
+    phoneController = TextEditingController();
+    datecontroller = TextEditingController();
+    timecontroller = TextEditingController();
+    dobcontroller = TextEditingController();
+  }
 
   void clr() {
     namecontroller.clear();
@@ -78,6 +117,22 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
     phoneController.clear();
     datecontroller.clear();
     timecontroller.clear();
+    dobcontroller.clear();
+  }
+
+  void _disposeControllers() {
+    namecontroller.dispose();
+    cliniccontroller.dispose();
+    phoneController.dispose();
+    datecontroller.dispose();
+    timecontroller.dispose();
+    dobcontroller.dispose();
+  }
+
+  @override
+  void dispose() {
+    _disposeControllers();
+    super.dispose();
   }
 
   @override
@@ -91,8 +146,56 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ListTile(
-            subtitle: Row(
+            subtitle: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 200.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Tooltip(
+                          message: 'تاريخ الميلاد',
+                          child: TextFormField(
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return 'Missing data...'.tr();
+                              }
+                              return null;
+                            },
+                            enabled: false,
+                            controller: dobcontroller,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              labelText: 'Date of Birth'.tr(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
+                Tooltip(
+                  message: 'ادخل تاريخ الميلاد',
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      showCalenderDate(context, _dates.birthDate);
+                    },
+                    icon: const Icon(Icons.calendar_today),
+                    label: Text('Date of Birth'.tr()),
+                  ),
+                ),
+                const SizedBox(
+                  width: 20.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -131,7 +234,7 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                   message: 'ادخل التاريخ',
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      showCalenderDate(context);
+                      showCalenderDate(context, _dates.appDate);
                     },
                     icon: const Icon(Icons.calendar_today),
                     label: Text('input Date'.tr()),
@@ -178,7 +281,12 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                   message: 'ادخل الوقت',
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      showCalenderTime(context);
+                      if (context.read<OrgAppProvider>().app.dateTime == "") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Select Date First")));
+                      } else {
+                        showCalenderTime(context);
+                      }
                     },
                     icon: const Icon(Icons.access_time),
                     label: Text('input Time'.tr()),
@@ -206,11 +314,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                                 return 'Missing data...'.tr();
                               }
                               return null;
-                            },
-                            onChanged: (val) {
-                              context
-                                  .read<OrgAppProvider>()
-                                  .rPtname(namecontroller.text);
                             },
                             controller: namecontroller,
                             decoration: InputDecoration(
@@ -241,6 +344,8 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                           context: context,
                           namecont: namecontroller,
                           phonecont: phoneController,
+                          datecont: datecontroller,
+                          dobcont: dobcontroller,
                         );
                       },
                     ),
@@ -290,11 +395,6 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                               }
                               return null;
                             },
-                            onChanged: (val) {
-                              context
-                                  .read<OrgAppProvider>()
-                                  .rPhone(phoneController.text);
-                            },
                             controller: phoneController,
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(),
@@ -321,23 +421,18 @@ class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
                   ),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      if (context.read<OrgAppProvider>().docnameEN == null) {
+                      context.read<OrgAppProvider>().setOrgAppointment(
+                            ptname: namecontroller.text,
+                            phone: phoneController.text,
+                            dob: _dobDate?.toIso8601String(),
+                            // dateTime: _appDate?.toIso8601String(),
+                          );
+                      if (context.read<OrgAppProvider>().app.docnameEN == '') {
                         await EasyLoading.showError(
                             'Unselected Clinic...'.tr());
                       } else {
                         await EasyLoading.show(status: 'LOADING...'.tr());
-                        context
-                            .read<OrgAppProvider>()
-                            .rPtname(namecontroller.text);
-                        context
-                            .read<OrgAppProvider>()
-                            .rPhone(phoneController.text);
-                        context.read<OrgAppProvider>().rVisitDate();
-                        context.read<OrgAppProvider>().rApp();
                         await context.read<OrgAppProvider>().addAppointement();
-                        await context
-                            .read<OrgAppProvider>()
-                            .fetchAppointements();
                         clr();
                         await EasyLoading.dismiss();
                       }

@@ -4,6 +4,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 
 class Visit {
   final ObjectId id;
+  final ObjectId ptId;
   final int? docid;
   final String ptName;
   final String docNameEN;
@@ -25,6 +26,7 @@ class Visit {
   Visit({
     ObjectId? id,
     required this.docid,
+    required this.ptId,
     required this.ptName,
     required this.docNameEN,
     required this.docNameAR,
@@ -46,6 +48,7 @@ class Visit {
   factory Visit.fromJson(dynamic json) {
     return Visit(
       id: json["_id"],
+      ptId: json["ptid"],
       ptName: json[SxVisit.PTNAME],
       docNameEN: json[SxVisit.DOCNAME_E],
       docNameAR: json[SxVisit.DOCNAME_A],
@@ -68,6 +71,7 @@ class Visit {
   Map<String, dynamic> toJson() {
     return {
       "_id": id,
+      SxVisit.PTID: ptId,
       SxVisit.PTNAME: ptName,
       SxVisit.DOCNAME_E: docNameEN,
       SxVisit.DOCNAME_A: docNameAR,
@@ -101,6 +105,7 @@ class Visit {
 
 class SxVisit {
   static const String DOCID = "docid";
+  static const String PTID = "ptid";
   static const String PTNAME = 'ptname';
   static const String DOCNAME_E = "docname";
   static const String DOCNAME_A = "docname_a";

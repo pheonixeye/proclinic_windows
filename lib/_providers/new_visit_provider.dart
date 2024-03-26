@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/cupertino.dart';
+import 'package:mongo_dart/mongo_dart.dart' show ObjectId;
 import 'package:proclinic_windows/_models/visitModel.dart';
 
 class NewVisitProvider extends ChangeNotifier {
   //values
   String? _ptName;
+  ObjectId? _ptId;
   String? _docNameEN;
   String? _docNameAR;
   String? _clinicEN;
@@ -26,6 +28,7 @@ class NewVisitProvider extends ChangeNotifier {
   Visit? _visit;
   //getters
   String? get ptName => _ptName;
+  ObjectId? get ptId => _ptId;
   String? get docNameEN => _docNameEN;
   String? get docNameAR => _docNameAR;
   String? get clinicEN => _clinicEN;
@@ -129,9 +132,15 @@ class NewVisitProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setVISIT() {
+  void setptId(ObjectId value) {
+    _ptId = value;
+    notifyListeners();
+  }
+
+  void setVISIT([ObjectId? ptId]) {
     _visit = Visit(
       ptName: ptName!,
+      ptId: ptId ?? this.ptId!,
       docNameEN: docNameEN!,
       docNameAR: docNameAR!,
       clinicEN: clinicEN!,
@@ -156,6 +165,7 @@ class NewVisitProvider extends ChangeNotifier {
     if (newVisit != null) {
       var json = newVisit.toJson();
       _visit = Visit(
+        ptId: json[SxVisit.PTID],
         ptName: json[SxVisit.PTNAME],
         docNameEN: json[SxVisit.DOCNAME_E],
         docNameAR: json[SxVisit.DOCNAME_A],

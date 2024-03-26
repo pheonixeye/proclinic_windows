@@ -8,7 +8,7 @@ import 'package:proclinic_windows/_models/visit_data/visit_data.dart';
 class VisitRequests {
   // add new visit to db
   static Future addNewVisitToDb(Visit visit) async {
-    await MongoDB.PATIENTS.insert(visit.toJson());
+    await MongoDB.visits.insert(visit.toJson());
     final data = VisitData(
       docid: visit.docid!,
       visitid: visit.id,
@@ -32,21 +32,21 @@ class VisitRequests {
 
   // update visit
   static Future updateVisitData(Visit oldVis, Visit newVis) async {
-    var foundVisit = await MongoDB.PATIENTS.findOne(where.eq("_id", oldVis.id));
+    var foundVisit = await MongoDB.visits.findOne(where.eq("_id", oldVis.id));
     print(foundVisit);
     if (foundVisit != null) {
-      await MongoDB.PATIENTS.deleteOne(foundVisit);
-      await MongoDB.PATIENTS.insertOne(newVis.toJson());
+      await MongoDB.visits.deleteOne(foundVisit);
+      await MongoDB.visits.insertOne(newVis.toJson());
     }
   }
 
   //delete visit
   static Future deleteOneVisit(Visit visit) async {
-    var foundVisit = await MongoDB.PATIENTS.findOne(where.eq("_id", visit.id));
+    var foundVisit = await MongoDB.visits.findOne(where.eq("_id", visit.id));
     print(foundVisit);
 
     if (foundVisit != null) {
-      await MongoDB.PATIENTS.deleteOne(foundVisit);
+      await MongoDB.visits.deleteOne(foundVisit);
     }
   }
 }

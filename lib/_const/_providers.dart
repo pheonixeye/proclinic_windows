@@ -2,6 +2,7 @@ import 'package:proclinic_windows/_providers/bookKeepingProvider.dart';
 import 'package:proclinic_windows/_providers/doctorListProvider.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:proclinic_windows/_providers/orgAppProvider.dart';
+import 'package:proclinic_windows/_providers/patient_provider.dart';
 import 'package:proclinic_windows/_providers/ptDocumentProvider.dart';
 import 'package:proclinic_windows/_providers/searchValueProvider.dart';
 import 'package:proclinic_windows/_providers/settingsProvider.dart';
@@ -24,4 +25,5 @@ final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => PatientDocumentProvider()),
   ChangeNotifierProvider(create: (context) => OrgAppProvider()),
   ChangeNotifierProvider(create: (context) => ThemeChanger()),
+  ChangeNotifierProvider(create: (context) => PxPatient()),
 ];

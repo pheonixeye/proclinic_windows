@@ -1,6 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: constant_identifier_names, file_names
 
-class OrgAppointement {
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
+
+class OrgAppointement extends Equatable {
   final String ptname;
   final String phone;
   final String docnameEN;
@@ -8,9 +13,10 @@ class OrgAppointement {
   final String clinicEN;
   final String clinicAR;
   final String dateTime;
+  final String dob;
   final int docid;
 
-  OrgAppointement({
+  const OrgAppointement({
     required this.ptname,
     required this.phone,
     required this.docnameEN,
@@ -18,47 +24,97 @@ class OrgAppointement {
     required this.clinicEN,
     required this.clinicAR,
     required this.dateTime,
+    required this.dob,
     required this.docid,
   });
-  factory OrgAppointement.fromJson(dynamic json) {
-    return OrgAppointement(
-      ptname: json[SxOrgApp.PTNAME],
-      phone: json[SxOrgApp.PHONE],
-      docnameEN: json[SxOrgApp.DOCNAMEEN],
-      docnameAR: json[SxOrgApp.DOCNAMEAR],
-      clinicEN: json[SxOrgApp.CLINICEN],
-      clinicAR: json[SxOrgApp.CLINICAR],
-      dateTime: json[SxOrgApp.DATETIME],
-      docid: json[SxOrgApp.DOCID],
+
+  factory OrgAppointement.initial() {
+    return const OrgAppointement(
+      ptname: '',
+      phone: '',
+      docnameEN: '',
+      docnameAR: '',
+      clinicEN: '',
+      clinicAR: '',
+      dateTime: '',
+      dob: '',
+      docid: 0,
     );
   }
-  Map<String, dynamic> toJson() {
-    return {
-      SxOrgApp.PTNAME: ptname,
-      SxOrgApp.PHONE: phone,
-      SxOrgApp.DOCNAMEEN: docnameEN,
-      SxOrgApp.DOCNAMEAR: docnameAR,
-      SxOrgApp.CLINICEN: clinicEN,
-      SxOrgApp.CLINICAR: clinicAR,
-      SxOrgApp.DATETIME: dateTime,
-      SxOrgApp.DOCID: docid,
+
+  OrgAppointement copyWith({
+    String? ptname,
+    String? phone,
+    String? docnameEN,
+    String? docnameAR,
+    String? clinicEN,
+    String? clinicAR,
+    String? dateTime,
+    String? dob,
+    int? docid,
+  }) {
+    return OrgAppointement(
+      ptname: ptname ?? this.ptname,
+      phone: phone ?? this.phone,
+      docnameEN: docnameEN ?? this.docnameEN,
+      docnameAR: docnameAR ?? this.docnameAR,
+      clinicEN: clinicEN ?? this.clinicEN,
+      clinicAR: clinicAR ?? this.clinicAR,
+      dateTime: dateTime ?? this.dateTime,
+      dob: dob ?? this.dob,
+      docid: docid ?? this.docid,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'ptname': ptname,
+      'phone': phone,
+      'docnameEN': docnameEN,
+      'docnameAR': docnameAR,
+      'clinicEN': clinicEN,
+      'clinicAR': clinicAR,
+      'dateTime': dateTime,
+      'dob': dob,
+      'docid': docid,
     };
   }
 
-  static List<OrgAppointement> makeList(List<dynamic> list) {
-    List<OrgAppointement> li = list.map((json) {
-      return OrgAppointement(
-        ptname: json[SxOrgApp.PTNAME],
-        phone: json[SxOrgApp.PHONE],
-        docnameEN: json[SxOrgApp.DOCNAMEEN],
-        docnameAR: json[SxOrgApp.DOCNAMEAR],
-        clinicEN: json[SxOrgApp.CLINICEN],
-        clinicAR: json[SxOrgApp.CLINICAR],
-        dateTime: json[SxOrgApp.DATETIME],
-        docid: json[SxOrgApp.DOCID],
-      );
-    }).toList();
-    return li;
+  factory OrgAppointement.fromMap(Map<String, dynamic> map) {
+    return OrgAppointement(
+      ptname: map['ptname'] as String,
+      phone: map['phone'] as String,
+      docnameEN: map['docnameEN'] as String,
+      docnameAR: map['docnameAR'] as String,
+      clinicEN: map['clinicEN'] as String,
+      clinicAR: map['clinicAR'] as String,
+      dateTime: map['dateTime'] as String,
+      dob: map['dob'] as String,
+      docid: map['docid'] as int,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory OrgAppointement.fromJson(String source) =>
+      OrgAppointement.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  bool get stringify => true;
+
+  @override
+  List<Object> get props {
+    return [
+      ptname,
+      phone,
+      docnameEN,
+      docnameAR,
+      clinicEN,
+      clinicAR,
+      dateTime,
+      dob,
+      docid,
+    ];
   }
 }
 

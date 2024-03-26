@@ -57,7 +57,7 @@
     "December": "December",
     "Pick Month": "Pick Month",
     "Pick Day": "Pick Day",
-    "New Patient": "New Patient",
+    "New Visit": "New Visit",
     "Patient Database": "Patient Database",
     "Appointment Organizer": "Appointment Organizer",
     "New Doctor": "New Doctor",
@@ -309,5 +309,6 @@
     "Select Database Path First...": "Select Database Path First...",
     "Language Changed...": "Language Changed...",
     "Exiting in... 2 Seconds...": "Exiting in... 2 Seconds...",
-    "Demo Version": "Demo Version"
+    "Demo Version": "Demo Version",
+    "is First Visit":"is First Visit"
 }

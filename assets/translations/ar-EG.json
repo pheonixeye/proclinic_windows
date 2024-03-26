@@ -57,7 +57,7 @@
     "December": "ديسمبر",
     "Pick Month": "اختر الشهر",
     "Pick Day": "اختر اليوم",
-    "New Patient": "مريض جديد",
+    "New Visit": "زيارة جديدة",
     "Patient Database": "قاعدة بيانات المرضي",
     "Appointment Organizer": "ترتيب المواعيد",
     "New Doctor": "اضافة طبيب جديد",
@@ -309,5 +309,7 @@
     "Select Database Path First...": "برجاء اختيار مسار قاعدة البيانات قبل اتمام العملية",
     "Language Changed...": "تم تغيير اللغة",
     "Exiting in... 2 Seconds...": "جاري الخروج... ثانيتين",
-    "Demo Version": "نسخة تجريبية"
+    "Demo Version": "نسخة تجريبية",
+    "is First Visit":"اول زيارة للعيادة"
+    
 }

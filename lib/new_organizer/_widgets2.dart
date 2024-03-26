@@ -1,5 +1,6 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:proclinic_windows/_const/_constWidgets.dart';
 import 'package:proclinic_windows/_localization/_localization.dart';
 import 'package:proclinic_windows/_models/orgAppModel.dart';
@@ -27,8 +28,9 @@ class DeleteAppDialog extends StatelessWidget {
       actions: [
         ElevatedButton.icon(
           onPressed: () async {
+            await EasyLoading.show(status: "Loading...".tr());
             await context.read<OrgAppProvider>().removeAppointement(app);
-            await context.read<OrgAppProvider>().fetchAppointements();
+            await EasyLoading.dismiss();
             Navigator.pop(context);
           },
           icon: const Icon(
@@ -79,8 +81,8 @@ class _OrgInfoCardState extends State<OrgInfoCard> {
             message: 'حذف',
             child: IconButton(
               icon: const Icon(Icons.delete_forever),
-              onPressed: () {
-                showDialog(
+              onPressed: () async {
+                await showDialog(
                   context: context,
                   builder: (context) {
                     return DeleteAppDialog(

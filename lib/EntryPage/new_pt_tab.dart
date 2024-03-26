@@ -1,5 +1,6 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:proclinic_windows/_const/_strings.dart';
 import 'package:proclinic_windows/_providers/new_visit_provider.dart';
 import 'package:provider/src/provider.dart';
@@ -107,6 +108,7 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
                           }
                           return null;
                         },
+                        enabled: false,
                         controller: widget.dateController,
                         obscureText: false,
                         decoration: InputDecoration(
@@ -115,17 +117,16 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 100,
-                      child: CircleAvatar(
-                        child: IconButton(
-                          tooltip: 'Select Date - اختيار التاريخ',
-                          icon: const Icon(Icons.calendar_today),
-                          onPressed: () async {
-                            await showCalenderDate(context);
-                          },
-                        ),
-                      ),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    FloatingActionButton(
+                      tooltip: 'Select Date - اختيار التاريخ',
+                      heroTag: "today'sDateSelector",
+                      child: const Icon(Icons.calendar_today),
+                      onPressed: () async {
+                        await showCalenderDate(context);
+                      },
                     )
                   ],
                 ),
@@ -166,6 +167,11 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
                           border: const OutlineInputBorder(),
                           labelText: 'Enter Patient Name'.tr(),
                         ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^[\u0600-\u06ff\s]+$'),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -199,23 +205,23 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
                         },
                         controller: widget.dobController,
                         obscureText: false,
+                        enabled: false,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: "Enter Patient's Date of Birth".tr(),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 100,
-                      child: CircleAvatar(
-                        child: IconButton(
-                          tooltip: 'Select Date - اختيار التاريخ',
-                          icon: const Icon(Icons.calendar_today),
-                          onPressed: () async {
-                            await showCalenderDoB(context);
-                          },
-                        ),
-                      ),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    FloatingActionButton(
+                      tooltip: 'Select Date - اختيار التاريخ',
+                      heroTag: "dobDateSelector",
+                      child: const Icon(Icons.calendar_today),
+                      onPressed: () async {
+                        await showCalenderDoB(context);
+                      },
                     )
                   ],
                 ),
@@ -255,6 +261,11 @@ class _NewPatientSelectorState extends State<NewPatientSelector> {
                               .read<NewVisitProvider>()
                               .setPhone(widget.phoneController.text);
                         },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        maxLength: 11,
+                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       ),
                     ),
                   ],

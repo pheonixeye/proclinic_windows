@@ -5,6 +5,8 @@ pickoldptorg({
   required BuildContext context,
   required TextEditingController namecont,
   required TextEditingController phonecont,
+  required TextEditingController datecont,
+  required TextEditingController dobcont,
 }) {
   showDialog(
     useSafeArea: false,
@@ -38,8 +40,8 @@ pickoldptorg({
                 nameController: namecont,
                 phoneController: phonecont,
                 tabController: null,
-                dateController: null,
-                dobController: null,
+                dateController: datecont,
+                dobController: dobcont,
               ),
             ],
           ),

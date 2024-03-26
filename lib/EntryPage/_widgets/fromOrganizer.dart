@@ -10,15 +10,15 @@ import 'package:provider/provider.dart';
 class FromOrganizer extends StatefulWidget {
   const FromOrganizer({
     Key? key,
-    this.dateController,
-    this.dobController,
-    this.tabController,
+    required this.dateController,
+    required this.dobController,
+    required this.tabController,
     required this.nameController,
     required this.phoneController,
   }) : super(key: key);
-  final TextEditingController? dateController;
-  final TextEditingController? dobController;
-  final TabController? tabController;
+  final TextEditingController dateController;
+  final TextEditingController dobController;
+  final TabController tabController;
   final TextEditingController nameController;
   final TextEditingController phoneController;
 
@@ -29,8 +29,8 @@ class FromOrganizer extends StatefulWidget {
 class _FromOrganizerState extends State<FromOrganizer> {
   @override
   void initState() {
-    _initApps();
     super.initState();
+    _initApps();
   }
 
   _initApps() async {
@@ -59,26 +59,29 @@ class _FromOrganizerState extends State<FromOrganizer> {
                 return ListView.builder(
                   itemCount: org.appointements!.length,
                   itemBuilder: (context, index) {
-                    var d = DateTime.parse(org.appointements![index].dateTime);
+                    final d =
+                        DateTime.parse(org.appointements![index].dateTime);
+                    final dob = DateTime.parse(org.appointements![index].dob);
+                    final ptname = org.appointements![index].ptname;
+                    final phone = org.appointements![index].phone;
                     return EntryOrganizerTile(
                       app: org.appointements![index],
                       index: index,
                       onTap: () {
-                        widget.dateController!.text =
+                        widget.dateController.text =
                             '${d.day}-${d.month}-${d.year}';
+                        widget.dobController.text =
+                            '${dob.day}-${dob.month}-${dob.year}';
                         context.read<NewVisitProvider>().setVisitDate(
                             DateTime(d.year, d.month, d.day).toIso8601String());
-                        widget.nameController.text =
-                            org.appointements![index].ptname;
-                        context
-                            .read<NewVisitProvider>()
-                            .setPtName(org.appointements![index].ptname);
-                        widget.phoneController.text =
-                            org.appointements![index].phone;
-                        context
-                            .read<NewVisitProvider>()
-                            .setPhone(org.appointements![index].phone);
-                        widget.tabController!.animateTo(0);
+                        context.read<NewVisitProvider>().setDob(
+                            DateTime(dob.year, dob.month, dob.day)
+                                .toIso8601String());
+                        widget.nameController.text = ptname;
+                        context.read<NewVisitProvider>().setPtName(ptname);
+                        widget.phoneController.text = phone;
+                        context.read<NewVisitProvider>().setPhone(phone);
+                        widget.tabController.animateTo(0);
                       },
                     );
                   },
@@ -93,12 +96,15 @@ class _FromOrganizerState extends State<FromOrganizer> {
 }
 
 class EntryOrganizerTile extends StatelessWidget {
-  const EntryOrganizerTile(
-      {Key? key, required this.app, required this.index, required this.onTap})
-      : super(key: key);
+  const EntryOrganizerTile({
+    Key? key,
+    required this.app,
+    required this.index,
+    required this.onTap,
+  }) : super(key: key);
   final OrgAppointement app;
   final int index;
-  final Function onTap;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     var d = DateTime.parse(app.dateTime);
@@ -126,9 +132,7 @@ class EntryOrganizerTile extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {
-            onTap();
-          },
+          onTap: onTap,
         ),
       ),
     );

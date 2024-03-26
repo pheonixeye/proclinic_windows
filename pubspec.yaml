@@ -48,6 +48,7 @@ dependencies:
   uuid:
   pretty_qr_code: ^3.3.0
   json_theme: ^6.4.0
+  equatable:
 
 dev_dependencies:
   flutter_test:

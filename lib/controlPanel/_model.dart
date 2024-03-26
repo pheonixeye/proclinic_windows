@@ -29,8 +29,8 @@ class SelectionButtonModel {
     return [
       SelectionButtonModel(
         iconData: Icons.person_add,
-        title: 'New Patient'.tr(),
-        tooltip: 'مريض جديد',
+        title: 'New Visit'.tr(),
+        tooltip: 'زيارة جديدة',
         route: const HomePageWithTabView(),
       ),
       SelectionButtonModel(

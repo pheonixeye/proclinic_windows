@@ -21,16 +21,17 @@ class MongoDB {
 //*my remote database
 // static Db mongo = Db('mongodb://procliniccosmosurge.ddns.net:5555/proclinic');
 
-  static DbCollection allPatients = mongo.collection('allpatients');
-  static DbCollection PATIENTS = mongo.collection('patients');
+  static DbCollection patients = mongo.collection('patients');
+  static DbCollection visits = mongo.collection('visits');
   static DbCollection visitData = mongo.collection('visitdata');
-  static DbCollection allDoctors = mongo.collection('allDoctors');
+  static DbCollection allDoctors = mongo.collection('doctors');
   static DbCollection appOrganizer = mongo.collection('apporganizer');
-  static DbCollection onlineusers = mongo.collection('onlineusers');
-  static DbCollection onlineAppointements =
-      mongo.collection('onlineappointements');
-  static DbCollection onlineOffers = mongo.collection('onlineoffers');
-  static DbCollection reservedoffers = mongo.collection('reservedoffers');
+  static DbCollection supplies = mongo.collection('supplies');
+  // static DbCollection onlineusers = mongo.collection('onlineusers');
+  // static DbCollection onlineAppointements =
+  //     mongo.collection('onlineappointements');
+  // static DbCollection onlineOffers = mongo.collection('onlineoffers');
+  // static DbCollection reservedoffers = mongo.collection('reservedoffers');
   static Future openYaMongo() async {
     await mongo.open();
     mongo.isConnected;
