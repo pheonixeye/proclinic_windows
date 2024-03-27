@@ -40,6 +40,7 @@ class _UpdateVisitInfoPageState extends State<UpdateVisitInfoPage>
   @override
   void afterFirstLayout(BuildContext context) {
     context.read<NewVisitProvider>().setDocId(widget.visit.docid);
+    context.read<NewVisitProvider>().setptId(widget.visit.ptId);
     context.read<NewVisitProvider>().setPtName(widget.visit.ptName);
     context.read<NewVisitProvider>().setPhone(widget.visit.phone);
     context.read<NewVisitProvider>().setVisitDate(widget.visit.visitDate);

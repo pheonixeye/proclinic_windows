@@ -18,7 +18,7 @@ class OrganizerControllerMenu extends StatefulWidget {
 }
 
 class _OrganizerControllerMenuState extends State<OrganizerControllerMenu> {
-  DateTime? _appDate;
+  // DateTime? _appDate;
   DateTime? _dobDate;
   Future<void> showCalenderDate(
     BuildContext context,

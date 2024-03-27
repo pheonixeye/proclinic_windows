@@ -8,6 +8,8 @@ class SupplyItem extends Equatable {
   final ObjectId id;
   final String nameEn;
   final String nameAr;
+  final String? descriptionEn;
+  final String? descriptionAr;
   final double amount;
   final double price;
   final double notifyAmount;
@@ -16,6 +18,8 @@ class SupplyItem extends Equatable {
     required this.id,
     required this.nameEn,
     required this.nameAr,
+    this.descriptionEn,
+    this.descriptionAr,
     required this.amount,
     required this.price,
     required this.notifyAmount,
@@ -25,6 +29,8 @@ class SupplyItem extends Equatable {
     ObjectId? id,
     String? nameEn,
     String? nameAr,
+    String? descriptionEn,
+    String? descriptionAr,
     double? amount,
     double? price,
     double? notifyAmount,
@@ -33,6 +39,8 @@ class SupplyItem extends Equatable {
       id: id ?? this.id,
       nameEn: nameEn ?? this.nameEn,
       nameAr: nameAr ?? this.nameAr,
+      descriptionEn: descriptionEn ?? this.descriptionEn,
+      descriptionAr: descriptionAr ?? this.descriptionAr,
       amount: amount ?? this.amount,
       price: price ?? this.price,
       notifyAmount: notifyAmount ?? this.notifyAmount,
@@ -41,9 +49,11 @@ class SupplyItem extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      // '_id': id,
+      'id': id,
       'nameEn': nameEn,
       'nameAr': nameAr,
+      'descriptionEn': descriptionEn,
+      'descriptionAr': descriptionAr,
       'amount': amount,
       'price': price,
       'notifyAmount': notifyAmount,
@@ -52,9 +62,13 @@ class SupplyItem extends Equatable {
 
   factory SupplyItem.fromMap(Map<String, dynamic> map) {
     return SupplyItem(
-      id: map['_id'] as ObjectId,
+      id: map['id'] as ObjectId,
       nameEn: map['nameEn'] as String,
       nameAr: map['nameAr'] as String,
+      descriptionEn:
+          map['descriptionEn'] != null ? map['descriptionEn'] as String : null,
+      descriptionAr:
+          map['descriptionAr'] != null ? map['descriptionAr'] as String : null,
       amount: map['amount'] as double,
       price: map['price'] as double,
       notifyAmount: map['notifyAmount'] as double,
@@ -79,5 +93,18 @@ class SupplyItem extends Equatable {
       price,
       notifyAmount,
     ];
+  }
+
+  factory SupplyItem.initial() {
+    return SupplyItem(
+      id: ObjectId(),
+      nameEn: '',
+      nameAr: '',
+      amount: 0,
+      price: 0,
+      descriptionAr: null,
+      descriptionEn: null,
+      notifyAmount: 0,
+    );
   }
 }

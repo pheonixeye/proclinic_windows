@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:proclinic_windows/bookKeeping/bookKeeping_UI.dart';
+import 'package:proclinic_windows/inventory_page/inventory_page.dart';
 import 'package:proclinic_windows/localdb_search_pts/Collective_PolyClinic_Patient_data_UI.dart';
 import 'package:proclinic_windows/EntryPage/entry_page.dart';
 import 'package:proclinic_windows/NewDocCreatePage/NewDocCreatePage.dart';
@@ -64,12 +65,12 @@ class SelectionButtonModel {
         tooltip: 'الحسابات',
         route: const BookKeeping(),
       ),
-      // SelectionButtonModel(
-      //   iconData: Icons.message_outlined,
-      //   title: 'Messaging',
-      //   tooltip: 'المراسلة',
-      //   route: const SendMessagePage(),
-      // ),
+      SelectionButtonModel(
+        iconData: Icons.inventory,
+        title: 'Inventory'.tr(),
+        tooltip: 'المخزن',
+        route: const InventoryPage(),
+      ),
       // SelectionButtonModel(
       //   iconData: Icons.local_offer,
       //   title: 'Online Offers',
