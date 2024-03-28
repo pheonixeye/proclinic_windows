@@ -4,6 +4,10 @@ import 'package:proclinic_windows/Mongo_db/Mongo_db.dart';
 import 'package:proclinic_windows/_models/supply_item/supply_item.dart';
 
 class PxInventory extends ChangeNotifier {
+  PxInventory() {
+    fetchItems();
+  }
+
   SupplyItem _item = SupplyItem.initial();
   SupplyItem get item => _item;
 
@@ -44,10 +48,14 @@ class PxInventory extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateItem(ObjectId id, SupplyItem newItem) async {
+  Future<void> updateItem(SupplyItem newItem) async {
     await MongoDB.supplies.updateOne(
-      where.eq("_id", id),
-      newItem.toMap(),
+      where.eq("_id", newItem.id),
+      {
+        r'$set': {
+          ...newItem.toMap(),
+        },
+      },
     );
     await fetchItems();
   }

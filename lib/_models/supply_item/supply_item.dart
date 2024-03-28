@@ -47,9 +47,44 @@ class SupplyItem extends Equatable {
     );
   }
 
+  SupplyItem updateFromKey(String key, String value) {
+    switch (key) {
+      case "nameEn":
+        return copyWith(
+          nameEn: value,
+        );
+      case "nameAr":
+        return copyWith(
+          nameAr: value,
+        );
+      case "descriptionEn":
+        return copyWith(
+          descriptionEn: value,
+        );
+      case "descriptionAr":
+        return copyWith(
+          descriptionAr: value,
+        );
+      case "amount":
+        return copyWith(
+          amount: double.parse(value),
+        );
+      case "price":
+        return copyWith(
+          price: double.parse(value),
+        );
+      case "notifyAmount":
+        return copyWith(
+          notifyAmount: double.parse(value),
+        );
+      default:
+        throw UnimplementedError();
+    }
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id,
       'nameEn': nameEn,
       'nameAr': nameAr,
       'descriptionEn': descriptionEn,
@@ -62,7 +97,7 @@ class SupplyItem extends Equatable {
 
   factory SupplyItem.fromMap(Map<String, dynamic> map) {
     return SupplyItem(
-      id: map['id'] as ObjectId,
+      id: map['_id'] as ObjectId,
       nameEn: map['nameEn'] as String,
       nameAr: map['nameAr'] as String,
       descriptionEn:
